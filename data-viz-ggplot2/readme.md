@@ -1,5 +1,5 @@
 # Training Workshop on Data Visualization with ggplot2 in R
-![https://chris-allones.github.io/data-analysis-viz/index.html](https://chris-allones.github.io/data-viz-ggplot2/images/preview.png)
+![https://chris-allones.github.io/data-analysis-viz/index.html](./images/preview.png)
 
 
 
