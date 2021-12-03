@@ -1,0 +1,522 @@
+---
+title: "plots"
+author: "Christopher"
+date: "11/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, out.width = "100%")
+
+setwd("D:/OneDrive - KMITL/Documents/GitHub-repo/training-data-viz/03_plots_ggextensions/")
+```
+
+```{r}
+
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(lubridate)
+library(tidytext)
+library(haven)
+library(foreign)
+library(ggrepel)
+library(ggwordcloud)
+library(wordcloud2)
+```
+
+
+# APA plot
+
+## APA Bar graph
+
+https://apastyle.apa.org/style-grammar-guidelines/tables-figures/sample-figures#bar
+
+```{r}
+my_theme <-  theme(plot.margin = unit(rep(1, 4), "cm"),
+        panel.background = element_blank(),
+        axis.line = element_line(color = "black"),
+        axis.title.y = element_text(margin = margin(r = 10),
+                                    size = 14),
+        axis.title.x = element_text(margin = margin(t = 10),
+                                    size = 14),
+        legend.background = element_rect(color = "grey20"),
+        legend.position = c(0.12, 0.85)
+        )
+```
+
+
+```{r}
+employee <- foreign::read.spss("data/Employee data.sav", to.data.frame = TRUE) %>% 
+  tibble() %>% 
+  select(gender, jobcat, salary) %>% 
+  mutate(salary = as.character(salary) %>% as.numeric()) %>% 
+  group_by(gender, jobcat) %>% 
+  mutate(sd_salary = sd(salary),
+         mean_salary = mean(salary)) %>% 
+  ungroup() %>% 
+  mutate(jobcat = fct_reorder(jobcat, mean_salary))
+
+```
+
+
+```{r}
+
+employee %>% 
+  ggplot(aes(x = gender, y = mean_salary, fill = jobcat)) +
+  geom_col(position = position_dodge(width = 0.6),
+           width = 0.5,
+           color = "black") +
+  geom_errorbar(aes(ymin = mean_salary - sd_salary, ymax = mean_salary + sd_salary),
+                position = position_dodge(width = 0.6),
+                width = 0.1) +
+  scale_y_continuous(expand = expansion(0),
+                     limits = c(0, 100000),
+                     breaks = seq(0, 100000, 20000),
+                     labels = scales::dollar_format()) +
+  scale_fill_manual(values = c("#FAFAFA", "#D4D4D4", "#737373")) +
+  labs(y = "Average annual salary",
+       x = "Gender",
+       fill = "Job category") +
+  my_theme
+  
+
+ggsave("image/apa_bar_plot.jpeg", 
+       width = 8, height = 6, units = "in")
+
+```
+
+
+## Scatterplot
+
+```{r message=FALSE, warning=FALSE}
+employee <- foreign::read.spss("data/Employee data.sav", to.data.frame = TRUE) %>% 
+  tibble() %>% 
+  select(gender, jobcat, salbegin, salary) %>% 
+  mutate(salbegin = as.character(salbegin) %>% as.numeric(),
+         salary = as.character(salary) %>% as.numeric())
+
+```
+
+```{r}
+employee %>% 
+  ggplot(aes(x = salary, y = salbegin, color = gender, shape = gender)) +
+  geom_point(size = 3) +
+  geom_smooth(data = employee,
+              aes(x = salary, salbegin),
+              method = "lm", 
+              se = FALSE,
+              show.legend = F,
+              size = 1.5) +
+  # scale_y_continuous(trans = "log") +
+  # coord_trans(x = "log10",
+  #             y = "log10", expand = TRUE) +
+  scale_y_continuous(labels = scales::dollar_format(),
+                     breaks = seq(0, 100000, 10000)) +
+  scale_x_continuous(labels = scales::dollar_format(),
+                     breaks = seq(0, 150000, 20000)) +
+  scale_shape_manual(name = "Gender",
+                     values = c(17, 19)) +
+  scale_color_manual(name = "Gender",
+                     values = c("#171717", "#737373")) +
+  labs(x = "Current annual salary",
+       y = "Beginning salary"
+      ) + 
+  my_theme
+
+ggsave("image/apa_scatterplot.jpeg", 
+       width = 8, height = 6, units = "in")
+```
+
+
+
+## Box plot
+
+
+```{r}
+work_prog <- read.spss("data/workprog.sav", to.data.frame = TRUE) %>% 
+  tibble()
+```
+
+```{r}
+work_prog %>% 
+  ggplot(aes(x = ed, y = incaft, fill = gender)) +
+  stat_boxplot(geom = "errorbar", 
+               width = 0.2,
+               position = position_dodge(width  = 0.5)) +
+  geom_boxplot(width = 0.3, 
+               position = position_dodge(width = 0.5),
+               outlier.shape = 1,
+               outlier.size = 3) +
+  scale_y_continuous(breaks = seq(0, 40, 2), 
+                     limits = c(0, 40),
+                     expand = expansion(0)) +
+  scale_fill_manual(name = "Gender",
+                  values = c("grey40", "grey80")) +
+  labs(y = "Income after the program",
+       x = "Level of Education") +
+  my_theme
+
+ggsave("image/apa_boxplot.jpeg", 
+       width = 8, height = 6, units = "in")
+
+```
+
+
+## Line plot
+
+```{r}
+customer_dbase <- read.spss("data/customer_dbase.sav", to.data.frame = TRUE) %>% 
+  tibble() %>% 
+  select(ed, income) %>% 
+  group_by(ed) %>% 
+  summarise(mean_income = mean(income, na.rm = TRUE)) %>% 
+  ungroup()
+
+```
+
+
+```{r}
+customer_dbase %>% 
+  ggplot(aes(x = ed, y = mean_income)) +
+  geom_line(size = 1) +
+  scale_x_continuous(limits = c(0, 26),
+                     breaks = seq(0, 26, 2),
+                     expand = expansion(0)) +
+  scale_y_continuous(limits = c(0, 100),
+                     breaks = seq(0, 100, 10),
+                     labels = scales::dollar_format(),
+                     expand = expansion(0)) +
+  labs(x = "Years of Education",
+       y = "Mean household income\n (in thousands)") +
+  my_theme
+
+ggsave("image/apa_lineplot.jpeg", 
+       width = 8, height = 6, units = "in")
+
+```
+
+
+
+# Lollipop plot
+
+```{r}
+senate <- read_excel("data/senate_election_2016.xlsx") %>% 
+  clean_names() %>% 
+  mutate(votes = votes / 1e6,
+         votes_label = str_c(round(votes, 1), "M", sep = ""),
+         candidate = fct_reorder(candidate, votes)) %>% 
+  top_n(n = 20, wt = votes)
+```
+
+```{r}
+senate %>% ggplot(aes(x = votes, y = candidate)) +
+  geom_segment(aes(x = 0, xend = votes, y = candidate, yend = candidate),
+               size = 1, color = "aquamarine4") +
+  geom_point(size = 5, color = "aquamarine4") +
+  geom_text(aes(label = votes_label), 
+            size = 3,
+            nudge_x = 1.2) +
+  scale_x_continuous(position = "top", expand = c(0, 0), limits = c(0, 25)) +
+  theme_minimal() +
+  theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm"),
+        plot.title = element_text(face = "bold", 
+                                  size = 20,
+                                  margin = margin(b = 15),
+                                  hjust = 0.5,
+                                  color = "gray30"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.text = element_text(size = 11),
+        axis.title.x = element_text(size = 14)) +
+  labs(title = "2016 Philippine Senate Election Results",
+       y = element_blank(),
+       x = "Votes (in Million)")
+
+ggsave("image/lollipop_senate.jpeg", 
+       width = 9, height = 6, units = "in")
+
+```
+
+
+# Dumbbells
+
+Source: https://en.wikipedia.org/wiki/List_of_presidents_of_the_Philippines
+
+```{r}
+president <- read_excel("data/presidency.xlsx") %>% 
+  mutate(start_date = mdy(start),
+         end_date = mdy(end)) %>% 
+  select(-start, -end) %>% 
+  mutate(president = fct_reorder(president, start_date, .desc = TRUE),
+         yrs_presidency = year(end_date) - year(start_date),
+         president_lab = str_glue("{president} ({yrs_presidency} yrs)"))
+```
+
+
+```{r}
+president %>% 
+  ggplot(aes(y = president)) +
+  geom_point(aes(x = start_date), 
+             size = 3,
+             color = "aquamarine4") +
+  geom_point(aes(x = end_date), 
+             size = 3,
+             color = "aquamarine4") +
+  geom_segment(aes(x = start_date, xend = end_date, 
+                   y = president, yend = president),
+               size = 0.7,
+               color = "aquamarine4") +
+  geom_text(aes(label = president_lab, x = start_date),
+            nudge_y = 0.4,
+            hjust  = 0,
+            size = 3) +
+  scale_x_date(date_breaks = "6 years", 
+               date_labels = "%Y",
+               limits = as.Date(c(NA, "2030-01-01"))) +
+  theme_minimal() +
+  theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm"),
+        plot.title = element_text(face = "bold", 
+                                  size = 20,
+                                  margin = margin(b = 15),
+                                  hjust = 0.5,
+                                  color = "gray30"),
+        axis.title = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.text.y = element_blank()) +
+  labs(title = "Presidents of the Philippines")
+
+ggsave("image/dumbbells_president.jpeg", 
+       width = 10, height = 6, units = "in")
+```
+
+
+
+# Visualizing data
+
+## Barplot
+
+http://inseaddataanalytics.github.io/INSEADAnalytics/groupprojects/January2018FBL/IBM_Attrition_VSS.html
+
+https://juliasilge.com/blog/reorder-within/
+
+```{r}
+attrition <- read_csv("data/IBM_employee_attrition.csv") %>% 
+  clean_names()
+  
+
+ibm_att <- attrition %>% 
+  select(job_role, attrition) %>% 
+  count(job_role, attrition) %>% 
+  mutate(prop = round(n / sum(n) * 100, 0),
+         prop_pct = str_c(prop, "%", sep = "")) %>% 
+  arrange(desc(n)) %>% 
+  mutate_if(is.character, factor) %>% 
+  mutate(job_role = reorder_within(job_role, n, attrition))
+
+```
+
+```{r}
+ibm_att %>% 
+  ggplot(aes(x = job_role, y = n, fill = n)) +
+  geom_col(show.legend = FALSE, width = 0.7) +
+  geom_text(aes(label = str_c(prop_pct, n, sep = " ")),
+            nudge_y = 40,
+            vjust = 0,
+            size = 3) +
+  facet_wrap(~ attrition, scales = "free_y") +
+  scale_fill_viridis_c(direction = -1) +
+  scale_x_reordered() +
+  scale_y_continuous(limits = c(0, 400)) +
+  coord_flip() +
+  theme_bw() +
+  theme(plot.margin = unit(c(0.5, 1, 0.5, 0.5), "cm"),
+        plot.title = element_text(size = 15, hjust = 0.5,
+                                  margin = margin(b = 20)),
+        axis.title = element_blank(),
+        panel.border = element_rect(color = "gray60"),
+        strip.text = element_text(face = "bold", color = "white"),
+        strip.background = element_rect(fill = "aquamarine4", 
+                                        color = "gray60"),
+        plot.caption = element_text(margin = margin(t = 10), 
+                                    color = "gray40"),
+        panel.grid = element_blank()) +
+  labs(title = "Job role vs Attrition",
+       caption = "Source: Kaggle IBM HR Employee Attrition")
+
+ggsave("image/bar_plot_ibm.jpeg", 
+       width = 10, height = 6, units = "in")
+```
+
+
+```{r}
+internet_data <- read_csv("data/cities_internet_prices_historical.24-10-2021.csv") %>%
+  clean_names() %>% 
+  pivot_longer(cols = contains("internet_price"),
+               names_to = "year",
+               values_to = "price") %>% 
+  mutate(year = str_remove(year, "internet_price_"),
+         year = as_date(year, format = "%Y") %>% year()) %>% 
+  filter(price > 0,country != is.na(country)) %>% 
+  select(year, country, price) %>% 
+  group_by(year, country) %>% 
+  summarise(price_avg = mean(price, na.rm = TRUE)) %>% 
+  ungroup()
+
+se_asia <- c("Brunei", "Cambodia", "East Timor", "Indonesia", "Laos", "Malaysia",
+             "Myanmar", "Philippines", "Singapore", "Thailand", "Vietnam")
+
+internet_sea <- internet_data %>% 
+  filter(country %in% se_asia, 
+         year %in% c(2015:2020)
+         ) %>% 
+  mutate(country = reorder_within(country, price_avg, year))
+
+```
+
+
+```{r}
+
+internet_sea %>% 
+  ggplot(aes(x = country, y = price_avg, fill = price_avg)) +
+  geom_col(width = 0.7) +
+  geom_text(aes(label = round(price_avg, 0)),
+            size = 3,
+            nudge_y = 9,
+            color = "gray30") +
+  scale_x_reordered() +
+  scale_fill_viridis_c(direction = -1, breaks = seq(0, 120, 20)) +
+  scale_y_continuous(limits = c(0, 130), breaks = seq(0, 130, 30)) +
+  coord_flip() + 
+  facet_wrap(~year, scales = "free") +
+  theme_bw() +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"),
+        plot.title = element_text(face = "bold",
+                                  margin = margin(b = 20),
+                                  hjust = 0.5),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        strip.background = element_rect(fill = "aquamarine4"),
+        strip.text = element_text(color = "white", face = "bold"),
+        plot.caption = element_text(color = "grey40", margin = margin(t = 10))
+        ) +
+  labs(title = "Southeast Asian Countries Average Internet Price (USD), 2015-2020",
+       fill = "Price (USD)",
+       caption = "Source:Kaggple, City API")
+
+ggsave("image/bar_plot_internet.jpeg", 
+       width = 10, height = 6, units = "in")
+```
+
+
+
+## Histogram
+```{r}
+
+attrition %>% 
+  select(gender, monthly_income) %>% 
+  ggplot(aes(x = monthly_income)) +
+  geom_histogram(aes(fill = gender, color = gender),
+                 bins = 50,
+                 alpha = 0.2,
+                 position = "identity") +
+  geom_freqpoly(aes(linetype = gender), 
+                bins = 30,
+                size = 0.6) +
+  geom_rug(aes(color = gender)) +
+  scale_x_continuous(labels = scales::dollar_format()) + 
+  theme_bw() +
+  theme(plot.margin = unit(c(rep(0.5, 4)), "cm"),
+        axis.title.y = element_blank(),
+        plot.caption = element_text(color = "gray40"),
+        legend.title = element_blank()
+        ) +
+  labs(title = "Distribution of Monthly Income by Gender",
+       x = "Monthly income",
+       caption = "Source: Kaggle IBM HR Employee Attrition")
+
+ggsave("image/histogram_mincome_ibm.jpeg", 
+       width = 10, height = 6, units = "in")
+```
+
+
+
+## Bubble plot
+
+```{r}
+gapminder_data <- gapminder::gapminder
+
+```
+
+
+
+```{r}
+gapminder_data %>% 
+  filter(year == 2007) %>% 
+  ggplot(aes(x = gdpPercap, 
+             y = lifeExp, 
+             color = continent)) +
+  geom_point(alpha = 0.8, aes(size = pop)) +
+  geom_text_repel(aes(label = country),
+            size = 3) +
+  scale_x_log10(label = scales::dollar_format()) +
+  scale_size(range = c(0.1, 20)) +
+  labs(title = "Life expectancy vs GDP per capital, 2007",
+       x = "GDP per Capita",
+       y = "Life Expectancy (years)") +
+  theme_minimal() + 
+  theme(plot.margin = unit(rep(0.5, 4), "cm"),
+        plot.title = element_text(size = 16,
+                                  face = "bold",
+                                  margin = margin(b = 20)),
+        axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 15)),
+        legend.position = "none")
+
+ggsave("image/bubble_plot_gapminder.jpeg", 
+       width = 9, height = 6, units = "in")
+
+```
+
+
+## Word cloud
+
+```{r}
+
+tidy_twitter <- readRDS("data/twitter_data.rds") %>% 
+  filter(complaint_label == "Complaint") %>% 
+  unnest_tokens(word, tweet_text) %>% 
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  arrange(desc(n)) %>% 
+  filter(n > 10)
+
+
+
+
+
+```
+
+```{r}
+
+ggplot(data = tidy_twitter, 
+       aes(label = word, size = n, color = as.character(n))) +
+  geom_text_wordcloud() +
+  scale_size_area(max_size = 15) +
+  scale_color_viridis_d(option = "B", direction = -1) +
+  theme_void()
+
+ggsave("image/word_cloud_twitter.jpeg", 
+       width = 9, height = 6, units = "in")
+
+```
+
+
+```{r}
+wordcloud2(data = tidy_twitter, shape = "star", size = 0.5)
+
+```
+
+
+

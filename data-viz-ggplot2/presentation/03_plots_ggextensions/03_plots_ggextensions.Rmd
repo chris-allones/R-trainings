@@ -1,0 +1,281 @@
+---
+title: "Training Workshop on Data Visualization using ggplot2 in R"
+subtitle: "Session 3: Creating plots and ggplot2 extensions"
+output:
+  xaringan::moon_reader:
+    css:
+      - xaringan-themer.css
+      - css/presentation.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: false
+    includes:
+      after_body: "collapseoutput.js"
+---
+
+layout: true
+
+```{r meta, echo=FALSE}
+# libraries
+pacman::p_load(knitr, tidyverse, metathis)
+theme_set(theme_minimal())
+
+#change directory
+
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(share_buttons = c("twitter", "facebook", "linkedin"))
+
+meta() %>% 
+  meta_name("github-repo" = "chris-allones/training-data-viz") %>% 
+  meta_social(
+    title = "Data viz with ggplot2",
+    description = "Training Workshop on Data Visualization using ggplot2 in R.",
+    url = "https://chris-allones.github.io/data-viz-ggplot2/index.html",
+    image = "https://chris-allones.github.io/data-viz-ggplot2/images/preview.png",
+    og_type = "website",
+    og_author = "Christopher Llones",
+    twitter_card_type = "summary_large_image",
+    twitter_creator = "@Topenomics",
+    twitter_site = "@Topenomics"
+  )
+
+```
+
+```{r setup, echo=FALSE}
+
+options(htmltools.dir.version = FALSE,
+        knitr.table.format = "html")
+
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE,
+  comment = "",
+  fig.retina = 3,
+  fig.align = "center"
+)
+
+```
+
+```{r xaringan-themer, echo=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_extra_styles(hover_code_line = TRUE,
+                                mute_unhighlighted_code = FALSE)
+
+xaringanExtra::use_animate_css()
+xaringanExtra::use_animate_all("fade")
+
+style_duo_accent(
+  primary_color = "#073b4c",
+  secondary_color = "#2a9d8f",
+  inverse_background_color = "#073b4c",
+  inverse_header_color = "#fff",
+  # title_slide_background_color = "#073b4c",
+  title_slide_background_image = "image/background.jpg",
+  title_slide_text_color = "#212529",
+  text_font_size = "1.1rem"
+)
+
+
+```
+
+---
+
+## Outline
+
+APA style plot
+
++ Line plot
++ Box plot
++ Bar plot
++ scatter plot
+
+Visualizing data
+
++ Lollipop plot
++ Dumbbell plot
++ Bar graph
++ Bubble plot
++ Heatmap
+	
+Interesting ggplot extension packages
+
+
+---
+
+class: middle center
+
+# APA style plot
+----
+
+---
+
+## Line plot
+
+```{r echo=FALSE, out.width="65%"}
+knitr::include_graphics("image/apa_lineplot.jpeg")
+```
+
+
+---
+
+## Box plot
+
+```{r echo=FALSE, out.width="65%"}
+knitr::include_graphics("image/apa_boxplot.jpeg")
+```
+
+
+
+---
+
+## Bar plot
+
+```{r echo=FALSE, out.width="65%"}
+knitr::include_graphics("image/apa_bar_plot.jpeg")
+```
+
+
+---
+
+## Scatter plot
+
+```{r echo=FALSE, out.width="65%"}
+knitr::include_graphics("image/apa_scatterplot.jpeg")
+```
+
+
+---
+
+class: middle center
+
+# Visualizing data
+----
+
+
+---
+
+## Lollipop plot
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("image/lollipop_senate.jpeg")
+```
+
+
+---
+
+## Dumb bell plot
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("image/dumbbells_president.jpeg")
+```
+
+
+---
+
+## Bar plot
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("image/bar_plot_internet.jpeg")
+```
+
+
+---
+
+## Bar plot
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("image/bar_plot_ibm.jpeg")
+```
+
+---
+
+## Histogram
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("image/histogram_mincome_ibm.jpeg")
+```
+
+
+---
+
+## Bubble plot
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("image/bubble_plot_gapminder.jpeg")
+```
+
+
+---
+
+## Word cloud
+
+```{r echo=FALSE, out.width="80%"}
+knitr::include_graphics("image/word_cloud_twitter.jpeg")
+```
+
+
+
+---
+
+class: center
+
+## WELL DONE!
+
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("image/well_done.gif")
+```
+
+
+
+---
+
+class: middle center
+
+# Thank you!
+
+#### Slides created via the R packages:
+
+.leftcol[
+<img src="image/xaringan.png" style="display:inline-block; margin: 0" width=20%/> 
+
+### xaringan by Yihui
+]
+
+.rightcol[
+<img src="image/xaringanthemer.png" style="display:inline-block; margin: 0" width=25%/> 
+
+### xaringanthemer and xaringanExtra by Garrick
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
