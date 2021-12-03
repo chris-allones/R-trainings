@@ -63,7 +63,7 @@ ul {
 
 /*Banner for the training*/
 .banner {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.9), transparent), url("https://chris-allones.github.io/data-viz-ggplot2/images/data_analysis_2.png");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), transparent), url("https://chris-allones.github.io/R-trainings/data-viz-ggplot2/images/data_analysis_2.png");
   background-size: cover;
   background-position: top;
   padding: 50px 45px;
