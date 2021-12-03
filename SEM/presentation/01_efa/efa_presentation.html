@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Training Workshop on the basics of  SEM using R</title>
+    <meta charset="utf-8" />
+    <script src="efa_presentation_files/header-attrs/header-attrs.js"></script>
+    <script src="efa_presentation_files/clipboard/clipboard.min.js"></script>
+    <link href="efa_presentation_files/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="efa_presentation_files/shareon/shareon.min.js"></script>
+    <link href="efa_presentation_files/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="efa_presentation_files/xaringanExtra-shareagain/shareagain.js"></script>
+    <meta name="github-repo" content="chris-allones/SEM-R-training"/>
+    <meta name="twitter:title" content="SEM using R"/>
+    <meta name="twitter:description" content="Training on structural equation modeling using R."/>
+    <meta name="twitter:url" content="https://chris-allones.github.io/SEM-R-training/index.html"/>
+    <meta name="twitter:image" content="https://chris-allones.github.io/SEM-R-training/images/preview.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@Topenomics"/>
+    <meta name="twitter:site" content="@Topenomics"/>
+    <meta property="og:title" content="SEM using R"/>
+    <meta property="og:description" content="Training on structural equation modeling using R."/>
+    <meta property="og:url" content="https://chris-allones.github.io/SEM-R-training/index.html"/>
+    <meta property="og:image" content="https://chris-allones.github.io/SEM-R-training/images/preview.png"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="Christopher Llones"/>
+    <link href="efa_presentation_files/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="efa_presentation_files/tile-view/tile-view.js"></script>
+    <link href="efa_presentation_files/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="efa_presentation_files/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link href="efa_presentation_files/animate.css-xaringan/animate.fade.css" rel="stylesheet" />
+    <link href="efa_presentation_files/pagedtable/css/pagedtable.css" rel="stylesheet" />
+    <script src="efa_presentation_files/pagedtable/js/pagedtable.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/presentation.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Training Workshop on the basics of<br> SEM using R
+## Session 1: Exploratory Factor Analysis (EFA)
+
+---
+
+
+layout: true
+
+<style>.shareagain-bar {
+--shareagain-foreground: rgb(255, 255, 255);
+--shareagain-background: rgba(0, 0, 0, 0.5);
+--shareagain-pinterest: none;
+--shareagain-pocket: none;
+--shareagain-reddit: none;
+}</style>
+
+
+
+
+
+
+
+
+
+---
+## Factor analysis process
+
+**Stage 1**: Objectives of factor analysis
+
+**Stage 2**: Designing an Exploratory factor analysis
+
+**Stage 3**: Assumptions in Exploratory factor analysis
+
+**Stage 4**: Deriving factors and assessing overall fit
+
+**Stage 5**: Interpreting the factors
+
+---
+
+class: middle center
+
+# Stage 1 : Objectives of factor analysis
+----
+
+---
+
+## Types of factor analysis
+
+.leftcol[
+#### Exploratory factor analysis
+
++ Use when you do not have a well-developed theory
+
++ Estimate all possible variable/ factor relationships
+
++ Looking for patterns in the data
+]
+
+
+.rightcol[
+#### Confirmatory factor analysis
+
++ Testing a theory that you know in advance 
+
++ Only specified variables/factor relationships
+]
+
+---
+
+## Types of factor analysis
+
+.left-column-50[
+#### Exploratory factor analysis
+
+- Difficult to interpret without a theory.
+- factor loadings: meanings can sometimes be inferred  from patterns.
+]
+
+&lt;br&gt;
+
+.right-column-50[
+&lt;img src="image/efa_interpret.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Types of factor analysis
+
+.left-column-50[
+#### Confirmatory factor analysis
+
+- Model fit: how well the hypothesized model fits the data.
+
+- Factor loadings: how well items measure their corresponding constructs.
+]
+
+&lt;br&gt;
+
+.right-column-50[
+&lt;img src="image/cfa_interpret.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+class: middle center
+
+# Stage 2: Designing an EFA
+----
+
+---
+
+## Variable selection and measurement issues
+
+--
+What types of variables can be used in factor analysis?
+
+--
+  + *Primary requirement: a correlation value can be calculated among all variables.*
+  + *e.g., metric variables, scale items, dummy variables to represent nonmetric variables.*
+
+&lt;br&gt;
+
+How many variables should be included?
+
+  + *Five or more per factor for scale development.*
+  + *Three or more per factor for factor measurement (based on how degrees of freedom is computed).*
+  
+---
+
+## Sample size
+
+Some recommended guidelines:
+
+Absolute size of the dataset
+  + *should not fewer than 50 observation*
+  + *preferably 100 and larger*
+  + *200 and larger as the number of variables and expected factors incerases*
+
+Ratio of cases to variables
+  + *observation is 5x as the number of variables*
+  + *sample size is 10:1 ratio*
+  + *some proposes 20 cases per variables*
+  
+---
+
+class: middle center
+
+# Stage 3: Assumptions in EFA
+----
+
+---
+
+## Sample Dataset
+
+.leftcol40[
++ HBAT Industries, manufacturer of paper products.
++ Perceptions on a set of business functions.
++ Rating scale: 
+  + `0 "poor"` to `10 "excellent"`
+]
+
+.rightcol60[
+&lt;img src="image/hbat_data.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Sample Dataset
+
+.leftcol40[
++ `\(X_6\)` product quality
++ `\(X_7\)` e-commerce
++ `\(X_8\)` technical support
++ `\(X_9\)` complaint resolution
++ `\(X_{10}\)` advertising
++ `\(X_{11}\)` product line
++ `\(X_{12}\)` salesforce image
++ `\(X_{13}\)` competitive pricing
++ `\(X_{14}\)` warranty claims
++ `\(X_{15}\)` packaging
++ `\(X_{16}\)` order &amp; billing
++ `\(X_{17}\)` price flexibility
++ `\(X_{18}\)` delivery speed
+]
+
+.rightcol60[
+.code80[
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["x6"],"name":[1],"type":["dbl+lbl"],"align":["right"]},{"label":["x7"],"name":[2],"type":["dbl+lbl"],"align":["right"]},{"label":["x8"],"name":[3],"type":["dbl+lbl"],"align":["right"]},{"label":["x9"],"name":[4],"type":["dbl+lbl"],"align":["right"]},{"label":["x10"],"name":[5],"type":["dbl+lbl"],"align":["right"]},{"label":["x11"],"name":[6],"type":["dbl+lbl"],"align":["right"]},{"label":["x12"],"name":[7],"type":["dbl+lbl"],"align":["right"]},{"label":["x13"],"name":[8],"type":["dbl+lbl"],"align":["right"]},{"label":["x14"],"name":[9],"type":["dbl+lbl"],"align":["right"]},{"label":["x16"],"name":[10],"type":["dbl+lbl"],"align":["right"]},{"label":["x18"],"name":[11],"type":["dbl+lbl"],"align":["right"]}],"data":[{"1":"8.5","2":"3.9","3":"2.5","4":"5.9","5":"4.8","6":"4.9","7":"6.0","8":"6.8","9":"4.7","10":"5.0","11":"3.7"},{"1":"8.2","2":"2.7","3":"5.1","4":"7.2","5":"3.4","6":"7.9","7":"3.1","8":"5.3","9":"5.5","10":"3.9","11":"4.9"},{"1":"9.2","2":"3.4","3":"5.6","4":"5.6","5":"5.4","6":"7.4","7":"5.8","8":"4.5","9":"6.2","10":"5.4","11":"4.5"},{"1":"6.4","2":"3.3","3":"7.0","4":"3.7","5":"4.7","6":"4.7","7":"4.5","8":"8.8","9":"7.0","10":"4.3","11":"3.0"},{"1":"9.0","2":"3.4","3":"5.2","4":"4.6","5":"2.2","6":"6.0","7":"4.5","8":"6.8","9":"6.1","10":"4.5","11":"3.5"},{"1":"6.5","2":"2.8","3":"3.1","4":"4.1","5":"4.0","6":"4.3","7":"3.7","8":"8.5","9":"5.1","10":"3.6","11":"3.3"},{"1":"6.9","2":"3.7","3":"5.0","4":"2.6","5":"2.1","6":"2.3","7":"5.4","8":"8.9","9":"4.8","10":"2.1","11":"2.0"},{"1":"6.2","2":"3.3","3":"3.9","4":"4.8","5":"4.6","6":"3.6","7":"5.1","8":"6.9","9":"5.4","10":"4.3","11":"3.7"},{"1":"5.8","2":"3.6","3":"5.1","4":"6.7","5":"3.7","6":"5.9","7":"5.8","8":"9.3","9":"5.9","10":"4.4","11":"4.6"},{"1":"6.4","2":"4.5","3":"5.1","4":"6.1","5":"4.7","6":"5.7","7":"5.7","8":"8.4","9":"5.4","10":"4.1","11":"4.4"},{"1":"8.7","2":"3.2","3":"4.6","4":"4.8","5":"2.7","6":"6.8","7":"4.6","8":"6.8","9":"5.8","10":"3.8","11":"4.0"},{"1":"6.1","2":"4.9","3":"6.3","4":"3.9","5":"4.4","6":"3.9","7":"6.4","8":"8.2","9":"5.8","10":"3.0","11":"3.2"},{"1":"9.5","2":"5.6","3":"4.6","4":"6.9","5":"5.0","6":"6.9","7":"6.6","8":"7.6","9":"6.5","10":"5.1","11":"4.4"},{"1":"9.2","2":"3.9","3":"5.7","4":"5.5","5":"2.4","6":"8.4","7":"4.8","8":"7.1","9":"6.7","10":"4.5","11":"4.2"},{"1":"6.3","2":"4.5","3":"4.7","4":"6.9","5":"4.5","6":"6.8","7":"5.9","8":"8.8","9":"6.0","10":"4.8","11":"5.2"},{"1":"8.7","2":"3.2","3":"4.0","4":"6.8","5":"3.2","6":"7.8","7":"3.8","8":"4.9","9":"6.1","10":"4.3","11":"4.5"},{"1":"5.7","2":"4.0","3":"6.7","4":"6.0","5":"3.3","6":"5.5","7":"5.1","8":"6.2","9":"6.7","10":"4.2","11":"4.5"},{"1":"5.9","2":"4.1","3":"5.5","4":"7.2","5":"3.5","6":"6.4","7":"5.5","8":"8.4","9":"6.2","10":"5.7","11":"4.8"},{"1":"5.6","2":"3.4","3":"5.1","4":"6.4","5":"3.7","6":"5.7","7":"5.6","8":"9.1","9":"5.4","10":"5.0","11":"4.5"},{"1":"9.1","2":"4.5","3":"3.6","4":"6.4","5":"5.3","6":"5.3","7":"7.1","8":"8.4","9":"5.8","10":"4.5","11":"4.4"},{"1":"5.2","2":"3.8","3":"7.1","4":"5.2","5":"3.9","6":"4.3","7":"5.0","8":"8.4","9":"7.1","10":"3.3","11":"3.3"},{"1":"9.6","2":"5.7","3":"6.8","4":"5.9","5":"5.4","6":"8.3","7":"7.8","8":"4.5","9":"6.4","10":"4.3","11":"4.3"},{"1":"8.6","2":"3.6","3":"7.4","4":"5.1","5":"3.5","6":"7.3","7":"4.7","8":"3.7","9":"6.7","10":"4.8","11":"4.0"},{"1":"9.3","2":"2.4","3":"2.6","4":"7.2","5":"2.2","6":"7.2","7":"4.5","8":"6.2","9":"6.4","10":"6.7","11":"4.5"},{"1":"6.0","2":"4.1","3":"5.3","4":"4.7","5":"3.5","6":"5.3","7":"5.3","8":"8.0","9":"6.5","10":"4.7","11":"4.0"},{"1":"6.4","2":"3.6","3":"6.6","4":"6.1","5":"4.0","6":"3.9","7":"5.3","8":"7.1","9":"6.1","10":"5.6","11":"3.9"},{"1":"8.5","2":"3.0","3":"7.2","4":"5.8","5":"4.1","6":"7.6","7":"3.7","8":"4.8","9":"6.9","10":"5.3","11":"4.4"},{"1":"7.0","2":"3.3","3":"5.4","4":"5.5","5":"2.6","6":"4.8","7":"4.2","8":"9.0","9":"6.5","10":"4.3","11":"3.7"},{"1":"8.5","2":"3.0","3":"5.7","4":"6.0","5":"2.3","6":"7.6","7":"3.7","8":"4.8","9":"5.8","10":"5.7","11":"4.4"},{"1":"7.6","2":"3.6","3":"3.0","4":"4.0","5":"5.1","6":"4.2","7":"4.6","8":"7.7","9":"4.9","10":"4.7","11":"3.5"},{"1":"6.9","2":"3.4","3":"8.5","4":"4.3","5":"4.5","6":"6.4","7":"4.7","8":"5.2","9":"7.7","10":"3.7","11":"3.3"},{"1":"8.1","2":"2.5","3":"7.2","4":"4.5","5":"2.3","6":"5.1","7":"3.8","8":"6.6","9":"6.8","10":"3.0","11":"3.0"},{"1":"6.7","2":"3.7","3":"6.5","4":"5.3","5":"5.3","6":"5.1","7":"4.9","8":"9.2","9":"5.7","10":"3.5","11":"3.4"},{"1":"8.0","2":"3.3","3":"6.1","4":"5.7","5":"5.5","6":"4.6","7":"4.7","8":"8.7","9":"5.9","10":"4.7","11":"4.2"},{"1":"6.7","2":"4.0","3":"5.2","4":"3.9","5":"3.0","6":"5.4","7":"6.8","8":"8.4","9":"6.2","10":"2.5","11":"3.5"},{"1":"8.7","2":"3.2","3":"6.1","4":"4.3","5":"3.5","6":"6.1","7":"2.9","8":"5.6","9":"6.1","10":"3.1","11":"2.5"},{"1":"9.0","2":"3.4","3":"5.9","4":"4.6","5":"3.9","6":"6.0","7":"4.5","8":"6.8","9":"6.4","10":"3.9","11":"3.5"},{"1":"9.6","2":"4.1","3":"6.2","4":"7.3","5":"2.9","6":"7.7","7":"5.5","8":"7.7","9":"6.1","10":"5.2","11":"4.9"},{"1":"8.2","2":"3.6","3":"3.9","4":"6.2","5":"5.8","6":"4.9","7":"5.0","8":"9.0","9":"5.2","10":"4.7","11":"4.5"},{"1":"6.1","2":"4.9","3":"3.0","4":"4.8","5":"5.1","6":"3.9","7":"6.4","8":"8.2","9":"5.1","10":"4.5","11":"3.2"},{"1":"8.3","2":"3.4","3":"3.3","4":"5.5","5":"3.1","6":"4.6","7":"5.2","8":"9.1","9":"4.1","10":"4.6","11":"3.9"},{"1":"9.4","2":"3.8","3":"4.7","4":"5.4","5":"3.8","6":"6.5","7":"4.9","8":"8.5","9":"4.9","10":"4.1","11":"4.1"},{"1":"9.3","2":"5.1","3":"4.6","4":"6.8","5":"5.8","6":"6.6","7":"6.3","8":"7.4","9":"5.1","10":"4.6","11":"4.3"},{"1":"5.1","2":"5.1","3":"6.6","4":"6.9","5":"4.4","6":"5.4","7":"7.8","8":"5.9","9":"7.2","10":"4.9","11":"4.5"},{"1":"8.0","2":"2.5","3":"4.7","4":"7.1","5":"3.6","6":"7.7","7":"3.0","8":"5.2","9":"5.1","10":"4.3","11":"4.7"},{"1":"5.9","2":"4.1","3":"5.7","4":"5.9","5":"5.8","6":"6.4","7":"5.5","8":"8.4","9":"6.4","10":"5.2","11":"4.8"},{"1":"10.0","2":"4.3","3":"7.1","4":"6.3","5":"2.9","6":"5.4","7":"4.5","8":"3.8","9":"6.7","10":"5.0","11":"3.5"},{"1":"5.7","2":"3.8","3":"6.8","4":"7.5","5":"5.7","6":"5.7","7":"6.0","8":"8.2","9":"6.6","10":"6.5","11":"5.2"},{"1":"9.9","2":"3.7","3":"3.7","4":"6.1","5":"4.2","6":"7.0","7":"6.7","8":"6.8","9":"5.9","10":"4.5","11":"3.9"},{"1":"7.9","2":"3.9","3":"4.3","4":"5.8","5":"4.4","6":"6.9","7":"5.8","8":"4.7","9":"5.2","10":"4.1","11":"4.3"},{"1":"6.7","2":"3.6","3":"5.9","4":"4.2","5":"3.4","6":"4.7","7":"4.8","8":"7.2","9":"5.7","10":"4.0","11":"2.8"},{"1":"8.2","2":"2.7","3":"3.7","4":"7.4","5":"2.7","6":"7.9","7":"3.1","8":"5.3","9":"5.3","10":"4.5","11":"4.9"},{"1":"9.4","2":"2.5","3":"4.8","4":"6.1","5":"3.2","6":"7.3","7":"4.6","8":"6.3","9":"6.3","10":"4.7","11":"4.6"},{"1":"6.9","2":"3.4","3":"5.7","4":"4.4","5":"3.3","6":"6.4","7":"4.7","8":"5.2","9":"6.4","10":"3.2","11":"3.3"},{"1":"8.0","2":"3.3","3":"3.8","4":"5.8","5":"3.2","6":"4.6","7":"4.7","8":"8.7","9":"5.3","10":"4.9","11":"4.2"},{"1":"9.3","2":"3.8","3":"7.3","4":"5.7","5":"3.7","6":"6.4","7":"5.5","8":"7.4","9":"6.6","10":"4.1","11":"3.4"},{"1":"7.4","2":"5.1","3":"4.8","4":"7.7","5":"4.5","6":"7.2","7":"6.9","8":"9.6","9":"6.4","10":"5.7","11":"5.5"},{"1":"7.6","2":"3.6","3":"5.2","4":"5.8","5":"5.6","6":"6.6","7":"5.4","8":"4.4","9":"6.7","10":"4.6","11":"4.0"},{"1":"10.0","2":"4.3","3":"5.3","4":"3.7","5":"4.2","6":"5.4","7":"4.5","8":"3.8","9":"6.7","10":"3.7","11":"3.5"},{"1":"9.9","2":"2.8","3":"7.2","4":"6.9","5":"2.6","6":"5.8","7":"3.5","8":"5.4","9":"6.2","10":"5.6","11":"4.0"},{"1":"8.7","2":"3.2","3":"8.4","4":"6.1","5":"2.8","6":"7.8","7":"3.8","8":"4.9","9":"7.2","10":"5.4","11":"4.5"},{"1":"8.4","2":"3.8","3":"6.7","4":"5.0","5":"4.5","6":"4.7","7":"5.9","8":"6.7","9":"5.1","10":"2.7","11":"3.6"},{"1":"8.8","2":"3.9","3":"3.8","4":"5.1","5":"4.3","6":"4.7","7":"4.8","8":"5.8","9":"5.0","10":"4.4","11":"2.9"},{"1":"7.7","2":"2.2","3":"6.3","4":"4.5","5":"2.4","6":"4.7","7":"3.4","8":"6.2","9":"6.0","10":"3.3","11":"2.6"},{"1":"6.6","2":"3.6","3":"5.8","4":"4.1","5":"4.9","6":"4.7","7":"4.8","8":"7.2","9":"6.5","10":"3.5","11":"2.8"},{"1":"5.7","2":"3.8","3":"3.5","4":"6.7","5":"5.4","6":"5.7","7":"6.0","8":"8.2","9":"5.4","10":"4.7","11":"5.2"},{"1":"5.7","2":"4.0","3":"7.9","4":"6.4","5":"2.7","6":"5.5","7":"5.1","8":"6.2","9":"7.5","10":"5.0","11":"4.5"},{"1":"5.5","2":"3.7","3":"4.7","4":"5.4","5":"4.3","6":"5.3","7":"4.9","8":"6.0","9":"5.6","10":"4.5","11":"4.3"},{"1":"7.5","2":"3.5","3":"3.8","4":"3.5","5":"2.9","6":"4.1","7":"4.5","8":"7.6","9":"5.1","10":"4.0","11":"3.4"},{"1":"6.4","2":"3.6","3":"2.7","4":"5.3","5":"3.9","6":"3.9","7":"5.3","8":"7.1","9":"5.2","10":"4.7","11":"3.9"},{"1":"9.1","2":"4.5","3":"6.1","4":"5.9","5":"6.3","6":"5.3","7":"7.1","8":"8.4","9":"7.1","10":"5.4","11":"4.4"},{"1":"6.7","2":"3.2","3":"3.0","4":"3.7","5":"4.8","6":"6.3","7":"4.5","8":"5.0","9":"5.2","10":"2.9","11":"3.1"},{"1":"6.5","2":"4.3","3":"2.7","4":"6.6","5":"6.5","6":"6.3","7":"6.0","8":"8.7","9":"4.7","10":"4.6","11":"4.6"},{"1":"9.9","2":"3.7","3":"7.5","4":"4.7","5":"5.6","6":"7.0","7":"6.7","8":"6.8","9":"7.2","10":"4.1","11":"3.9"},{"1":"8.5","2":"3.9","3":"5.3","4":"5.5","5":"5.0","6":"4.9","7":"6.0","8":"6.8","9":"5.7","10":"4.4","11":"3.7"},{"1":"9.9","2":"3.0","3":"6.8","4":"5.0","5":"5.4","6":"5.9","7":"4.8","8":"4.9","9":"7.3","10":"3.1","11":"3.8"},{"1":"7.6","2":"3.6","3":"7.6","4":"4.6","5":"4.7","6":"4.6","7":"5.0","8":"7.4","9":"8.1","10":"4.5","11":"3.9"},{"1":"9.4","2":"3.8","3":"7.0","4":"6.2","5":"4.7","6":"6.5","7":"4.9","8":"8.5","9":"7.3","10":"4.3","11":"4.1"},{"1":"9.3","2":"3.5","3":"6.3","4":"7.6","5":"5.5","6":"7.5","7":"5.9","8":"4.6","9":"6.6","10":"5.2","11":"4.6"},{"1":"7.1","2":"3.4","3":"4.9","4":"4.1","5":"4.0","6":"5.0","7":"5.9","8":"7.8","9":"6.1","10":"2.6","11":"2.7"},{"1":"9.9","2":"3.0","3":"7.4","4":"4.8","5":"4.0","6":"5.9","7":"4.8","8":"4.9","9":"5.9","10":"3.2","11":"3.8"},{"1":"8.7","2":"3.2","3":"6.4","4":"4.9","5":"2.4","6":"6.8","7":"4.6","8":"6.8","9":"6.3","10":"4.3","11":"4.0"},{"1":"8.6","2":"2.9","3":"5.8","4":"3.9","5":"2.9","6":"5.6","7":"4.0","8":"6.3","9":"6.1","10":"2.7","11":"3.0"},{"1":"6.4","2":"3.2","3":"6.7","4":"3.6","5":"2.2","6":"2.9","7":"5.0","8":"8.4","9":"7.3","10":"2.0","11":"1.6"},{"1":"7.7","2":"2.6","3":"6.7","4":"6.6","5":"1.9","6":"7.2","7":"4.3","8":"5.9","9":"6.5","10":"4.7","11":"4.3"},{"1":"7.5","2":"3.5","3":"4.1","4":"4.5","5":"3.5","6":"4.1","7":"4.5","8":"7.6","9":"4.9","10":"3.4","11":"3.4"},{"1":"5.0","2":"3.6","3":"1.3","4":"3.0","5":"3.5","6":"4.2","7":"4.9","8":"8.2","9":"4.3","10":"2.4","11":"3.1"},{"1":"7.7","2":"2.6","3":"8.0","4":"6.7","5":"3.5","6":"7.2","7":"4.3","8":"5.9","9":"6.9","10":"5.1","11":"4.3"},{"1":"9.1","2":"3.6","3":"5.5","4":"5.4","5":"4.2","6":"6.2","7":"4.6","8":"8.3","9":"6.5","10":"4.6","11":"3.9"},{"1":"5.5","2":"5.5","3":"7.7","4":"7.0","5":"5.6","6":"5.7","7":"8.2","8":"6.3","9":"7.4","10":"5.5","11":"4.9"},{"1":"9.1","2":"3.7","3":"7.0","4":"4.1","5":"4.4","6":"6.3","7":"5.4","8":"7.3","9":"7.5","10":"4.4","11":"3.3"},{"1":"7.1","2":"4.2","3":"4.1","4":"2.6","5":"2.1","6":"3.3","7":"4.5","8":"9.9","9":"5.5","10":"2.0","11":"2.4"},{"1":"9.2","2":"3.9","3":"4.6","4":"5.3","5":"4.2","6":"8.4","7":"4.8","8":"7.1","9":"6.2","10":"4.4","11":"4.2"},{"1":"9.3","2":"3.5","3":"5.4","4":"7.8","5":"4.6","6":"7.5","7":"5.9","8":"4.6","9":"6.4","10":"4.8","11":"4.6"},{"1":"9.3","2":"3.8","3":"4.0","4":"4.6","5":"4.7","6":"6.4","7":"5.5","8":"7.4","9":"5.3","10":"3.6","11":"3.4"},{"1":"8.6","2":"4.8","3":"5.6","4":"5.3","5":"2.3","6":"6.0","7":"5.7","8":"6.7","9":"5.8","10":"4.9","11":"3.6"},{"1":"7.4","2":"3.4","3":"2.6","4":"5.0","5":"4.1","6":"4.4","7":"4.8","8":"7.2","9":"4.5","10":"4.2","11":"3.7"},{"1":"8.7","2":"3.2","3":"3.3","4":"3.2","5":"3.1","6":"6.1","7":"2.9","8":"5.6","9":"5.0","10":"3.1","11":"2.5"},{"1":"7.8","2":"4.9","3":"5.8","4":"5.3","5":"5.2","6":"5.3","7":"7.1","8":"7.9","9":"6.0","10":"4.3","11":"3.9"},{"1":"7.9","2":"3.0","3":"4.4","4":"5.1","5":"5.9","6":"4.2","7":"4.8","8":"9.7","9":"5.7","10":"3.4","11":"3.5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+]
+
+.font80[Source: J.F. Hair (2019): Multivariate data analysis.]
+
+]
+
+---
+
+## Conceptual assumptions
+
+.leftcol70[
++ Some uderlying structure does exist in the set of selected variables.
++ correlated variables and subsequent definition of factors do not guarantee relevance
+  + *even if they meet the statistical requirement!*
++ It is the responsibility of the researcher to ensure that observed patterns are conceptually valid and appropriate.
+]
+
+---
+
+## Determining appropriateness of EFA
+
+1. Bartlett Test
+
+2. Measure of Sampling Adequacy
+
+---
+
+## Determining the appropriateness of EFA
+
+.leftcol[
+#### 1. Bartlett Test
++ Examines the entire correlation matrix
++ Test the hypothesis that correlation matrix is an identity matrix.
++ A significant result signifies data are appropriate for factor analysis.
+]
+
+.rightcol[
+.details[
+
+```r
+library(EFAtools)
+BARTLETT(data, N= nrow(data))
+```
+
+```
+
+v The Bartlett's test of sphericity was significant at an alpha level of .05.
+  These data are probably suitable for factor analysis.
+
+  &lt;U+0001D712&gt;²(55) = 619.27, p &lt; .001
+```
+]
+]
+
+---
+
+## Determining the appropriateness of EFA
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
++ Measure of sampling adequacy
++ Indicate the proportion of variance explained by the underlying factor.
++ Guidelines:
+  -   `\(\ge 0.90\)` - marvelous
+  -   `\(\ge 0.80\)` - meritorious
+  -   `\(\ge 0.70\)` - middling
+  -   `\(\ge 0.60\)` - mediocre
+  -   `\(\ge 0.50\)` - miserable
+  -   `\(&lt; 0.50\)` - unacceptable
+
+
+---
+
+## Determining the appropriateness of EFA
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
+
+.code70[
+.details[
+
+```
+
+-- Kaiser-Meyer-Olkin criterion (KMO) ------------------------------------------
+
+! The overall KMO value for your data is mediocre.
+  These data are probably suitable for factor analysis.
+
+  Overall: 0.653
+
+  For each variable:
+   x6    x7    x8    x9   x10   x11   x12   x13   x14   x16   x18 
+0.509 0.626 0.519 0.787 0.779 0.622 0.622 0.753 0.511 0.760 0.666 
+```
+]
+]
+---
+
+## Determining the appropriateness of EFA
+
+#### 2. Kaiser-Meyen-Olkin (KMO Test)
+
++ When overall MSA is less than 0.50
+  + Identify variables with lowest MSA subject for deletion.
+  + Recalculate MSA
+  + Repeat unitl overall MSA is 0.50 and above
+
+
++ Deletion of variables with MSA under 0.50 means variable's correlation with &lt;br&gt;other variables are poorly representing the extracted factor.
+
+
+---
+
+class: middle center
+
+# Let's practice!
+
+---
+
+class: middle center
+
+# Stage 4: Deriving factors and &lt;br&gt;assessing overall fit
+----
+
+---
+
+## Partitioning the variance of a variable
+
+.leftcol[
+#### Unique variance
++ Variance associated with only a specific variable.
++ Not represented in the correlations among variables.
++ *Specific variance*
+  + associated uniquely with a single variable.
++ *Error variance*
+  + May be due to unreliability of data gathering process, measurement error, or a random component in the measured phenomenom.
+]
+
+.rightcol[
+#### Common variance
++ Shared variance with all other variables.
++ High common variance are more amenable for factor analysis.
++ Derived factors represents the shared or common variance among the variables.
+]
+
+---
+
+## Partitioning the variance of a variable
+
+.center[
+&lt;img src="image/deriving_factors.png" width="55%" /&gt;
+
+.font70[_Source: JF Hair et al. (2019) Multivariate data analysis._&lt;br&gt;] 
+]
+
+---
+
+## PCA vs Common factor analysis
+
+.leftcol[
+#### Principal component analysis (PCA)
++ Considers the total variance
++ data reduction is a primary concern
+
+#### Common factor analysis
++ Considers only the common variance or shared variance
++ Primary objective is to identify the latent dimensions or constructs
+]
+
+.rightcol[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[
+&lt;img src="image/pca_cfa.png" width="85%" /&gt;
+
+.font70[_Source: JF Hair et al. (2019) Multivariate data analysis._]]
+]
+
+
+---
+
+## Exploring possible factors
+
+.leftcol40[
+#### 1. Kaiser-Guttman Criterion
++ Only consider factors whose eigenvalues is greater than 1.
+
++ Rationale is that factor should account for the variance of at least a single variable if it is to be retained for interpretation.
+]
+
+.rightcol60[
+
+```r
+library(EFAtools)
+KGC(Data, eigen_type = "EFA")
+```
+
+&lt;img src="image/kgc_plot.png" width="75%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+## Exploring possible factors
+
+.leftcol40[
+#### 2. Scree test
++ Identify the optimum number of factors that can be extracted before the amount of unique variance begins to dominate the common variance.
+
++ Inflection point or the "elbow"
+]
+
+.rightcol60[
+
+```r
+library(psych)
+scree(data)
+```
+
+&lt;img src="image/scree_plot.png" width="75%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+## Exploring possible factors
+
+.leftcol[
+#### 3. Parallel Test
++ Generates a large number of simulated dataset.
++ Each simulated dataset is factor analyzed.
+  + Results is the average eigenvalues across simulation.
+  + Values are then compared to the eigenvalues extracted from the original dataset.
+  + All factors with eigenvalues above those average eigenvalues are retained.
+]
+
+.rightcol[
+
+```r
+library(psych)
+fa.parallel(data, fa = "fa")
+```
+
+&lt;img src="image/parallel_plot.png" width="90%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+class: middle center
+
+# Let's practice!
+
+---
+
+class: middle center
+
+# Stage 5: Interpreting the factors
+----
+
+---
+
+## Three process of factor intepretation
+
+#### 1. Factor extraction
+#### 2. Factor rotation
+#### 3. Factor interpretation and re-specification
+
+---
+
+## Factor extraction
+
+.rightcol[
+.code40[
+
+```r
+fa_unrotated &lt;- fa(r = data, nfactors = 4,rotate = "none")
+print(fa_unrotated$loadings)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x6   0.201 -0.408         0.463
+x7   0.290  0.656  0.267  0.210
+x8   0.278 -0.382  0.744 -0.169
+x9   0.862        -0.255 -0.184
+x10  0.287  0.456         0.127
+x11  0.689 -0.454 -0.141  0.316
+x12  0.398  0.807  0.348  0.255
+x13 -0.231  0.553        -0.287
+x14  0.378 -0.322  0.730 -0.151
+x16  0.747        -0.176 -0.181
+x18  0.895        -0.304 -0.198
+
+                 MR1   MR2   MR3   MR4
+SS loadings    3.215 2.226 1.500 0.679
+Proportion Var 0.292 0.202 0.136 0.062
+Cumulative Var 0.292 0.495 0.631 0.693
+```
+]
+]
+
+.leftcol[
+#### Loadings
++ Correlation of each variable and the factor.
++ Indicate the degree of correspondence between variable and factor.
++ Higher loadings making the variable representative of the factor.
+]
+
+---
+
+## Factor extraction
+
+.rightcol[
+.code30[
+
+```r
+fa_unrotated &lt;- fa(r = data, nfactors = 4,rotate = "none")
+print(fa_unrotated$loadings)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x6   0.201 -0.408         0.463
+x7   0.290  0.656  0.267  0.210
+x8   0.278 -0.382  0.744 -0.169
+x9   0.862        -0.255 -0.184
+x10  0.287  0.456         0.127
+x11  0.689 -0.454 -0.141  0.316
+x12  0.398  0.807  0.348  0.255
+x13 -0.231  0.553        -0.287
+x14  0.378 -0.322  0.730 -0.151
+x16  0.747        -0.176 -0.181
+x18  0.895        -0.304 -0.198
+
+                 MR1   MR2   MR3   MR4
+SS loadings    3.215 2.226 1.500 0.679
+Proportion Var 0.292 0.202 0.136 0.062
+Cumulative Var 0.292 0.495 0.631 0.693
+```
+]
+]
+
+.leftcol[
+#### Loadings
++ `\(\le \pm 0.10 \approx\)` zero
++ `\(\pm 0.10\)` to `\(\pm 0.40\)` meet the minimal level
++ `\(\ge \pm 0.50\)` practically significant
++ `\(\ge \pm 0.70 \approx\)` well-defined structure
+
+#### SS loadings
++ Eigenvalues - column sum of squared factor loadings.
++ Relative importance of each factor in accounting for the variance associated with the set of variables.
+]
+
+---
+
+## Factor rotation
+
+.leftcol[
+#### Why do factor rotation?
++ To simplify the complexity of factor loadings.
++ Distribute the loadings more clearly into the factors.
++ Facilitate interpretation.
+]
+
+.rightcol[
+&lt;img src="image/factor_rotation.png" width="80%" /&gt;
+]
+
+
+---
+
+## Factor rotation
+
+.leftcol35[
+.code30[
+```{}
+par(mfrow = c(1, 2))
+plot(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
+     xlab = "Factor 1", ylab = "Factor 2",
+     ylim = c(-1, 1), xlim = c(-1, 1),
+     main = "No rotation",
+     pch = 19, col = "#6c757d") 
+     abline(h=0, v=0)
+     text(fa_unrotated$loadings[,1], fa_unrotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+
+plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
+     xlab = "Factor 1", ylab = "Factor 2",
+     ylim = c(-1, 1), xlim = c(-1, 1),
+     main = "With rotation",
+     pch = 19, col = "#6c757d")
+     abline(h=0, v=0)
+     text(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
+          labels = rownames(fa_unrotated$loadings),
+          pos = 4, cex = 0.5)
+```
+]
+]
+
+
+.rightcol65[
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-18-1.png" width="100%" /&gt;
+]
+
+---
+
+## Factor rotation
+
+.leftcol[
+#### Orthogonal rotation
+
++ axes are maintained at 90 degrees
++ orthogonal rotation methods
+  + Varimax - *most commonly used*
+  + Quartimax
+  + Equimax
++ Check-out some of these references
+  + [IBM](https://www.ibm.com/docs/de/spss-statistics/24.0.0?topic=analysis-factor-rotation)
+  + [Factor analysis](http://statweb.stanford.edu/~susan/courses/stats305c/examplesFA.html)
+]
+
+.rightcol[
+&lt;img src="image/orthogonal.png" width="90%" /&gt;
+
+]
+---
+
+## Factor rotation
+
+#### Orthogonal rotation
+
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-20-1.png" width="100%" /&gt;
+
+
+---
+
+## Factor rotation
+
+.leftcol[
+#### Oblique rotation rotation
++ allow correlated factors
++ suited to the goal of theoretically meaningful constructs
++ oblique rotation methods
+  + Promax
+  + Oblimin
+]
+
+.rightcol[
+&lt;img src="image/oblique.png" width="85%" /&gt;
+]
+
+---
+
+## Factor rotation
+
+#### Oblique rotation
+
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-22-1.png" width="100%" /&gt;
+
+---
+class: middle center
+
+# Let's practice!
+
+---
+
+## Factor interpretation and respecification
+
+.leftcol40[
++ each variable has a high loadings on one factor only
+
++  each factor has a high loadings  for only a subset of the items.
+]
+
+.rightcol60[
+.code40[
+
+```r
+fa_varimax &lt;- fa(r = data, nfactors = 4, rotate = "varimax")
+print(fa_varimax$loadings, sort = TRUE)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x9   0.897  0.130         0.132
+x16  0.768  0.127              
+x18  0.949  0.185              
+x7          0.781        -0.115
+x10  0.166  0.529              
+x12  0.114  0.980        -0.133
+x8                 0.890  0.115
+x14  0.103         0.879  0.129
+x6                        0.647
+x11  0.525         0.127  0.712
+x13         0.213 -0.209 -0.590
+
+                 MR1   MR2   MR3   MR4
+SS loadings    2.635 1.973 1.641 1.371
+Proportion Var 0.240 0.179 0.149 0.125
+Cumulative Var 0.240 0.419 0.568 0.693
+```
+]
+]
+
+---
+
+## Factor interpretation and respecification
+
+.leftcol40[
++ each variable has a high loadings on one factor only
+
++  each factor has a high loadings  for only a subset of the items.
+]
+
+.rightcol60[
+.code40[
+
+```r
+fa_varimax &lt;- fa(r = data, nfactors = 4, rotate = "varimax")
+print(fa_varimax$loadings, sort = TRUE, cutoff = 0.4)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x9   0.897                     
+x16  0.768                     
+x18  0.949                     
+x7          0.781              
+x10         0.529              
+x12         0.980              
+x8                 0.890       
+x14                0.879       
+x6                        0.647
+x11  0.525                0.712
+x13                      -0.590
+
+                 MR1   MR2   MR3   MR4
+SS loadings    2.635 1.973 1.641 1.371
+Proportion Var 0.240 0.179 0.149 0.125
+Cumulative Var 0.240 0.419 0.568 0.693
+```
+]
+]
+
+---
+
+## Factor interpretation and respecification
+
+.leftcol40[
+
+What to do with cross-loadings?
+
+Ratio of variance (*JF Hair et al. 2019*)
+
++ 1 to 1.5 - problematic
++ 1.5 to 2.0 - potential cross-loading
++ 2.0 and higher - ignorable
+
+Example:
+
++ `\(X_{11}\)`
++ `MR1`: 0.525
++ `MR2`: 0.712
++ `\(0.712^2 \div 0.525^2 = 1.8\)`
+]
+
+.rightcol60[
+.code40[
+
+```r
+fa_varimax &lt;- fa(r = data, nfactors = 4, rotate = "varimax")
+print(fa_varimax$loadings, sort = TRUE, cutoff = 0.4)
+```
+
+```
+
+Loadings:
+    MR1    MR2    MR3    MR4   
+x9   0.897                     
+x16  0.768                     
+x18  0.949                     
+x7          0.781              
+x10         0.529              
+x12         0.980              
+x8                 0.890       
+x14                0.879       
+x6                        0.647
+x11  0.525                0.712
+x13                      -0.590
+
+                 MR1   MR2   MR3   MR4
+SS loadings    2.635 1.973 1.641 1.371
+Proportion Var 0.240 0.179 0.149 0.125
+Cumulative Var 0.240 0.419 0.568 0.693
+```
+]
+]
+
+---
+
+class: middle center
+
+# Let's practice!
+
+---
+
+class: middle center
+
+# Thank you!
+
+#### Slides created via the R packages:
+
+.leftcol[
+&lt;img src="image/xaringan.png" style="display:inline-block; margin: 0" width=20%/&gt; 
+
+### xaringan by Yihui
+]
+
+.rightcol[
+&lt;img src="image/xaringanthemer.png" style="display:inline-block; margin: 0" width=25%/&gt; 
+
+### xaringanthemer and xaringanExtra by Garrick
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+  (function() {
+    var divHTML = document.querySelectorAll(".details-open");
+    divHTML.forEach(function (el) {
+      var preNodes = el.getElementsByTagName("pre");
+      var outputNode = preNodes[1];
+      outputNode.outerHTML = "<details open class='output'><summary>Run</summary>" + outputNode.outerHTML + "</details>";
+    })
+  })();
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details class='output'><summary>Run</summary>" + outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
