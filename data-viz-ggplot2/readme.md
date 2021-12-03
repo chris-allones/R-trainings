@@ -1,6 +1,6 @@
-# [Training Workshop on Data Visualization with ggplot2 in R](https://chris-allones.github.io/data-analysis-viz/index.html)
+# [Training Workshop on Data Visualization with ggplot2 in R](https://chris-allones.github.io/R-trainings/data-viz-ggplot2/index.html)
 
-![https://chris-allones.github.io/data-analysis-viz/index.html](./images/preview.png)
+![https://chris-allones.github.io/R-trainings/data-viz-ggplot2/index.html](./images/preview.png)
 
 
 ## Session 1 : Introduction to data wrangling
