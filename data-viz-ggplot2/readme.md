@@ -1,4 +1,4 @@
-# [Training Workshop on Data Visualization with ggplot2 in R](https://chris-allones.github.io/R-trainings/data-viz-ggplot2/index.html)
+# <p align="center"> [Training Workshop on Data Visualization with ggplot2 in R](https://chris-allones.github.io/R-trainings/data-viz-ggplot2/index.html) </p>
 
 ![](./images/preview.png)
 
