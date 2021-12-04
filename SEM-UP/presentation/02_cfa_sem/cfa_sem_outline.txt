@@ -1,0 +1,64 @@
+
+CFA SEM overview
+- What is SEM
+   - measurement model
+   - structural model
+- Basic SEM conventions
+
+CFA SEM with Lavaan R package
+- What is Lavaan
+- Major operators of Lavaan syntax
+   - Defining a reflective latent variable
+   - Estimate factor covariance
+   - Insert a comment in the syntax
+   - Label a parameter
+   - Create a new parameter
+
+Main Steps in SEM
+- Dataset
+- Step 1: Defining individual constructs
+- Step 2: Developing overall measurement
+(Let's practice)
+- Step 3: Assessing measurement validity
+    - Basic principle
+    - Summary output
+      - Overall results
+	- Number of model parameters
+	- Degrees of freedom
+	- Interpret Chi-square
+      - Loadings
+      - Variances
+    - Fit indices
+      - Goodness of fit indices
+	- Comparative Fit index (CFI)
+	- Tucker Lewis Index (TLI)
+      - Badness of fit indices
+	- Root mean square error of approximation (RMSEA)
+	- Standardized root mean squarer residual (SRMR)
+(Let's practice)
+    - Reliability and validity tests
+        - sample from a journal
+	- composite reliability (alpha)
+	- Avarage variance extracted (AVE)
+	- Discriminant validity
+(Let's practice)
+- Step 4: Specifying the structural model
+    - Notes on proceeding from CFA to structural
+    - Highlight the differences in CFA to SEM (through a diagram)
+    - Defining structural theory
+	- Hypothesized relationship of the factors
+    - Illustrate how to do path diagram using semPaths()
+(Let's practice)
+
+- Step 5: Assessing structural model validity
+    - Fit indeces
+    - Compare fit indices in CFA model and structural model
+- What's next?
+   - Modification indices
+   - Heywood cases
+   - Comparing competing models
+   - Formative scales in SEM
+   - Higher-order factor analysis
+
+
+

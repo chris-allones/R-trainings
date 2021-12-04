@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Training Workshop on the basics of  SEM using R</title>
+    <meta charset="utf-8" />
+    <script src="introR_files/header-attrs/header-attrs.js"></script>
+    <script src="introR_files/clipboard/clipboard.min.js"></script>
+    <link href="introR_files/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="introR_files/shareon/shareon.min.js"></script>
+    <link href="introR_files/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="introR_files/xaringanExtra-shareagain/shareagain.js"></script>
+    <meta name="github-repo" content="chris-allones/SEM-R-training"/>
+    <meta name="twitter:title" content="SEM using R"/>
+    <meta name="twitter:description" content="Training on structural equation modeling using R."/>
+    <meta name="twitter:url" content="https://chris-allones.github.io/SEM-R-training/index.html"/>
+    <meta name="twitter:image" content="https://chris-allones.github.io/SEM-R-training/images/preview.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@Topenomics"/>
+    <meta name="twitter:site" content="@Topenomics"/>
+    <meta property="og:title" content="SEM using R"/>
+    <meta property="og:description" content="Training on structural equation modeling using R."/>
+    <meta property="og:url" content="https://chris-allones.github.io/SEM-R-training/index.html"/>
+    <meta property="og:image" content="https://chris-allones.github.io/SEM-R-training/images/preview.png"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="Christopher Llones"/>
+    <link href="introR_files/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="introR_files/tile-view/tile-view.js"></script>
+    <link href="introR_files/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="introR_files/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link href="introR_files/animate.css-xaringan/animate.fade.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/presentation.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Training Workshop on the basics of<br> SEM using R
+## Intro to R and basic data wrangling
+
+---
+
+
+layout: true
+
+<style>.shareagain-bar {
+--shareagain-foreground: rgb(255, 255, 255);
+--shareagain-background: rgba(0, 0, 0, 0.5);
+--shareagain-pinterest: none;
+--shareagain-pocket: none;
+--shareagain-reddit: none;
+}</style>
+
+
+
+<style>.shareagain-bar {
+--shareagain-foreground: rgb(255, 255, 255);
+--shareagain-background: rgba(0, 0, 0, 0.5);
+--shareagain-pinterest: none;
+--shareagain-pocket: none;
+--shareagain-reddit: none;
+}</style>
+
+
+---
+
+## Overview
+
++ R objects
+
++ R packages
+
++ Reading data into R
+
++ Basic data wrangling with tidyverse
+
+  + `select()`
+  + `filter()`
+  + `mutate()`
+  + `rename()`
+  + `arrange()`
+  + `group_by()` and `summarize()`
+  + `%&gt;%` pipe operator 
+  
+---
+
+### It's normal to struggle but it gets better and exciting!
+
+
+&lt;img src="img/r_first_then_new.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.fifty[Illustration adapted from [Allison Horst](https://twitter.com/allison_horst)]
+
+---
+
+## R Objects
+
+.leftcol60[
++ You can consider R objects as "*saving information*"
+
++ e.g., text, number, matrix, vector, dataframe.
+
++ In other words everything in R is an object.
+]
+
+.rightcol40[
+&lt;img src="img/r_objects.gif" width="60%" /&gt;
+]
+
+
+
+---
+
+## R Objects
+
++ Objects are assigned a value using **`&lt;-`**
+
+.leftcol[
+.details[
+
+```r
+a1 &lt;- 10
+print(a1)
+```
+
+```
+[1] 10
+```
+]
+
+.details[
+
+```r
+a2 &lt;- 20
+a2
+```
+
+```
+[1] 20
+```
+]
+
+.details[
+
+```r
+a3 &lt;- c(10, 20, 30)
+a3
+```
+
+```
+[1] 10 20 30
+```
+]
+]
+
+.rightcol[
+
+.details[
+
+```r
+a1 * a2
+```
+
+```
+[1] 200
+```
+]
+
+.details[
+
+```r
+st_name &lt;- "christopher"
+st_age &lt;- 23
+st_sex &lt;- "male"
+
+student &lt;- c(st_name, st_age, st_sex)
+student
+```
+
+```
+[1] "christopher" "23"          "male"       
+```
+]
+]
+
+---
+
+## R Objects
+
+.leftcol[
++ Object names can be anything here!
+
++ I personally use lower-case style.
+
++ Check-out the recommended good practices in R (e.g., naming objects, writing codes)by the [tidyverse style guide](https://style.tidyverse.org/syntax.html)
+]
+
+---
+
+## R packages
+
+.leftcol60[
++ Collection of functions that load into your working environment.
+
++ It contain code that other R users have prepared for the community.
+
++ Installing packages
+
+
+```r
+install.packages("tidyverse")
+```
+
++ Loading packages
+
+
+```r
+library(tidyverse)
+```
+
+]
+
+.rightcol40[
+
+&lt;img src="img/package.gif" width="70%" style="display: block; margin: auto 0 auto auto;" /&gt;
+]
+
+---
+
+## Importing data
+
++ SPSS, Stata, SAS files: [haven package](https://haven.tidyverse.org/)
+
++ Excel files: [readxl package](https://readxl.tidyverse.org/)
+
++ CSV files: [readr package](https://readr.tidyverse.org/)
+
+
+---
+
+## Reading data into R
+
+#### SPSS, Stata &amp; SAS using [haven package](https://haven.tidyverse.org/)
+
+.leftcol60[
+
+
+```r
+library(haven)
+```
+
+
+```r
+# SPSS
+read_sav("path/data.sav")
+```
+
+
+```r
+# Stata
+read_dta("path/data.dta")
+```
+
+
+```r
+# SAS
+read_sas("path/data.sas7bdat")
+```
+]
+
+.rightcol40[
+&lt;img src="img/haven.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Reading data into R
+
+#### Excel files using [readxl package](https://readxl.tidyverse.org/)
+
+.leftcol60[
+
+
+```r
+library(readxl)
+read_excel("path/dataset.xls")
+```
+
+
+```
+# A tibble: 150 x 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+ 1          5.1         3.5          1.4         0.2 setosa 
+ 2          4.9         3            1.4         0.2 setosa 
+ 3          4.7         3.2          1.3         0.2 setosa 
+ 4          4.6         3.1          1.5         0.2 setosa 
+ 5          5           3.6          1.4         0.2 setosa 
+ 6          5.4         3.9          1.7         0.4 setosa 
+ 7          4.6         3.4          1.4         0.3 setosa 
+ 8          5           3.4          1.5         0.2 setosa 
+ 9          4.4         2.9          1.4         0.2 setosa 
+10          4.9         3.1          1.5         0.1 setosa 
+# ... with 140 more rows
+```
+]
+
+.rightcol40[
+&lt;img src="img/readxl.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Reading data into R
+
+#### CSV files using [readr package](https://readr.tidyverse.org/)
+
+.leftcol60[
+
+```r
+install.packages("readr")
+library(readr)
+```
+
+
+```r
+# comma separated (CSV) files
+read_csv("path/data.csv")
+```
+
+
+```r
+# tab separated files
+read_tsv("path/data.tsv")
+```
+
+
+```r
+# general delimited files
+read_delim("path/data.delim")
+```
+]
+
+.rightcol40[
+&lt;img src="img/readr.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Reading data into R
+
+#### Tips on naming (file) names
+
+.leftcol[
++ machine readable
+  + avoid spaces, punctuation, accented, characters, case sensitivity
+
++ human readable
+  + easy to search for files later
+  + easy narrow files lists based on names
+  + easy to extract into from file names
+  
++ J. Bryan "[How to name files](https://speakerdeck.com/jennybc/how-to-name-files)"
+]
+
+.rightcol[
+&lt;img src="img/namine_files.jfif" width="80%" style="display: block; margin: auto 0 auto auto;" /&gt;
+.right[.fifty[Illustration adapted from [Jennifer Bryan](https://speakerdeck.com/jennybc/how-to-name-files)]]
+]
+
+---
+class: middle center
+
+&lt;img src="img/tidyverse.png" width="30%" /&gt;
+
+# Tidyverse
+
+---
+
+## What is a tidyverse?
+
+A collection of R packages designed for data science.
+
+All packages share an underlying philosophy, grammar, and data structure.
+
+&lt;center&gt;
+&lt;img src="https://rstudio-education.github.io/tidyverse-cookbook/images/data-science-workflow.png" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+---
+
+## Tidyverse :: tidy data
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_1.jpg" style="width: 70%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_2.jpg" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+**Tidy data makes it easier for reproducibility and reuse**
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_5.jpg" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## Tidyverse :: tidy data
+
+**Yehey! Tidy Data for the win!**
+
+&lt;center&gt;
+&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_6.jpg" style="width: 60%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+
+---
+
+class: middle center
+
+## Data wrangling using `dplyr`
+
+&lt;center&gt;
+&lt;img src="https://github.com/allisonhorst/stats-illustrations/blob/master/rstats-artwork/dplyr_wrangling.png?raw=true" style="width: 40%" /&gt;
+&lt;/center&gt;
+
+.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
+
+---
+
+## `dplyr`
+.leftcol[
+**Overview**
+
++ `select()` picks variables based on their names
+
++ `mutate()` adds new variables
+
++ `filter()` picks cases based on their values
+
++ `summarise()` reduces multiple values down to a single summary
+
++ `arrange()` change the ordering of the rows
+
+see `dplyr` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+]
+
+.rightcol[
+&lt;img src="img/dplyr.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## `select()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_bfa1a45e/images/select.png)
+
+.leftcol[
+
+
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+select(data, continent, country, pop)
+```
+
+```
+# A tibble: 1,704 x 3
+   continent country          pop
+   &lt;fct&gt;     &lt;fct&gt;          &lt;int&gt;
+ 1 Asia      Afghanistan  8425333
+ 2 Asia      Afghanistan  9240934
+ 3 Asia      Afghanistan 10267083
+ 4 Asia      Afghanistan 11537966
+ 5 Asia      Afghanistan 13079460
+ 6 Asia      Afghanistan 14880372
+ 7 Asia      Afghanistan 12881816
+ 8 Asia      Afghanistan 13867957
+ 9 Asia      Afghanistan 16317921
+10 Asia      Afghanistan 22227415
+# ... with 1,694 more rows
+```
+
+]
+
+---
+
+## `select()`
+
+We can also **remove** variables with a **`-`** (minus)
+
+.leftcol[
+
+
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+select(data, -year, -pop)
+```
+
+```
+# A tibble: 1,704 x 4
+   country     continent lifeExp gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia         28.8      779.
+ 2 Afghanistan Asia         30.3      821.
+ 3 Afghanistan Asia         32.0      853.
+ 4 Afghanistan Asia         34.0      836.
+ 5 Afghanistan Asia         36.1      740.
+ 6 Afghanistan Asia         38.4      786.
+ 7 Afghanistan Asia         39.9      978.
+ 8 Afghanistan Asia         40.8      852.
+ 9 Afghanistan Asia         41.7      649.
+10 Afghanistan Asia         41.8      635.
+# ... with 1,694 more rows
+```
+]
+
+---
+
+## `select()`
+
+**Selection helpers**
+
+These *selection helpers* match variables according to a given pattern.
+
++ `starts_with()` starts with a prefix
+
++ `ends_with()` ends with a suffix
+
++ `contains()` contains a literal string
+
++ `matches()` matches regular expression
+
+
+---
+
+## `filter()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_bfa1a45e/images/filter.png)
+
+.leftcol[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+filter(data, country == "Philippines")
+```
+
+```
+# A tibble: 12 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Philippines Asia       1952    47.8 22438691     1273.
+ 2 Philippines Asia       1957    51.3 26072194     1548.
+ 3 Philippines Asia       1962    54.8 30325264     1650.
+ 4 Philippines Asia       1967    56.4 35356600     1814.
+ 5 Philippines Asia       1972    58.1 40850141     1989.
+ 6 Philippines Asia       1977    60.1 46850962     2373.
+ 7 Philippines Asia       1982    62.1 53456774     2603.
+ 8 Philippines Asia       1987    64.2 60017788     2190.
+ 9 Philippines Asia       1992    66.5 67185766     2279.
+10 Philippines Asia       1997    68.6 75012988     2537.
+11 Philippines Asia       2002    70.3 82995088     2651.
+12 Philippines Asia       2007    71.7 91077287     3190.
+```
+]
+
+---
+
+## `mutate()`
+
+![](https://favstats.shinyapps.io/r_intro/_w_dfe6b732/images/mutate.png)
+
+The `mutate` function will take a statement similar to this:
+
++ `variable_name` = `do_some_calculation`
+
++ `variable_name` will be attached at the end of the dataset.
+
+
+---
+
+## `mutate()`
+
+Let's calculate the `gdp`
+
+.leftcol[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+mutate(data, GDP = gdpPercap * pop)
+```
+
+```
+# A tibble: 1,704 x 7
+   country     continent  year lifeExp      pop gdpPercap          GDP
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
+ 6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+ 7 Afghanistan Asia       1982    39.9 12881816      978. 12598563401.
+ 8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.
+ 9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.
+10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.
+# ... with 1,694 more rows
+```
+]
+
+---
+
+## `rename()`
+
+Changes the variable name while keeping all else intact.
+
++ `new_variable_name` = `old_variable_name`
+
+.leftcol[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+
+```r
+rename(data, population = pop)
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp population gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8    8425333      779.
+ 2 Afghanistan Asia       1957    30.3    9240934      821.
+ 3 Afghanistan Asia       1962    32.0   10267083      853.
+ 4 Afghanistan Asia       1967    34.0   11537966      836.
+ 5 Afghanistan Asia       1972    36.1   13079460      740.
+ 6 Afghanistan Asia       1977    38.4   14880372      786.
+ 7 Afghanistan Asia       1982    39.9   12881816      978.
+ 8 Afghanistan Asia       1987    40.8   13867957      852.
+ 9 Afghanistan Asia       1992    41.7   16317921      649.
+10 Afghanistan Asia       1997    41.8   22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+---
+
+## `arrange()`
+
+You can order data by variable to show the highest or lowest values first.
+
+.leftcol[
+consider `lifeExp` default is lowest first
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol[
+`desc()` sort `lifeExp` from highest to lowest
+
+```r
+arrange(data, desc(lifeExp))
+```
+
+```
+# A tibble: 1,704 x 6
+   country          continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Japan            Asia       2007    82.6 127467972    31656.
+ 2 Hong Kong, China Asia       2007    82.2   6980412    39725.
+ 3 Japan            Asia       2002    82   127065841    28605.
+ 4 Iceland          Europe     2007    81.8    301931    36181.
+ 5 Switzerland      Europe     2007    81.7   7554661    37506.
+ 6 Hong Kong, China Asia       2002    81.5   6762476    30209.
+ 7 Australia        Oceania    2007    81.2  20434176    34435.
+ 8 Spain            Europe     2007    80.9  40448191    28821.
+ 9 Sweden           Europe     2007    80.9   9031088    33860.
+10 Israel           Asia       2007    80.7   6426679    25523.
+# ... with 1,694 more rows
+```
+]
+
+
+---
+
+## `group_by` and `summarise()`
+
++ Use when you want to aggregate your data (by groups).
+
++ Sometimes we want to calculate group statistics.
+
+&lt;br&gt;
+
+.center[
+&lt;img src="https://learn.r-journalism.com/wrangling/dplyr/images/groupby.png" style="width: 60%" /&gt;
+]
+
+---
+
+## `group_by` and `summarise()`
+
+Suppose we want to know the average population by continent.
+.leftcol40[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol60[
+
+```r
+grouped_by_continent &lt;- group_by(data, continent)
+summarise(grouped_by_continent, avg_pop = mean(pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Africa     9916003.
+2 Americas  24504795.
+3 Asia      77038722.
+4 Europe    17169765.
+5 Oceania    8874672.
+```
+]
+
+---
+
+## `group_by` and `summarise()`
+
+Suppose we want to know the average population by continent.
+.leftcol40[
+
+```r
+data
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ... with 1,694 more rows
+```
+]
+
+.rightcol60[
+
+```r
+grouped_by_continent &lt;- group_by(data, continent)
+summarised_data &lt;- summarise(grouped_by_continent, avg_pop = mean(pop))
+arrange(summarised_data, desc(avg_pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Asia      77038722.
+2 Americas  24504795.
+3 Europe    17169765.
+4 Africa     9916003.
+5 Oceania    8874672.
+```
+]
+
+---
+
+.leftcol[
+### Too many codes!
+
+### It's hard to follow!
+
+### It's hard to keep track of the codes!
+]
+
+.rightcol[
+&lt;img src="img/teary.gif" width="100%" /&gt;
+]
+
+---
+
+class: middle center
+
+## `%&gt;%` pipe operator
+
+&lt;center&gt;
+&lt;img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 50%" /&gt;
+&lt;/center&gt;
+
+---
+
+## The %&gt;% operator
+
+The **`%&gt;%`** helps your write code in a way that is easier to read and understand.
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+```r
+grouped_by_continent &lt;- group_by(data, continent)
+summarised_data &lt;- summarise(grouped_by_continent, avg_pop = mean(pop))
+arrange(summarised_data, desc(avg_pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Asia      77038722.
+2 Americas  24504795.
+3 Europe    17169765.
+4 Africa     9916003.
+5 Oceania    8874672.
+```
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+```r
+data %&gt;% 
+  group_by(continent) %&gt;% 
+  summarise(avg_pop = mean(pop)) %&gt;% 
+  arrange(desc(avg_pop))
+```
+
+```
+# A tibble: 5 x 2
+  continent   avg_pop
+  &lt;fct&gt;         &lt;dbl&gt;
+1 Asia      77038722.
+2 Americas  24504795.
+3 Europe    17169765.
+4 Africa     9916003.
+5 Oceania    8874672.
+```
+]
+
+---
+
+## The %&gt;% operator
+
+Suppose we want to know the evarage life expectancy of Asian countries per year.
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+
+```r
+filtered_by_asia &lt;- filter(data, continent == "Asia")
+grouped_by_country_year &lt;- group_by(filtered_by_asia, country, year)
+summarise(grouped_by_country_year, avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 396 x 3
+# Groups:   country [33]
+   country      year avg_lifeExp
+   &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952        28.8
+ 2 Afghanistan  1957        30.3
+ 3 Afghanistan  1962        32.0
+ 4 Afghanistan  1967        34.0
+ 5 Afghanistan  1972        36.1
+ 6 Afghanistan  1977        38.4
+ 7 Afghanistan  1982        39.9
+ 8 Afghanistan  1987        40.8
+ 9 Afghanistan  1992        41.7
+10 Afghanistan  1997        41.8
+# ... with 386 more rows
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+
+```r
+data %&gt;% 
+  filter(continent == "Asia") %&gt;% 
+  group_by(country, year) %&gt;% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 396 x 3
+# Groups:   country [33]
+   country      year avg_lifeExp
+   &lt;fct&gt;       &lt;int&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952        28.8
+ 2 Afghanistan  1957        30.3
+ 3 Afghanistan  1962        32.0
+ 4 Afghanistan  1967        34.0
+ 5 Afghanistan  1972        36.1
+ 6 Afghanistan  1977        38.4
+ 7 Afghanistan  1982        39.9
+ 8 Afghanistan  1987        40.8
+ 9 Afghanistan  1992        41.7
+10 Afghanistan  1997        41.8
+# ... with 386 more rows
+```
+]
+]
+
+---
+
+## The %&gt;% operator
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+
+```r
+filtered_by_asia &lt;- filter(data, continent == "Asia")
+grouped_by_country &lt;- group_by(filtered_by_asia, country)
+summarised_by_country &lt;- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+arrange(summarised_by_country, desc(avg_lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 33 x 2
+   country          avg_lifeExp
+   &lt;fct&gt;                  &lt;dbl&gt;
+ 1 Japan                   74.8
+ 2 Israel                  73.6
+ 3 Hong Kong, China        73.5
+ 4 Singapore               71.2
+ 5 Taiwan                  70.3
+ 6 Kuwait                  68.9
+ 7 Sri Lanka               66.5
+ 8 Lebanon                 65.9
+ 9 Bahrain                 65.6
+10 Korea, Rep.             65.0
+# ... with 23 more rows
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+
+```r
+data %&gt;% 
+  filter(continent == "Asia") %&gt;% 
+  group_by(country) %&gt;% 
+  summarise(avg_lifeExp = mean(lifeExp)) %&gt;% 
+  arrange(desc(avg_lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 33 x 2
+   country          avg_lifeExp
+   &lt;fct&gt;                  &lt;dbl&gt;
+ 1 Japan                   74.8
+ 2 Israel                  73.6
+ 3 Hong Kong, China        73.5
+ 4 Singapore               71.2
+ 5 Taiwan                  70.3
+ 6 Kuwait                  68.9
+ 7 Sri Lanka               66.5
+ 8 Lebanon                 65.9
+ 9 Bahrain                 65.6
+10 Korea, Rep.             65.0
+# ... with 23 more rows
+```
+]
+]
+
+---
+
+class: center middle
+
+# Let's practice!
+
+
+---
+
+class: middle center
+
+# Thank you!
+
+#### Some slide content were heavily adapted from [Fabio Votta](https://github.com/favstats)
+#### Slides created via the R packages:
+
+.leftcol[
+&lt;img src="img/xaringan.png" style="display:inline-block; margin: 0" width=20%/&gt; 
+
+### xaringan by Yihui
+]
+
+.rightcol[
+&lt;img src="img/xaringanthemer.png" style="display:inline-block; margin: 0" width=25%/&gt; 
+
+### xaringanthemer and xaringanExtra by Garrick
+]
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<script>
+  (function() {
+    var divHTML = document.querySelectorAll(".details-open");
+    divHTML.forEach(function (el) {
+      var preNodes = el.getElementsByTagName("pre");
+      var outputNode = preNodes[1];
+      outputNode.outerHTML = "<details open class='output'><summary>Run</summary>" + outputNode.outerHTML + "</details>";
+    })
+  })();
+(function() {
+  var divHTML = document.querySelectorAll(".details");
+  divHTML.forEach(function (el) {
+    var preNodes = el.getElementsByTagName("pre");
+    var outputNode = preNodes[1];
+    outputNode.outerHTML = "<details class='output'><summary>Run</summary>" + outputNode.outerHTML + "</details>";
+  })
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
