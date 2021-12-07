@@ -59,7 +59,7 @@ body {
 
 /*Banner for the training*/
 .banner {
-  background-color: #264653;
+  background-color: #3d5a80;
   padding: 60px 45px;
   display: flex;
   justify-content: center;
@@ -71,12 +71,15 @@ body {
 }
 
 .banner h1 {
+  font-family: 'Dancing Script', cursive;
+  font-style: italic;
   font-weight: bolder;
-  font-size: 8rem;
+  font-size: 13rem;
   margin-bottom: 20px;
 }
 
 .banner h2 {
+  font-family: Arial, sans-serif;
   font-weight: normal;
   font-size: 5rem;
   margin-bottom: 10px;
@@ -106,7 +109,7 @@ body {
 
 /* Training navigation buttons*/
 .feature {
-  background-color: #d8e2dc;
+  background-color: #ffffff;
   padding: 60px 45px;
 }
 
@@ -131,7 +134,7 @@ body {
 }
 
 .training-nav a {
-  background-color: #264653;
+  background-color: #293241;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -146,7 +149,7 @@ body {
 }
 
 .training-nav li .outline {
-  background-color: #219ebc;
+  background-color: #98c1d9;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -156,7 +159,7 @@ body {
 }
 
 .training-nav li .materials {
-  background-color: #219ebc;
+  background-color: #98c1d9;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -166,7 +169,7 @@ body {
 }
 
 .training-nav li .presentation {
-  background-color: #219ebc;
+  background-color: #98c1d9;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -176,7 +179,7 @@ body {
 }
 
 .training-nav li .recorded_session {
-  background-color: #219ebc;
+  background-color: #98c1d9;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -198,7 +201,7 @@ body {
 }
 
 .outline-div h1 {
-  color: #073b4c;
+  color: #293241;
   font-size: 3rem;
 }
 
