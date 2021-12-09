@@ -15,6 +15,10 @@ body {
   position: relative;
 }
 
+ul {
+  margin: 1rem;
+}
+
 .wrapping-body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
@@ -59,22 +63,27 @@ body {
 
 /*Banner for the training*/
 .banner {
-  background-image: url(../images/banner.jpg);
-  background-size:cover;
-  background-position: center;
-  background-color: #3d5a80;
-  padding: 60px 45px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), transparent), url("https://chris-allones.github.io/R-trainings/data-viz-ggplot2/images/data_analysis_2.png");
+  background-size: cover;
+  background-position: top;
+  padding: 50px 45px;
   display: flex;
   justify-content: center;
 }
 
 .banner-inner {
   max-width: 760px;
-  color: #fff;
+  color: #003049;
+  text-shadow: revert;
+}
+
+.banner h1 {
+  font-weight: bolder;
+  font-size: 8rem;
+  margin-bottom: 20px;
 }
 
 .banner h2 {
-  font-family: Arial, sans-serif;
   font-weight: normal;
   font-size: 5rem;
   margin-bottom: 10px;
@@ -98,13 +107,13 @@ body {
 }
 
 .button:hover {
-  background-color: #06d6a0;
+  background-color: #a9d6e5;
   transform: rotate(3deg);
 }
 
 /* Training navigation buttons*/
 .feature {
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 60px 45px;
 }
 
@@ -129,7 +138,7 @@ body {
 }
 
 .training-nav a {
-  background-color: #293241;
+  background-color: #14213d;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -144,7 +153,7 @@ body {
 }
 
 .training-nav li .outline {
-  background-color: #98c1d9;
+  background-color: #2a6f97;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -154,7 +163,7 @@ body {
 }
 
 .training-nav li .materials {
-  background-color: #98c1d9;
+  background-color: #2a6f97;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -164,7 +173,7 @@ body {
 }
 
 .training-nav li .presentation {
-  background-color: #98c1d9;
+  background-color: #2a6f97;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -174,7 +183,7 @@ body {
 }
 
 .training-nav li .recorded_session {
-  background-color: #98c1d9;
+  background-color: #2a6f97;
   color: #fff;
   text-decoration: none;
   padding: 12px 20px;
@@ -196,20 +205,26 @@ body {
 }
 
 .outline-div h1 {
-  color: #293241;
+  color: #003049;
   font-size: 3rem;
 }
 
 .outline-div h2{
+  color: #003049;
   margin-top: 5px;
   margin-bottom: 20px;
   font-size: 2.5rem;
 }
 
 .outline-div li {
+  list-style-type: disc;
   font-size: 1.8rem;
   margin-left: 20px;
-  padding: 2px 0px;
+  padding: 2px 3px;
+}
+
+.outline-div .std-plot li {
+  list-style-type:square;
 }
 
 .case-study {
