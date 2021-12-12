@@ -39,6 +39,23 @@
   height: 50vh !important;
 }
 
+.code-output-scroll40 {
+  overflow-y: scroll !important;
+  height: 40vh !important;
+}
+
+.code-output-scroll35 {
+  overflow-y: scroll !important;
+  height: 35vh !important;
+}
+
+
+.code-output-scroll30 {
+  overflow-y: scroll !important;
+  height: 30vh !important;
+}
+
+
 
 /* https://stackoverflow.com/questions/50919104/horizontally-scrollable-output-on-xaringan-slides */
 

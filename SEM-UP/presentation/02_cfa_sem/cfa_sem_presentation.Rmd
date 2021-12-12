@@ -1,5 +1,5 @@
 ---
-title: "Training Workshop on the basics of<br> SEM using R"
+title: "Training Workshop on Structural Equation Modelling (SEM) using R"
 subtitle: "Session 2: CFA and SEM"
 output:
   xaringan::moon_reader:
@@ -131,16 +131,21 @@ class: middle center
 
 ## What is SEM?
 
-+ Not a one statistical "technique"
+.leftcol[
 
-+ Integrates a number of different multivariate technique
-  + Factor analysis
-  + Regression
-  + Simultaneous equation
++ A multivariate technique combining aspects of:
+  + factor analysis
+  + multiple regression.
   
++ Enables the researcher to simultaneously examine interrelated relationships.
+  + among measured variables and latent constructs
+  + between several latent constructs
+
 + Distinction between:
   + measurement model
   + structural model
+  
+]
 
 ---
 
@@ -150,12 +155,12 @@ class: middle center
 
 #### Measurement model
 
-+ measurement part of a a full SEM model
++ measurement part of a full SEM model
 + confirmatory factor analysis
 ]
 
 .rightcol60[
-```{r echo=FALSE, out.width="70%", fig.align='center'}
+```{r echo=FALSE, out.width="72%", fig.align='center'}
 knitr::include_graphics("img/measurement_part_2.jpg")
 ```
 ]
@@ -168,13 +173,13 @@ knitr::include_graphics("img/measurement_part_2.jpg")
 
 #### Measurement model
 
-+ measurement part of a a full SEM model
++ measurement part of a full SEM model
 + confirmatory factor analysis
 
 #### Structural model
 
 + relationship between constucts
-+ full sem model is combination of measurement and structural component
++ full SEM model is a combination of measurement and structural component
 
 ]
 
@@ -210,7 +215,7 @@ class: middle center
 .leftcol30[
 + *"developed to provide useRs, researchers, and teachers a free open-source, but commercial quality"*, Yves Rosseel (2012)
 
-+ Check-out their [lavaan tutorial](https://lavaan.ugent.be/tutorial/index.html)
++ Check-out the [lavaan tutorial](https://lavaan.ugent.be/tutorial/index.html)
 ]
 
 .rightcol70[
@@ -246,10 +251,13 @@ knitr::include_graphics("img/lavaan_syntax.jpg")
 
 .leftcol40[
 #### Defining a reflective latent variable
-```{r eval=FALSE}
+
+```
 model <- "F1 =~ x1 + x2 + x3 + x4"
+
 ```
 <br>
+
 ```{r echo=FALSE, out.width="40%", fig.align='center'}
 knitr::include_graphics("img/sample_syntax1.png")
 ```
@@ -257,12 +265,14 @@ knitr::include_graphics("img/sample_syntax1.png")
 
 .rightcol[
 #### Estimate factor covariance
-```{r eval=FALSE}
+
+```
 model <- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x6 + x8
           F1 ~~ F2"
 ```
 <br>
+
 ```{r echo=FALSE, out.width="60%", fig.align='center'}
 knitr::include_graphics("img/sample_syntax2.png")
 ```
@@ -273,8 +283,10 @@ knitr::include_graphics("img/sample_syntax2.png")
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Estimate regression
-```{r}
+
+```
 model <- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -287,6 +299,7 @@ model <- "F1 =~ x1 + x2 + x3 + x4
 ```{r echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("img/sample_syntax3.png")
 ```
+
 ]
 
 ---
@@ -294,8 +307,10 @@ knitr::include_graphics("img/sample_syntax3.png")
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Insert a comment in the syntax
-```{r}
+
+```
 model <- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -306,6 +321,7 @@ model <- "F1 =~ x1 + x2 + x3 + x4
           # F3 is regressed on F1 and F2
           F3 ~ F1 + F2"
 ```
+
 ]
 
 .rightcol[
@@ -319,8 +335,10 @@ knitr::include_graphics("img/sample_syntax3.png")
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Label a parameter
-```{r}
+
+```
 model <- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -337,6 +355,7 @@ model <- "F1 =~ x1 + x2 + x3 + x4
 ```{r echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("img/sample_syntax4.png")
 ```
+
 ]
 
 ---
@@ -344,8 +363,10 @@ knitr::include_graphics("img/sample_syntax4.png")
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Create a new parameter
-```{r}
+
+```
 model <- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -395,6 +416,7 @@ class: middle center
 class: center middle
 
 # 1. Defining Constructs
+
 ----
 
 ---
@@ -417,17 +439,19 @@ rmarkdown::paged_table(hbat_data)
 
 ## Defining individual constructs
 
+
+
 + Based on literature and preliminary interviews, a study was designed focusing on five key constructs.
 
-  + *Job satisfaction (JS)* : reactions resulting from an appraisal of one's job situation.
+  + **Job satisfaction(JS)** : reactions resulting from an appraisal of one's job situation.
   
-  + *Organizational commitment (OC)*: extent to which an employees indentifies and feels part of HBAT.
+  + **Organizational commitment(OC)**: extent to which an employees identifies and feels part of HBAT.
   
-  + *Staying intention (SI)*: extent to which an employee intends to continue working for HBAT.
+  + **Staying intention(SI)**: extent to which an employee intends to continue working for HBAT.
   
-  + *Environmental perceptions (EP)*: beliefs an employee has about day-to-day, physical working conditions.
+  + **Environmental perceptions(EP)**: beliefs an employee has about day-to-day, physical working conditions.
   
-  + *Attitudes towards cowrokers (AC)*: attitudes an employee has toward the coworkers he/she interacts with on a regular basis.
+  + **Attitudes towards coworkers(AC)**: attitudes an employee has toward the coworkers he/she interacts with on a regular basis.
 
 ---
 
@@ -490,141 +514,211 @@ class: center middle
 
 ---
 
-## Basic principles
+## Model fit statistics
+
+**Running a CFA model in lavaan**
 
 .leftcol40[
-+ Compare covariance matrix of the research data $\text{S}$ and reproduced covariance $\Sigma$
 
-+ Hypothesis:
-  + Null: $\text{S} = \Sigma$
-  + Atternative: $\text{S} \ne \Sigma$
+```{r echo=FALSE}
+hbat_data_lower <- hbat_data %>% clean_names()
+```
 
-+ Idea is to arrived with a parameter that minimizes the difference of $\text{S}$ and  $\Sigma$
+```{r}
+hbat_cfa_model <- "si =~ si1 + si2 + si3 + si4
+              js =~ js1 + js2 + js3 + js4 + js5
+              ac =~ ac1 + ac2 + ac3 + ac4
+              ep =~ ep1 + ep2 + ep3 + ep4
+              oc =~ oc1 + oc2 + oc3 + oc4"
 
+hbat_cfa_fit <- cfa(model = hbat_cfa_model, data = hbat_data_lower)
+
+```
 ]
 
 .rightcol60[
-```{r echo=FALSE}
-cfa_model <- "SI =~ SI1 + SI2 + SI3 + SI4
-              JS =~ JS1 + JS2 + JS3 + JS4 + JS5
-              AC =~ AC1 + AC2 + AC3 + AC4
-              EP =~ EP1 + EP2 + EP3 + EP4
-              OC =~ OC1 + OC2 + OC3 + OC4"
-```
-
 ```{r eval=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
-cfa_fit %>% summary()
+summary(hbat_cfa_fit, fit.measures = TRUE)
 ```
 
-.code-output-scroll[
+.code-output-scroll40[
 ```{r echo=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
-cfa_fit %>% summary()
+summary(hbat_cfa_fit, fit.measures = TRUE)
 ```
 ]
 ]
 
 ---
 
-## Basic principles
+## Model fit statistics
 
-.leftcol40[
-+ Compare covariance matrix of the research data $\text{S}$ and reproduced covariance $\Sigma$
+.leftcol[
+The hypothesis:
 
-+ Hypothesis:
-  + Null: $\text{S} = \Sigma$
-  + Atternative: $\text{S} \ne \Sigma$
+$H_0:\Sigma(\theta) = \Sigma$
 
-+ Idea is to arrived with a parameter that minimizes the difference of $\text{S}$ and  $\Sigma$
+$H_1: \Sigma(\theta) \ne \Sigma$
+
+But we do not have the population covariance, so we will use the sample extimates to evaluate model fit.
+
+$H_0: \Sigma(\hat{\theta}) = S$
+
+$H_1: \Sigma(\hat{\theta}) = S$
 
 ]
 
-.rightcol60[
-```{r echo=FALSE, out.width="60%", fig.align='center'}
-knitr::include_graphics("img/confuse.gif")
+.rightcol[
+
+Let:
+
+$\Sigma$ = population covariance matrix
+
+$S$ = sample covariance matrix
+
+$\Sigma(\theta)$ = model-implied covariance
+
+$\Sigma(\hat{\theta})$ = sample model-implied covariance
+]
+
+
+---
+
+## Model Fit Stastistics
+
+$H_0: \Sigma(\hat{\theta}) = S$
+
+$H_1: \Sigma(\hat{\theta}) = S$
+
+
+
+.leftcol[
+
+**Sample covariance $S$ **
+
+```{r}
+data_subset <- hbat_data %>% 
+ select(starts_with("SI"))
+cov(data_subset) %>% round(3)
+```
+
+]
+
+
+.rightcol[
+
+**Model implied covariance $\Sigma(\hat{\theta})$ **
+
+```{r}
+model <- "SI =~ SI1 + SI2 + SI3 + SI4"
+model_cfa <- cfa(model, data = data_subset)
+inspect(model_cfa, "cov.ov")
 ```
 ]
 
 ---
 
-## Basic principles
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
+.leftcol[
++ Known values are the number of unique variance-covariance value
+
++ Formula: $[p(p + 1)] / 2$
+where $p$ is the number of observed items
+
++ Example: $[4(4 + 1)]/2 = 10$
+
+]
+
+.rightcol[
+```{r}
+cov(data_subset) %>% round(3)
+```
+]
+
+---
+
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
+.leftcol[
++ The known values are the primary restrictions of how many parameters( $k$ ) we can estimate.
+
++ e.g., 4 loading and 4 error variance
+]
+
+.rightcol[
+```{r echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("img/staying_intention.png")
+```
+]
+
+---
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
+
+.leftcol[
+
+degrees of freedom ( $df$ )
+
+$df$ = known values - estimated parameters
+$df = [p(p+1)] / 2 - k$
+
+e.g., $df = 10 - 8 = 2$
+
+]
+
+.rightcol[
+
++ 10 unique variance-covariance values
+
+```{r echo=FALSE}
+cov(data_subset) %>% round(3)
+```
+
++ 8 parameters to be estimated
+
+```{r echo=FALSE, out.width="25%", fig.align='center'}
+knitr::include_graphics("img/staying_intention.png")
+```
+]
+
+
+---
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
 
 .leftcol40[
 
-+ To understand the SEM process, consider the Table on the right.
+degrees of freedom ( $df$ )
 
-+ e.g., iterative procedure using least square method.
+e.g., $df = 10 - 8 = 2$
 
 <br>
 
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("img/ols_sem_sample.png")
-```
-
+*In a factor with 3 observed indicator, what is the degrees of freedom?
+*
 ]
 
 .rightcol60[
-```{r echo=FALSE, out.width="80%", fig.align='right'}
-knitr::include_graphics("img/ols_calc.png")
-```
-]
 
----
-
-## Summary output
-
-.leftcol20[
-
-+ Overall results
-
-+ Loadings
-
-+ Variances
-
-]
-
-.rightcol80[
 ```{r eval=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
-summary(cfa_fit)
+model <- "SI =~ SI1 + SI2 + SI3 + SI4"
+model_cfa <- cfa(model, data = data_subset)
+summary(model_cfa)
 ```
-.code-output-scroll[
+
+.code-output-scroll40[
 ```{r echo=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
-summary(cfa_fit)
-```
-]
-]
-
----
-
-## Summary output
-
-.leftcol40[
-#### Overall results
-
-+ Degrees of freedom (df)
-
-  + $df = \frac{1}{2} p (p + 1) - k$
-  + $p$ = total observed variables
-  + $k$ = total estimated parameters
-
-+ Identification
-
-  + Include at least three manifest variables
-  + Create models with $df > 0$
-]
-
-.rightcol60[
-```{r eval=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
-summary(cfa_fit)
-```
-.code-output-scroll[
-```{r echo=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
-summary(cfa_fit)
+model <- "SI =~ SI1 + SI2 + SI3 + SI4"
+model_cfa <- cfa(model, data = data_subset)
+summary(model_cfa)
 ```
 ]
 ]
@@ -634,17 +728,27 @@ summary(cfa_fit)
 ## Summary output
 
 .leftcol20[
-#### Loadings
 
-+ Measures the strength of the relationship between items and factor.
+**Loadings**
+
+#### 1. Marker method
++ fixes the first loading of each factor to 1.
+
+
+#### 2. factor variance standardization 
+
++ fixed variance of each factor to 1 but freely estimates all loadings.
+
 ]
 
 .rightcol80[
+
 ```{r eval=FALSE}
 cfa_fit <- cfa(cfa_model, data = hbat_data)
 summary(cfa_fit, standardized = TRUE)
 ```
-.code-output-scroll[
+
+.code-output-scroll40[
 ```{r echo=FALSE}
 cfa_fit <- cfa(cfa_model, data = hbat_data)
 summary(cfa_fit, standardized = TRUE)
@@ -657,17 +761,49 @@ summary(cfa_fit, standardized = TRUE)
 ## Summary output
 
 .leftcol20[
-#### Variances
 
-Refer to unique variance that the factor unable to account for. Similar to error term in OLS, hence it is also term as error variance.
+**Covariances**
+
 ]
 
 .rightcol80[
+
 ```{r eval=FALSE}
 cfa_fit <- cfa(cfa_model, data = hbat_data)
 summary(cfa_fit, standardized = TRUE)
 ```
-.code-output-scroll[
+
+.code-output-scroll40[
+```{r echo=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+]
+]
+
+
+
+---
+
+## Summary output
+
+.leftcol20[
+
+**Error variances**
+
+Refer to unique variance that the factor unable to account for. 
+
+Similar to the error term in OLS, hence error variance.
+]
+
+.rightcol80[
+
+```{r eval=FALSE}
+cfa_fit <- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+
+.code-output-scroll40[
 ```{r echo=FALSE}
 cfa_fit <- cfa(cfa_model, data = hbat_data)
 summary(cfa_fit, standardized = TRUE)

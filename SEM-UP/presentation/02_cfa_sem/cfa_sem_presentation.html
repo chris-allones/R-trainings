@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Training Workshop on the basics of  SEM using R</title>
+    <title>Training Workshop on Structural Equation Modelling (SEM) using R</title>
     <meta charset="utf-8" />
     <script src="cfa_sem_presentation_files/header-attrs/header-attrs.js"></script>
     <script src="cfa_sem_presentation_files/clipboard/clipboard.min.js"></script>
@@ -38,7 +38,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Training Workshop on the basics of<br> SEM using R
+# Training Workshop on Structural Equation Modelling (SEM) using R
 ## Session 2: CFA and SEM
 
 ---
@@ -95,16 +95,21 @@ class: middle center
 
 ## What is SEM?
 
-+ Not a one statistical "technique"
+.leftcol[
 
-+ Integrates a number of different multivariate technique
-  + Factor analysis
-  + Regression
-  + Simultaneous equation
++ A multivariate technique combining aspects of:
+  + factor analysis
+  + multiple regression.
   
++ Enables the researcher to simultaneously examine interrelated relationships.
+  + among measured variables and latent constructs
+  + between several latent constructs
+
 + Distinction between:
   + measurement model
   + structural model
+  
+]
 
 ---
 
@@ -114,12 +119,12 @@ class: middle center
 
 #### Measurement model
 
-+ measurement part of a a full SEM model
++ measurement part of a full SEM model
 + confirmatory factor analysis
 ]
 
 .rightcol60[
-&lt;img src="img/measurement_part_2.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/measurement_part_2.jpg" width="72%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -130,13 +135,13 @@ class: middle center
 
 #### Measurement model
 
-+ measurement part of a a full SEM model
++ measurement part of a full SEM model
 + confirmatory factor analysis
 
 #### Structural model
 
 + relationship between constucts
-+ full sem model is combination of measurement and structural component
++ full SEM model is a combination of measurement and structural component
 
 ]
 
@@ -168,7 +173,7 @@ class: middle center
 .leftcol30[
 + *"developed to provide useRs, researchers, and teachers a free open-source, but commercial quality"*, Yves Rosseel (2012)
 
-+ Check-out their [lavaan tutorial](https://lavaan.ugent.be/tutorial/index.html)
++ Check-out the [lavaan tutorial](https://lavaan.ugent.be/tutorial/index.html)
 ]
 
 .rightcol70[
@@ -300,22 +305,25 @@ Variances:
 .leftcol40[
 #### Defining a reflective latent variable
 
-```r
+```
 model &lt;- "F1 =~ x1 + x2 + x3 + x4"
+
 ```
 &lt;br&gt;
+
 &lt;img src="img/sample_syntax1.png" width="40%" style="display: block; margin: auto;" /&gt;
 ]
 
 .rightcol[
 #### Estimate factor covariance
 
-```r
+```
 model &lt;- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x6 + x8
           F1 ~~ F2"
 ```
 &lt;br&gt;
+
 &lt;img src="img/sample_syntax2.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 
@@ -324,9 +332,10 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Estimate regression
 
-```r
+```
 model &lt;- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -337,6 +346,7 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 
 .rightcol[
 &lt;img src="img/sample_syntax3.png" width="70%" style="display: block; margin: auto;" /&gt;
+
 ]
 
 ---
@@ -344,9 +354,10 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Insert a comment in the syntax
 
-```r
+```
 model &lt;- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -357,6 +368,7 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
           # F3 is regressed on F1 and F2
           F3 ~ F1 + F2"
 ```
+
 ]
 
 .rightcol[
@@ -368,9 +380,10 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Label a parameter
 
-```r
+```
 model &lt;- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -385,6 +398,7 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 
 .rightcol[
 &lt;img src="img/sample_syntax4.png" width="70%" style="display: block; margin: auto;" /&gt;
+
 ]
 
 ---
@@ -392,9 +406,10 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 ## Major operators of lavaan syntax
 
 .leftcol[
+
 #### Create a new parameter
 
-```r
+```
 model &lt;- "F1 =~ x1 + x2 + x3 + x4
           F2 =~ x5 + X6 + x7 + x8
           F3 =~ x9 + X10 + x11 + x12
@@ -408,6 +423,7 @@ model &lt;- "F1 =~ x1 + x2 + x3 + x4
 
           # F1 total effect
           te := b3*b2 + b1"
+
 ```
 ]
 
@@ -441,6 +457,7 @@ class: middle center
 class: center middle
 
 # 1. Defining Constructs
+
 ----
 
 ---
@@ -465,17 +482,19 @@ class: center middle
 
 ## Defining individual constructs
 
+
+
 + Based on literature and preliminary interviews, a study was designed focusing on five key constructs.
 
-  + *Job satisfaction (JS)* : reactions resulting from an appraisal of one's job situation.
+  + **Job satisfaction(JS)** : reactions resulting from an appraisal of one's job situation.
   
-  + *Organizational commitment (OC)*: extent to which an employees indentifies and feels part of HBAT.
+  + **Organizational commitment(OC)**: extent to which an employees identifies and feels part of HBAT.
   
-  + *Staying intention (SI)*: extent to which an employee intends to continue working for HBAT.
+  + **Staying intention(SI)**: extent to which an employee intends to continue working for HBAT.
   
-  + *Environmental perceptions (EP)*: beliefs an employee has about day-to-day, physical working conditions.
+  + **Environmental perceptions(EP)**: beliefs an employee has about day-to-day, physical working conditions.
   
-  + *Attitudes towards cowrokers (AC)*: attitudes an employee has toward the coworkers he/she interacts with on a regular basis.
+  + **Attitudes towards coworkers(AC)**: attitudes an employee has toward the coworkers he/she interacts with on a regular basis.
 
 ---
 
@@ -532,29 +551,33 @@ class: center middle
 
 ---
 
-## Basic principles
+## Model fit statistics
+
+**Running a CFA model in lavaan**
 
 .leftcol40[
-+ Compare covariance matrix of the research data `\(\text{S}\)` and reproduced covariance `\(\Sigma\)`
 
-+ Hypothesis:
-  + Null: `\(\text{S} = \Sigma\)`
-  + Atternative: `\(\text{S} \ne \Sigma\)`
-
-+ Idea is to arrived with a parameter that minimizes the difference of `\(\text{S}\)` and  `\(\Sigma\)`
-
-]
-
-.rightcol60[
 
 
 
 ```r
-cfa_fit &lt;- cfa(cfa_model, data = hbat_data)
-cfa_fit %&gt;% summary()
+hbat_cfa_model &lt;- "si =~ si1 + si2 + si3 + si4
+              js =~ js1 + js2 + js3 + js4 + js5
+              ac =~ ac1 + ac2 + ac3 + ac4
+              ep =~ ep1 + ep2 + ep3 + ep4
+              oc =~ oc1 + oc2 + oc3 + oc4"
+
+hbat_cfa_fit &lt;- cfa(model = hbat_cfa_model, data = hbat_data_lower)
+```
+]
+
+.rightcol60[
+
+```r
+summary(hbat_cfa_fit, fit.measures = TRUE)
 ```
 
-.code-output-scroll[
+.code-output-scroll40[
 
 ```
 lavaan 0.6-9 ended normally after 54 iterations
@@ -571,6 +594,37 @@ Model Test User Model:
   Degrees of freedom                               179
   P-value (Chi-square)                           0.001
 
+Model Test Baseline Model:
+
+  Test statistic                              4452.567
+  Degrees of freedom                               210
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.985
+  Tucker-Lewis Index (TLI)                       0.983
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13916.782
+  Loglikelihood unrestricted model (H1)     -13796.413
+                                                      
+  Akaike (AIC)                               27937.564
+  Bayesian (BIC)                             28145.120
+  Sample-size adjusted Bayesian (BIC)        27980.120
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.029
+  90 Percent confidence interval - lower         0.019
+  90 Percent confidence interval - upper         0.039
+  P-value RMSEA &lt;= 0.05                          1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.036
+
 Parameter Estimates:
 
   Standard errors                             Standard
@@ -579,157 +633,293 @@ Parameter Estimates:
 
 Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
-  SI =~                                               
-    SI1               1.000                           
-    SI2               1.073    0.055   19.563    0.000
-    SI3               1.065    0.066   16.053    0.000
-    SI4               1.167    0.061   19.230    0.000
-  JS =~                                               
-    JS1               1.000                           
-    JS2               1.033    0.075   13.683    0.000
-    JS3               0.902    0.072   12.516    0.000
-    JS4               0.910    0.070   12.958    0.000
-    JS5              15.190    1.132   13.414    0.000
-  AC =~                                               
-    AC1               1.000                           
-    AC2               1.236    0.067   18.392    0.000
-    AC3               1.037    0.055   18.870    0.000
-    AC4               1.146    0.063   18.255    0.000
-  EP =~                                               
-    EP1               1.000                           
-    EP2               1.033    0.073   14.083    0.000
-    EP3               0.821    0.060   13.734    0.000
-    EP4               0.914    0.064   14.335    0.000
-  OC =~                                               
-    OC1               1.000                           
-    OC2               1.314    0.108   12.209    0.000
-    OC3               0.783    0.076   10.322    0.000
-    OC4               1.165    0.097   11.968    0.000
+  si =~                                               
+    si1               1.000                           
+    si2               1.073    0.055   19.563    0.000
+    si3               1.065    0.066   16.053    0.000
+    si4               1.167    0.061   19.230    0.000
+  js =~                                               
+    js1               1.000                           
+    js2               1.033    0.075   13.683    0.000
+    js3               0.902    0.072   12.516    0.000
+    js4               0.910    0.070   12.958    0.000
+    js5              15.190    1.132   13.414    0.000
+  ac =~                                               
+    ac1               1.000                           
+    ac2               1.236    0.067   18.392    0.000
+    ac3               1.037    0.055   18.870    0.000
+    ac4               1.146    0.063   18.255    0.000
+  ep =~                                               
+    ep1               1.000                           
+    ep2               1.033    0.073   14.083    0.000
+    ep3               0.821    0.060   13.734    0.000
+    ep4               0.914    0.064   14.335    0.000
+  oc =~                                               
+    oc1               1.000                           
+    oc2               1.314    0.108   12.209    0.000
+    oc3               0.783    0.076   10.322    0.000
+    oc4               1.165    0.097   11.968    0.000
 
 Covariances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
-  SI ~~                                               
-    JS                0.161    0.042    3.834    0.000
-    AC                0.249    0.048    5.161    0.000
-    EP                0.502    0.065    7.733    0.000
-    OC                0.574    0.080    7.191    0.000
-  JS ~~                                               
-    AC                0.057    0.065    0.868    0.386
-    EP                0.303    0.078    3.892    0.000
-    OC                0.304    0.090    3.390    0.001
-  AC ~~                                               
-    EP                0.372    0.088    4.251    0.000
-    OC                0.517    0.107    4.842    0.000
-  EP ~~                                               
-    OC                0.925    0.143    6.469    0.000
+  si ~~                                               
+    js                0.161    0.042    3.834    0.000
+    ac                0.249    0.048    5.161    0.000
+    ep                0.502    0.065    7.733    0.000
+    oc                0.574    0.080    7.191    0.000
+  js ~~                                               
+    ac                0.057    0.065    0.868    0.386
+    ep                0.303    0.078    3.892    0.000
+    oc                0.304    0.090    3.390    0.001
+  ac ~~                                               
+    ep                0.372    0.088    4.251    0.000
+    oc                0.517    0.107    4.842    0.000
+  ep ~~                                               
+    oc                0.925    0.143    6.469    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
-   .SI1               0.258    0.023   11.121    0.000
-   .SI2               0.195    0.021    9.479    0.000
-   .SI3               0.464    0.038   12.264    0.000
-   .SI4               0.256    0.026    9.952    0.000
-   .JS1               0.807    0.074   10.960    0.000
-   .JS2               0.825    0.076   10.822    0.000
-   .JS3               0.930    0.078   11.910    0.000
-   .JS4               0.824    0.071   11.570    0.000
-   .JS5             196.867   17.681   11.135    0.000
-   .AC1               0.628    0.059   10.566    0.000
-   .AC2               0.973    0.092   10.617    0.000
-   .AC3               0.601    0.059   10.114    0.000
-   .AC4               0.867    0.081   10.742    0.000
-   .EP1               1.744    0.143   12.222    0.000
-   .EP2               0.937    0.091   10.245    0.000
-   .EP3               0.699    0.064   10.860    0.000
-   .EP4               0.637    0.066    9.659    0.000
-   .OC1               4.196    0.318   13.177    0.000
-   .OC2               1.029    0.149    6.929    0.000
-   .OC3               1.745    0.137   12.700    0.000
-   .OC4               1.267    0.138    9.193    0.000
-    SI                0.498    0.052    9.526    0.000
-    JS                0.981    0.122    8.038    0.000
-    AC                1.309    0.135    9.664    0.000
-    EP                1.600    0.214    7.471    0.000
-    OC                2.164    0.357    6.058    0.000
+   .si1               0.258    0.023   11.121    0.000
+   .si2               0.195    0.021    9.479    0.000
+   .si3               0.464    0.038   12.264    0.000
+   .si4               0.256    0.026    9.952    0.000
+   .js1               0.807    0.074   10.960    0.000
+   .js2               0.825    0.076   10.822    0.000
+   .js3               0.930    0.078   11.910    0.000
+   .js4               0.824    0.071   11.570    0.000
+   .js5             196.867   17.681   11.135    0.000
+   .ac1               0.628    0.059   10.566    0.000
+   .ac2               0.973    0.092   10.617    0.000
+   .ac3               0.601    0.059   10.114    0.000
+   .ac4               0.867    0.081   10.742    0.000
+   .ep1               1.744    0.143   12.222    0.000
+   .ep2               0.937    0.091   10.245    0.000
+   .ep3               0.699    0.064   10.860    0.000
+   .ep4               0.637    0.066    9.659    0.000
+   .oc1               4.196    0.318   13.177    0.000
+   .oc2               1.029    0.149    6.929    0.000
+   .oc3               1.745    0.137   12.700    0.000
+   .oc4               1.267    0.138    9.193    0.000
+    si                0.498    0.052    9.526    0.000
+    js                0.981    0.122    8.038    0.000
+    ac                1.309    0.135    9.664    0.000
+    ep                1.600    0.214    7.471    0.000
+    oc                2.164    0.357    6.058    0.000
 ```
 ]
 ]
 
 ---
 
-## Basic principles
+## Model fit statistics
 
-.leftcol40[
-+ Compare covariance matrix of the research data `\(\text{S}\)` and reproduced covariance `\(\Sigma\)`
+.leftcol[
+The hypothesis:
 
-+ Hypothesis:
-  + Null: `\(\text{S} = \Sigma\)`
-  + Atternative: `\(\text{S} \ne \Sigma\)`
+`\(H_0:\Sigma(\theta) = \Sigma\)`
 
-+ Idea is to arrived with a parameter that minimizes the difference of `\(\text{S}\)` and  `\(\Sigma\)`
+`\(H_1: \Sigma(\theta) \ne \Sigma\)`
+
+But we do not have the population covariance, so we will use the sample extimates to evaluate model fit.
+
+`\(H_0: \Sigma(\hat{\theta}) = S\)`
+
+`\(H_1: \Sigma(\hat{\theta}) = S\)`
 
 ]
 
-.rightcol60[
-&lt;img src="img/confuse.gif" width="60%" style="display: block; margin: auto;" /&gt;
+.rightcol[
+
+Let:
+
+`\(\Sigma\)` = population covariance matrix
+
+`\(S\)` = sample covariance matrix
+
+`\(\Sigma(\theta)\)` = model-implied covariance
+
+`\(\Sigma(\hat{\theta})\)` = sample model-implied covariance
+]
+
+
+---
+
+## Model Fit Stastistics
+
+`\(H_0: \Sigma(\hat{\theta}) = S\)`
+
+`\(H_1: \Sigma(\hat{\theta}) = S\)`
+
+
+
+.leftcol[
+
+**Sample covariance `\(S\)` **
+
+
+```r
+data_subset &lt;- hbat_data %&gt;% 
+ select(starts_with("SI"))
+cov(data_subset) %&gt;% round(3)
+```
+
+```
+      SI1   SI2   SI3   SI4
+SI1 0.758 0.560 0.513 0.564
+SI2 0.560 0.770 0.557 0.616
+SI3 0.513 0.557 1.032 0.657
+SI4 0.564 0.616 0.657 0.937
+```
+
+]
+
+
+.rightcol[
+
+**Model implied covariance `\(\Sigma(\hat{\theta})\)` **
+
+
+```r
+model &lt;- "SI =~ SI1 + SI2 + SI3 + SI4"
+model_cfa &lt;- cfa(model, data = data_subset)
+inspect(model_cfa, "cov.ov")
+```
+
+```
+    SI1   SI2   SI3   SI4  
+SI1 0.756                  
+SI2 0.540 0.768            
+SI3 0.532 0.573 1.029      
+SI4 0.577 0.622 0.613 0.935
+```
 ]
 
 ---
 
-## Basic principles
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
+.leftcol[
++ Known values are the number of unique variance-covariance value
+
++ Formula: `\([p(p + 1)] / 2\)`
+where `\(p\)` is the number of observed items
+
++ Example: `\([4(4 + 1)]/2 = 10\)`
+
+]
+
+.rightcol[
+
+```r
+cov(data_subset) %&gt;% round(3)
+```
+
+```
+      SI1   SI2   SI3   SI4
+SI1 0.758 0.560 0.513 0.564
+SI2 0.560 0.770 0.557 0.616
+SI3 0.513 0.557 1.032 0.657
+SI4 0.564 0.616 0.657 0.937
+```
+]
+
+---
+
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
+.leftcol[
++ The known values are the primary restrictions of how many parameters( `\(k\)` ) we can estimate.
+
++ e.g., 4 loading and 4 error variance
+]
+
+.rightcol[
+&lt;img src="img/staying_intention.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
+
+.leftcol[
+
+degrees of freedom ( `\(df\)` )
+
+`\(df\)` = known values - estimated parameters
+`\(df = [p(p+1)] / 2 - k\)`
+
+e.g., `\(df = 10 - 8 = 2\)`
+
+]
+
+.rightcol[
+
++ 10 unique variance-covariance values
+
+
+```
+      SI1   SI2   SI3   SI4
+SI1 0.758 0.560 0.513 0.564
+SI2 0.560 0.770 0.557 0.616
+SI3 0.513 0.557 1.032 0.657
+SI4 0.564 0.616 0.657 0.937
+```
+
++ 8 parameters to be estimated
+
+&lt;img src="img/staying_intention.png" width="25%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+## Model fit statistics
+
+**Known values, parameters, and degrees of freedom**
+
 
 .leftcol40[
 
-+ To understand the SEM process, consider the Table on the right.
+degrees of freedom ( `\(df\)` )
 
-+ e.g., iterative procedure using least square method.
+e.g., `\(df = 10 - 8 = 2\)`
 
 &lt;br&gt;
 
-&lt;img src="img/ols_sem_sample.png" width="80%" style="display: block; margin: auto;" /&gt;
-
+*In a factor with 3 observed indicator, what is the degrees of freedom?
+*
 ]
 
 .rightcol60[
-&lt;img src="img/ols_calc.png" width="80%" style="display: block; margin: auto 0 auto auto;" /&gt;
-]
 
----
-
-## Summary output
-
-.leftcol20[
-
-+ Overall results
-
-+ Loadings
-
-+ Variances
-
-]
-
-.rightcol80[
 
 ```r
-cfa_fit &lt;- cfa(cfa_model, data = hbat_data)
-summary(cfa_fit)
+model &lt;- "SI =~ SI1 + SI2 + SI3 + SI4"
+model_cfa &lt;- cfa(model, data = data_subset)
+summary(model_cfa)
 ```
-.code-output-scroll[
+
+.code-output-scroll40[
 
 ```
-lavaan 0.6-9 ended normally after 54 iterations
+lavaan 0.6-9 ended normally after 22 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
-  Number of model parameters                        52
+  Number of model parameters                         8
                                                       
   Number of observations                           400
                                                       
 Model Test User Model:
                                                       
-  Test statistic                               240.738
-  Degrees of freedom                               179
-  P-value (Chi-square)                           0.001
+  Test statistic                                12.582
+  Degrees of freedom                                 2
+  P-value (Chi-square)                           0.002
 
 Parameter Estimates:
 
@@ -741,202 +931,17 @@ Latent Variables:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
   SI =~                                               
     SI1               1.000                           
-    SI2               1.073    0.055   19.563    0.000
-    SI3               1.065    0.066   16.053    0.000
-    SI4               1.167    0.061   19.230    0.000
-  JS =~                                               
-    JS1               1.000                           
-    JS2               1.033    0.075   13.683    0.000
-    JS3               0.902    0.072   12.516    0.000
-    JS4               0.910    0.070   12.958    0.000
-    JS5              15.190    1.132   13.414    0.000
-  AC =~                                               
-    AC1               1.000                           
-    AC2               1.236    0.067   18.392    0.000
-    AC3               1.037    0.055   18.870    0.000
-    AC4               1.146    0.063   18.255    0.000
-  EP =~                                               
-    EP1               1.000                           
-    EP2               1.033    0.073   14.083    0.000
-    EP3               0.821    0.060   13.734    0.000
-    EP4               0.914    0.064   14.335    0.000
-  OC =~                                               
-    OC1               1.000                           
-    OC2               1.314    0.108   12.209    0.000
-    OC3               0.783    0.076   10.322    0.000
-    OC4               1.165    0.097   11.968    0.000
-
-Covariances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  SI ~~                                               
-    JS                0.161    0.042    3.834    0.000
-    AC                0.249    0.048    5.161    0.000
-    EP                0.502    0.065    7.733    0.000
-    OC                0.574    0.080    7.191    0.000
-  JS ~~                                               
-    AC                0.057    0.065    0.868    0.386
-    EP                0.303    0.078    3.892    0.000
-    OC                0.304    0.090    3.390    0.001
-  AC ~~                                               
-    EP                0.372    0.088    4.251    0.000
-    OC                0.517    0.107    4.842    0.000
-  EP ~~                                               
-    OC                0.925    0.143    6.469    0.000
+    SI2               1.077    0.055   19.503    0.000
+    SI3               1.062    0.066   15.989    0.000
+    SI4               1.151    0.061   18.840    0.000
 
 Variances:
                    Estimate  Std.Err  z-value  P(&gt;|z|)
-   .SI1               0.258    0.023   11.121    0.000
-   .SI2               0.195    0.021    9.479    0.000
-   .SI3               0.464    0.038   12.264    0.000
-   .SI4               0.256    0.026    9.952    0.000
-   .JS1               0.807    0.074   10.960    0.000
-   .JS2               0.825    0.076   10.822    0.000
-   .JS3               0.930    0.078   11.910    0.000
-   .JS4               0.824    0.071   11.570    0.000
-   .JS5             196.867   17.681   11.135    0.000
-   .AC1               0.628    0.059   10.566    0.000
-   .AC2               0.973    0.092   10.617    0.000
-   .AC3               0.601    0.059   10.114    0.000
-   .AC4               0.867    0.081   10.742    0.000
-   .EP1               1.744    0.143   12.222    0.000
-   .EP2               0.937    0.091   10.245    0.000
-   .EP3               0.699    0.064   10.860    0.000
-   .EP4               0.637    0.066    9.659    0.000
-   .OC1               4.196    0.318   13.177    0.000
-   .OC2               1.029    0.149    6.929    0.000
-   .OC3               1.745    0.137   12.700    0.000
-   .OC4               1.267    0.138    9.193    0.000
-    SI                0.498    0.052    9.526    0.000
-    JS                0.981    0.122    8.038    0.000
-    AC                1.309    0.135    9.664    0.000
-    EP                1.600    0.214    7.471    0.000
-    OC                2.164    0.357    6.058    0.000
-```
-]
-]
-
----
-
-## Summary output
-
-.leftcol40[
-#### Overall results
-
-+ Degrees of freedom (df)
-
-  + `\(df = \frac{1}{2} p (p + 1) - k\)`
-  + `\(p\)` = total observed variables
-  + `\(k\)` = total estimated parameters
-
-+ Identification
-
-  + Include at least three manifest variables
-  + Create models with `\(df &gt; 0\)`
-]
-
-.rightcol60[
-
-```r
-cfa_fit &lt;- cfa(cfa_model, data = hbat_data)
-summary(cfa_fit)
-```
-.code-output-scroll[
-
-```
-lavaan 0.6-9 ended normally after 54 iterations
-
-  Estimator                                         ML
-  Optimization method                           NLMINB
-  Number of model parameters                        52
-                                                      
-  Number of observations                           400
-                                                      
-Model Test User Model:
-                                                      
-  Test statistic                               240.738
-  Degrees of freedom                               179
-  P-value (Chi-square)                           0.001
-
-Parameter Estimates:
-
-  Standard errors                             Standard
-  Information                                 Expected
-  Information saturated (h1) model          Structured
-
-Latent Variables:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  SI =~                                               
-    SI1               1.000                           
-    SI2               1.073    0.055   19.563    0.000
-    SI3               1.065    0.066   16.053    0.000
-    SI4               1.167    0.061   19.230    0.000
-  JS =~                                               
-    JS1               1.000                           
-    JS2               1.033    0.075   13.683    0.000
-    JS3               0.902    0.072   12.516    0.000
-    JS4               0.910    0.070   12.958    0.000
-    JS5              15.190    1.132   13.414    0.000
-  AC =~                                               
-    AC1               1.000                           
-    AC2               1.236    0.067   18.392    0.000
-    AC3               1.037    0.055   18.870    0.000
-    AC4               1.146    0.063   18.255    0.000
-  EP =~                                               
-    EP1               1.000                           
-    EP2               1.033    0.073   14.083    0.000
-    EP3               0.821    0.060   13.734    0.000
-    EP4               0.914    0.064   14.335    0.000
-  OC =~                                               
-    OC1               1.000                           
-    OC2               1.314    0.108   12.209    0.000
-    OC3               0.783    0.076   10.322    0.000
-    OC4               1.165    0.097   11.968    0.000
-
-Covariances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-  SI ~~                                               
-    JS                0.161    0.042    3.834    0.000
-    AC                0.249    0.048    5.161    0.000
-    EP                0.502    0.065    7.733    0.000
-    OC                0.574    0.080    7.191    0.000
-  JS ~~                                               
-    AC                0.057    0.065    0.868    0.386
-    EP                0.303    0.078    3.892    0.000
-    OC                0.304    0.090    3.390    0.001
-  AC ~~                                               
-    EP                0.372    0.088    4.251    0.000
-    OC                0.517    0.107    4.842    0.000
-  EP ~~                                               
-    OC                0.925    0.143    6.469    0.000
-
-Variances:
-                   Estimate  Std.Err  z-value  P(&gt;|z|)
-   .SI1               0.258    0.023   11.121    0.000
-   .SI2               0.195    0.021    9.479    0.000
-   .SI3               0.464    0.038   12.264    0.000
-   .SI4               0.256    0.026    9.952    0.000
-   .JS1               0.807    0.074   10.960    0.000
-   .JS2               0.825    0.076   10.822    0.000
-   .JS3               0.930    0.078   11.910    0.000
-   .JS4               0.824    0.071   11.570    0.000
-   .JS5             196.867   17.681   11.135    0.000
-   .AC1               0.628    0.059   10.566    0.000
-   .AC2               0.973    0.092   10.617    0.000
-   .AC3               0.601    0.059   10.114    0.000
-   .AC4               0.867    0.081   10.742    0.000
-   .EP1               1.744    0.143   12.222    0.000
-   .EP2               0.937    0.091   10.245    0.000
-   .EP3               0.699    0.064   10.860    0.000
-   .EP4               0.637    0.066    9.659    0.000
-   .OC1               4.196    0.318   13.177    0.000
-   .OC2               1.029    0.149    6.929    0.000
-   .OC3               1.745    0.137   12.700    0.000
-   .OC4               1.267    0.138    9.193    0.000
-    SI                0.498    0.052    9.526    0.000
-    JS                0.981    0.122    8.038    0.000
-    AC                1.309    0.135    9.664    0.000
-    EP                1.600    0.214    7.471    0.000
-    OC                2.164    0.357    6.058    0.000
+   .SI1               0.255    0.024   10.791    0.000
+   .SI2               0.186    0.021    8.774    0.000
+   .SI3               0.464    0.038   12.109    0.000
+   .SI4               0.271    0.027    9.898    0.000
+    SI                0.501    0.053    9.525    0.000
 ```
 ]
 ]
@@ -946,18 +951,28 @@ Variances:
 ## Summary output
 
 .leftcol20[
-#### Loadings
 
-+ Measures the strength of the relationship between items and factor.
+**Loadings**
+
+#### 1. Marker method
++ fixes the first loading of each factor to 1.
+
+
+#### 2. factor variance standardization 
+
++ fixed variance of each factor to 1 but freely estimates all loadings.
+
 ]
 
 .rightcol80[
+
 
 ```r
 cfa_fit &lt;- cfa(cfa_model, data = hbat_data)
 summary(cfa_fit, standardized = TRUE)
 ```
-.code-output-scroll[
+
+.code-output-scroll40[
 
 ```
 lavaan 0.6-9 ended normally after 54 iterations
@@ -1063,18 +1078,144 @@ Variances:
 ## Summary output
 
 .leftcol20[
-#### Variances
 
-Refer to unique variance that the factor unable to account for. Similar to error term in OLS, hence it is also term as error variance.
+**Covariances**
+
 ]
 
 .rightcol80[
+
 
 ```r
 cfa_fit &lt;- cfa(cfa_model, data = hbat_data)
 summary(cfa_fit, standardized = TRUE)
 ```
-.code-output-scroll[
+
+.code-output-scroll40[
+
+```
+lavaan 0.6-9 ended normally after 54 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        52
+                                                      
+  Number of observations                           400
+                                                      
+Model Test User Model:
+                                                      
+  Test statistic                               240.738
+  Degrees of freedom                               179
+  P-value (Chi-square)                           0.001
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  SI =~                                                                 
+    SI1               1.000                               0.706    0.811
+    SI2               1.073    0.055   19.563    0.000    0.757    0.864
+    SI3               1.065    0.066   16.053    0.000    0.752    0.741
+    SI4               1.167    0.061   19.230    0.000    0.823    0.852
+  JS =~                                                                 
+    JS1               1.000                               0.991    0.741
+    JS2               1.033    0.075   13.683    0.000    1.023    0.748
+    JS3               0.902    0.072   12.516    0.000    0.894    0.680
+    JS4               0.910    0.070   12.958    0.000    0.902    0.705
+    JS5              15.190    1.132   13.414    0.000   15.046    0.731
+  AC =~                                                                 
+    AC1               1.000                               1.144    0.822
+    AC2               1.236    0.067   18.392    0.000    1.414    0.820
+    AC3               1.037    0.055   18.870    0.000    1.187    0.837
+    AC4               1.146    0.063   18.255    0.000    1.312    0.815
+  EP =~                                                                 
+    EP1               1.000                               1.265    0.692
+    EP2               1.033    0.073   14.083    0.000    1.307    0.803
+    EP3               0.821    0.060   13.734    0.000    1.038    0.779
+    EP4               0.914    0.064   14.335    0.000    1.156    0.823
+  OC =~                                                                 
+    OC1               1.000                               1.471    0.583
+    OC2               1.314    0.108   12.209    0.000    1.934    0.886
+    OC3               0.783    0.076   10.322    0.000    1.151    0.657
+    OC4               1.165    0.097   11.968    0.000    1.714    0.836
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  SI ~~                                                                 
+    JS                0.161    0.042    3.834    0.000    0.230    0.230
+    AC                0.249    0.048    5.161    0.000    0.309    0.309
+    EP                0.502    0.065    7.733    0.000    0.562    0.562
+    OC                0.574    0.080    7.191    0.000    0.553    0.553
+  JS ~~                                                                 
+    AC                0.057    0.065    0.868    0.386    0.050    0.050
+    EP                0.303    0.078    3.892    0.000    0.242    0.242
+    OC                0.304    0.090    3.390    0.001    0.209    0.209
+  AC ~~                                                                 
+    EP                0.372    0.088    4.251    0.000    0.257    0.257
+    OC                0.517    0.107    4.842    0.000    0.307    0.307
+  EP ~~                                                                 
+    OC                0.925    0.143    6.469    0.000    0.497    0.497
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .SI1               0.258    0.023   11.121    0.000    0.258    0.342
+   .SI2               0.195    0.021    9.479    0.000    0.195    0.253
+   .SI3               0.464    0.038   12.264    0.000    0.464    0.451
+   .SI4               0.256    0.026    9.952    0.000    0.256    0.274
+   .JS1               0.807    0.074   10.960    0.000    0.807    0.451
+   .JS2               0.825    0.076   10.822    0.000    0.825    0.441
+   .JS3               0.930    0.078   11.910    0.000    0.930    0.538
+   .JS4               0.824    0.071   11.570    0.000    0.824    0.503
+   .JS5             196.867   17.681   11.135    0.000  196.867    0.465
+   .AC1               0.628    0.059   10.566    0.000    0.628    0.324
+   .AC2               0.973    0.092   10.617    0.000    0.973    0.327
+   .AC3               0.601    0.059   10.114    0.000    0.601    0.299
+   .AC4               0.867    0.081   10.742    0.000    0.867    0.335
+   .EP1               1.744    0.143   12.222    0.000    1.744    0.522
+   .EP2               0.937    0.091   10.245    0.000    0.937    0.354
+   .EP3               0.699    0.064   10.860    0.000    0.699    0.393
+   .EP4               0.637    0.066    9.659    0.000    0.637    0.323
+   .OC1               4.196    0.318   13.177    0.000    4.196    0.660
+   .OC2               1.029    0.149    6.929    0.000    1.029    0.216
+   .OC3               1.745    0.137   12.700    0.000    1.745    0.568
+   .OC4               1.267    0.138    9.193    0.000    1.267    0.301
+    SI                0.498    0.052    9.526    0.000    1.000    1.000
+    JS                0.981    0.122    8.038    0.000    1.000    1.000
+    AC                1.309    0.135    9.664    0.000    1.000    1.000
+    EP                1.600    0.214    7.471    0.000    1.000    1.000
+    OC                2.164    0.357    6.058    0.000    1.000    1.000
+```
+]
+]
+
+
+
+---
+
+## Summary output
+
+.leftcol20[
+
+**Error variances**
+
+Refer to unique variance that the factor unable to account for. 
+
+Similar to the error term in OLS, hence error variance.
+]
+
+.rightcol80[
+
+
+```r
+cfa_fit &lt;- cfa(cfa_model, data = hbat_data)
+summary(cfa_fit, standardized = TRUE)
+```
+
+.code-output-scroll40[
 
 ```
 lavaan 0.6-9 ended normally after 54 iterations
@@ -1222,26 +1363,22 @@ fitMeasures(cfa_fit)
 ```
 
 ```
-               npar                fmin               chisq                  df 
-             52.000               0.301             240.738             179.000 
-             pvalue      baseline.chisq         baseline.df     baseline.pvalue 
-              0.001            4452.567             210.000               0.000 
-                cfi                 tli                nnfi                 rfi 
-              0.985               0.983               0.983               0.937 
-                nfi                pnfi                 ifi                 rni 
-              0.946               0.806               0.986               0.985 
-               logl   unrestricted.logl                 aic                 bic 
-         -13916.782          -13796.413           27937.564           28145.120 
-             ntotal                bic2               rmsea      rmsea.ci.lower 
-            400.000           27980.120               0.029               0.019 
-     rmsea.ci.upper        rmsea.pvalue                 rmr          rmr_nomean 
-              0.039               1.000               0.414               0.414 
-               srmr        srmr_bentler srmr_bentler_nomean                crmr 
-              0.036               0.036               0.036               0.037 
-        crmr_nomean          srmr_mplus   srmr_mplus_nomean               cn_05 
-              0.037               0.036               0.036             351.949 
-              cn_01                 gfi                agfi                pgfi 
-            376.401               0.947               0.932               0.734 
+               npar                fmin               chisq                  df              pvalue 
+             52.000               0.301             240.738             179.000               0.001 
+     baseline.chisq         baseline.df     baseline.pvalue                 cfi                 tli 
+           4452.567             210.000               0.000               0.985               0.983 
+               nnfi                 rfi                 nfi                pnfi                 ifi 
+              0.983               0.937               0.946               0.806               0.986 
+                rni                logl   unrestricted.logl                 aic                 bic 
+              0.985          -13916.782          -13796.413           27937.564           28145.120 
+             ntotal                bic2               rmsea      rmsea.ci.lower      rmsea.ci.upper 
+            400.000           27980.120               0.029               0.019               0.039 
+       rmsea.pvalue                 rmr          rmr_nomean                srmr        srmr_bentler 
+              1.000               0.414               0.414               0.036               0.036 
+srmr_bentler_nomean                crmr         crmr_nomean          srmr_mplus   srmr_mplus_nomean 
+              0.036               0.037               0.037               0.036               0.036 
+              cn_05               cn_01                 gfi                agfi                pgfi 
+            351.949             376.401               0.947               0.932               0.734 
                 mfi                ecvi 
               0.926               0.862 
 ```
@@ -1435,17 +1572,13 @@ fitmeasures(cfa_fit, fit.measures = gof_indices)
 
 
 ```
-  chisq      df  pvalue     gfi   rmsea     rmr    srmr     nfi    nnfi     cfi 
-287.179 181.000   0.000   0.938   0.038   0.410   0.060   0.936   0.971   0.975 
-   agfi 
-  0.921 
+  chisq      df  pvalue     gfi   rmsea     rmr    srmr     nfi    nnfi     cfi    agfi 
+287.179 181.000   0.000   0.938   0.038   0.410   0.060   0.936   0.971   0.975   0.921 
 ```
 
 ```
-  chisq      df  pvalue     gfi   rmsea     rmr    srmr     nfi    nnfi     cfi 
-240.738 179.000   0.001   0.947   0.029   0.414   0.036   0.946   0.983   0.985 
-   agfi 
-  0.932 
+  chisq      df  pvalue     gfi   rmsea     rmr    srmr     nfi    nnfi     cfi    agfi 
+240.738 179.000   0.001   0.947   0.029   0.414   0.036   0.946   0.983   0.985   0.932 
 ```
 ]
 
