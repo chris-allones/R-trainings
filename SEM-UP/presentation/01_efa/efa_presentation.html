@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Training Workshop on the basics of  SEM using R</title>
+    <title>Training Workshop on Structural Equation Modelling (SEM) using R</title>
     <meta charset="utf-8" />
     <script src="efa_presentation_files/header-attrs/header-attrs.js"></script>
     <script src="efa_presentation_files/clipboard/clipboard.min.js"></script>
@@ -38,8 +38,8 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Training Workshop on the basics of<br> SEM using R
-## Session 1: Exploratory Factor Analysis (EFA)
+# Training Workshop on Structural Equation Modelling (SEM) using R
+## Session 2: Exploratory Factor Analysis (EFA)
 
 ---
 
@@ -84,60 +84,42 @@ class: middle center
 
 ---
 
-## Types of factor analysis
+## Overview
+
+.center[
+&lt;img src="image/overview_factor.jpg" width="38%" style="display: block; margin: auto;" /&gt;
+
+.font80[
+Source: [Dragan and Darja (2014): Introduction to SEM: review, methodology and practical applications.](https://www.researchgate.net/publication/267810858_Introduction_to_Structural_Equation_Modeling_Review_Methodology_and_Practical_Applications)]
+]
+
+
+---
+
+## Overview
 
 .leftcol[
 #### Exploratory factor analysis
 
-+ Use when you do not have a well-developed theory
++ Exploratory or descriptive technique to determine the appropriate number of common factor.
 
-+ Estimate all possible variable/ factor relationships
++ No specifications are made in regards to the number of factors (initially) or the pattern of relationships between factor and indicators
+
 
 + Looking for patterns in the data
+
 ]
 
 
 .rightcol[
 #### Confirmatory factor analysis
 
++ Should be conducted prior to the specifications of a structural model.
+
++ Researcher specifies the number of factors and the pattern of indicator-factor in advance.
+
 + Testing a theory that you know in advance 
 
-+ Only specified variables/factor relationships
-]
-
----
-
-## Types of factor analysis
-
-.left-column-50[
-#### Exploratory factor analysis
-
-- Difficult to interpret without a theory.
-- factor loadings: meanings can sometimes be inferred  from patterns.
-]
-
-&lt;br&gt;
-
-.right-column-50[
-&lt;img src="image/efa_interpret.png" width="50%" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## Types of factor analysis
-
-.left-column-50[
-#### Confirmatory factor analysis
-
-- Model fit: how well the hypothesized model fits the data.
-
-- Factor loadings: how well items measure their corresponding constructs.
-]
-
-&lt;br&gt;
-
-.right-column-50[
-&lt;img src="image/cfa_interpret.png" width="50%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -151,36 +133,34 @@ class: middle center
 
 ## Variable selection and measurement issues
 
---
 What types of variables can be used in factor analysis?
 
---
   + *Primary requirement: a correlation value can be calculated among all variables.*
   + *e.g., metric variables, scale items, dummy variables to represent nonmetric variables.*
 
 &lt;br&gt;
 
-How many variables should be included?
+How many variables or items should be used per factor?
 
   + *Five or more per factor for scale development.*
   + *Three or more per factor for factor measurement (based on how degrees of freedom is computed).*
+  
   
 ---
 
 ## Sample size
 
-Some recommended guidelines:
+.leftcol80[
+Some recommendations in literature:
 
-Absolute size of the dataset
-  + *should not fewer than 50 observation*
-  + *preferably 100 and larger*
-  + *200 and larger as the number of variables and expected factors incerases*
++ Five cases minimum per estimated parameter ([Bentler and Chou, 1987](https://doi.org/10.1177/0049124187016001004))
 
-Ratio of cases to variables
-  + *observation is 5x as the number of variables*
-  + *sample size is 10:1 ratio*
-  + *some proposes 20 cases per variables*
-  
++ Monte carlo studies recommend 100 cases minimum and 200 is better for modest models ([Loehlin, 2017](https://www.routledge.com/Latent-Variable-Models-An-Introduction-to-Factor-Path-and-Structural/Loehlin-Beaujean/p/book/9781138916074))
+
++ Larger or complicated models, models with more latent variables or parameter estimates, require more cases.
+
+]
+
 ---
 
 class: middle center
@@ -242,8 +222,10 @@ class: middle center
 
 .leftcol70[
 + Some uderlying structure does exist in the set of selected variables.
+
 + correlated variables and subsequent definition of factors do not guarantee relevance
   + *even if they meet the statistical requirement!*
+
 + It is the responsibility of the researcher to ensure that observed patterns are conceptually valid and appropriate.
 ]
 
@@ -267,7 +249,6 @@ class: middle center
 ]
 
 .rightcol[
-.details[
 
 ```r
 library(EFAtools)
@@ -281,7 +262,6 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 
   &lt;U+0001D712&gt;²(55) = 619.27, p &lt; .001
 ```
-]
 ]
 
 ---
@@ -306,12 +286,12 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 
 #### 2. Kaiser-Meyen-Olkin (KMO Test)
 
+.leftcol70[
 .code70[
-.details[
 
 ```
 
--- Kaiser-Meyer-Olkin criterion (KMO) ------------------------------------------
+-- Kaiser-Meyer-Olkin criterion (KMO) -----------------------------------------------------------------------------
 
 ! The overall KMO value for your data is mediocre.
   These data are probably suitable for factor analysis.
@@ -324,6 +304,7 @@ v The Bartlett's test of sphericity was significant at an alpha level of .05.
 ```
 ]
 ]
+
 ---
 
 ## Determining the appropriateness of EFA
@@ -637,7 +618,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 
 .rightcol65[
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-18-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-17-1.png" width="100%" /&gt;
 ]
 
 ---
@@ -667,7 +648,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 #### Orthogonal rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-20-1.png" width="100%" /&gt;
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-19-1.png" width="100%" /&gt;
 
 
 ---
@@ -693,12 +674,7 @@ plot(fa_rotated$loadings[,1], fa_rotated$loadings[,2],
 
 #### Oblique rotation
 
-&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-22-1.png" width="100%" /&gt;
-
----
-class: middle center
-
-# Let's practice!
+&lt;img src="efa_presentation_files/figure-html/unnamed-chunk-21-1.png" width="100%" /&gt;
 
 ---
 
@@ -837,6 +813,172 @@ Cumulative Var 0.240 0.419 0.568 0.693
 ```
 ]
 ]
+
+---
+
+## Factor interpretation and respecification
+
+**Naming of factors**
+
+.leftcol[
+
++ **MR1: Postsale customer service**
+  + x9 Complaint resolutions
+  + x16 Order  &amp; Billing
+  + x18 Delivery speed
+
++ **MR2: Marketing**
+  + x7 E-Commerce
+  + x10 Advertising
+  + x12 Salesforce image
+]
+
+.rightcol[
+  
++ **MR3: Technical support **
+  + x8 Technical support
+  + x14 Warranty and claims
+
++ **MR4: Product value**
+  + x6 Product quality
+  + x11 Product line
+  + x13 Competitive pricing
+]
+
+
+
+---
+
+## Factor interpretation and respecification
+
+**Extracting factor scores**
+
+.leftcol[
+
++ **MR1: Postsale customer service**
+
++ **MR2: Marketing**
+  
++ **MR3: Technical support **
+
++ **MR4: Product value**
+
+]
+
+.rightcol[
+
+```r
+fa_varimax$scores %&gt;% round(4)
+```
+
+.code-output-scroll[
+
+```
+           MR1     MR2     MR3     MR4
+  [1,] -0.1390  0.9401 -1.7237  0.0968
+  [2,]  1.6357 -2.0398 -0.5913  0.6504
+  [3,]  0.3557  0.8757  0.0160  1.3821
+  [4,] -1.2209 -0.5569  1.2497 -0.6456
+  [5,] -0.4861 -0.4206 -0.0310  0.4755
+  [6,] -0.5923 -1.3136 -1.1969 -0.9591
+  [7,] -2.5355  0.4167 -0.5692 -1.2967
+  [8,] -0.1153 -0.1178 -0.7072 -1.3628
+  [9,]  0.9518  0.3721 -0.1393 -0.9290
+ [10,]  0.5865  0.4077 -0.4618 -0.6741
+ [11,] -0.0498 -0.3312 -0.4837  0.6250
+ [12,] -1.2272  1.2108  0.3349 -1.0737
+ [13,]  0.7127  1.3501 -0.1129  0.6064
+ [14,]  0.1923 -0.1294  0.3279  1.4384
+ [15,]  1.6013  0.4926 -0.3164 -0.6257
+ [16,]  1.1182 -1.2854 -0.5763  0.9920
+ [17,]  0.9097 -0.3240  0.9043 -1.0535
+ [18,]  1.3600  0.0909  0.1508 -0.6365
+ [19,]  0.7601  0.2852 -0.4143 -0.8435
+ [20,]  0.6085  1.7668 -0.7766 -0.3700
+ [21,] -0.4929 -0.4257  1.3985 -1.4277
+ [22,] -0.2470  2.8353  0.4844  2.1541
+ [23,] -0.0859 -0.2063  0.9772  1.2873
+ [24,]  1.2948 -0.6071 -0.8018  0.8178
+ [25,]  0.0321  0.1022  0.3376 -0.8369
+ [26,]  0.3726 -0.0812  0.6125 -1.3412
+ [27,]  0.6945 -1.2955  0.9903  0.9715
+ [28,]  0.1973 -1.1068  0.3864 -1.1500
+ [29,]  0.7482 -1.2037 -0.1452  1.1107
+ [30,] -0.5318 -0.3315 -1.3896 -0.6295
+ [31,] -0.9846 -0.3274  2.0573  0.5721
+ [32,] -0.8991 -1.2911  1.1436 -0.1764
+ [33,] -0.6079 -0.2741  0.2396 -0.5205
+ [34,]  0.5843 -0.5866  0.1815 -1.1002
+ [35,] -1.0936  1.6740  0.1136 -0.3155
+ [36,] -1.5087 -1.8750  0.2838  1.0720
+ [37,] -0.5409 -0.4673  0.3550  0.4442
+ [38,]  1.3506  0.2794  0.1346  0.6937
+ [39,]  0.9871 -0.2844 -1.0143 -0.9874
+ [40,] -0.9210  1.2674 -1.1769 -0.7944
+ [41,]  0.0932  0.1247 -1.8003 -0.6336
+ [42,]  0.1104 -0.0537 -1.0162  0.4841
+ [43,]  0.4547  1.1714 -0.9463  0.7085
+ [44,]  0.7017  2.2016  1.2144 -0.8403
+ [45,]  1.3861 -2.0582 -0.9369  0.7725
+ [46,]  0.9543  0.2215  0.2951 -0.5679
+ [47,]  0.0980 -0.6602  0.9726  0.4460
+ [48,]  1.8077  0.4474  0.8354 -1.1804
+ [49,] -0.2055  1.6903 -0.7564  1.3572
+ [50,]  0.2209  0.8043 -0.9440  0.9299
+ [51,] -1.4134 -0.1646  0.1202 -0.1291
+ [52,]  1.7588 -2.0156 -1.1625  0.7036
+ [53,]  0.9242 -0.4729 -0.1824  0.7196
+ [54,] -0.9435 -0.2445  0.3492  0.6767
+ [55,]  0.7227 -0.5469 -0.9154 -1.0990
+ [56,] -0.6363  0.4251  0.9344  0.8171
+ [57,]  1.9962  1.4036 -0.0960 -0.4128
+ [58,]  0.0845  0.3064  0.2915  0.7498
+ [59,] -0.5562 -0.4047  0.3256  0.4478
+ [60,]  0.8322 -1.6692  0.6680  0.2245
+ [61,]  0.8700 -1.2631  1.5690  0.9364
+ [62,] -0.6128  0.7655 -0.0872 -0.2613
+ [63,] -1.0002 -0.1147 -1.0772  0.4164
+ [64,] -1.2889 -1.5778  0.4169 -0.0211
+ [65,] -1.3924 -0.2465  0.5472 -0.2648
+ [66,]  1.6080  0.5669 -1.0102 -1.1627
+ [67,]  1.0770 -0.4157  1.8064 -1.1492
+ [68,]  0.5116 -0.3038 -0.4125 -0.7622
+ [69,] -0.7040 -0.4491 -0.9696 -0.8355
+ [70,]  0.2380  0.0605 -1.2454 -1.2728
+ [71,]  0.4847  1.7519  0.8359 -0.4292
+ [72,] -1.3762 -0.2195 -1.2810  1.0054
+ [73,]  0.7676  0.8028 -1.7438 -0.1411
+ [74,] -0.6535  1.7137  1.2656  1.2127
+ [75,] -0.2732  0.8530 -0.1970 -0.1131
+ [76,] -0.1228 -0.3320  1.1404  0.4011
+ [77,]  0.1093 -0.3529  2.0444 -1.1790
+ [78,]  0.4696 -0.3715  1.1948  0.1000
+ [79,]  0.9823  0.6823  0.4857  1.2335
+ [80,] -1.7598  0.8753 -0.0098  0.1057
+ [81,] -0.3269 -0.1788  0.5141  0.6053
+ [82,] -0.0381 -0.3717  0.4287  0.5789
+ [83,] -1.1789 -0.8955  0.1970  0.4011
+ [84,] -2.5655 -0.2331  1.5159 -1.1288
+ [85,]  0.7315 -0.8718  0.6666  0.5179
+ [86,] -0.4990 -0.5757 -0.9985 -0.8664
+ [87,] -1.3306 -0.0102 -2.2213 -0.9193
+ [88,]  0.6969 -0.8880  1.3258  0.5718
+ [89,]  0.1141 -0.4866  0.2516  0.1689
+ [90,]  1.0258  2.5853  1.6438 -0.7995
+ [91,] -1.0482  0.4522  1.3789  0.7552
+ [92,] -1.8976 -0.5087 -0.5415 -1.3206
+ [93,]  0.0776 -0.0415 -0.3668  1.6096
+ [94,]  1.0797  0.6492  0.0733  1.1703
+ [95,] -0.9573  0.6739 -0.9765  1.0693
+ [96,] -0.4162  0.6930 -0.0597  0.5189
+ [97,] -0.1236 -0.2485 -1.7624 -0.6342
+ [98,] -1.7837 -1.6337 -1.3159  1.2748
+ [99,] -0.3419  1.8995  0.1394 -0.1762
+[100,] -0.3178 -0.4247 -0.4663 -1.0308
+```
+]
+]
+
 
 ---
 

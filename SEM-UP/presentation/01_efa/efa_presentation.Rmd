@@ -1,6 +1,6 @@
 ---
-title: "Training Workshop on the basics of<br> SEM using R"
-subtitle: "Session 1: Exploratory Factor Analysis (EFA)"
+title: "Training Workshop on Structural Equation Modelling (SEM) using R"
+subtitle: "Session 2: Exploratory Factor Analysis (EFA)"
 output:
   xaringan::moon_reader:
     css:
@@ -120,64 +120,44 @@ class: middle center
 
 ---
 
-## Types of factor analysis
+## Overview
+
+.center[
+```{r echo=FALSE, out.width="38%", fig.align='center'}
+knitr::include_graphics("image/overview_factor.jpg")
+```
+
+.font80[
+Source: [Dragan and Darja (2014): Introduction to SEM: review, methodology and practical applications.](https://www.researchgate.net/publication/267810858_Introduction_to_Structural_Equation_Modeling_Review_Methodology_and_Practical_Applications)]
+]
+
+
+---
+
+## Overview
 
 .leftcol[
 #### Exploratory factor analysis
 
-+ Use when you do not have a well-developed theory
++ Exploratory or descriptive technique to determine the appropriate number of common factor.
 
-+ Estimate all possible variable/ factor relationships
++ No specifications are made in regards to the number of factors (initially) or the pattern of relationships between factor and indicators
+
 
 + Looking for patterns in the data
+
 ]
 
 
 .rightcol[
 #### Confirmatory factor analysis
 
++ Should be conducted prior to the specifications of a structural model.
+
++ Researcher specifies the number of factors and the pattern of indicator-factor in advance.
+
 + Testing a theory that you know in advance 
 
-+ Only specified variables/factor relationships
-]
-
----
-
-## Types of factor analysis
-
-.left-column-50[
-#### Exploratory factor analysis
-
-- Difficult to interpret without a theory.
-- factor loadings: meanings can sometimes be inferred  from patterns.
-]
-
-<br>
-
-.right-column-50[
-```{r echo=FALSE, out.width="50%", fig.align='center'}
-knitr::include_graphics("image/efa_interpret.png")
-```
-]
-
----
-
-## Types of factor analysis
-
-.left-column-50[
-#### Confirmatory factor analysis
-
-- Model fit: how well the hypothesized model fits the data.
-
-- Factor loadings: how well items measure their corresponding constructs.
-]
-
-<br>
-
-.right-column-50[
-```{r echo=FALSE, out.width="50%", fig.align='center'}
-knitr::include_graphics("image/cfa_interpret.png")
-```
 ]
 
 ---
@@ -191,36 +171,34 @@ class: middle center
 
 ## Variable selection and measurement issues
 
---
 What types of variables can be used in factor analysis?
 
---
   + *Primary requirement: a correlation value can be calculated among all variables.*
   + *e.g., metric variables, scale items, dummy variables to represent nonmetric variables.*
 
 <br>
 
-How many variables should be included?
+How many variables or items should be used per factor?
 
   + *Five or more per factor for scale development.*
   + *Three or more per factor for factor measurement (based on how degrees of freedom is computed).*
+  
   
 ---
 
 ## Sample size
 
-Some recommended guidelines:
+.leftcol80[
+Some recommendations in literature:
 
-Absolute size of the dataset
-  + *should not fewer than 50 observation*
-  + *preferably 100 and larger*
-  + *200 and larger as the number of variables and expected factors incerases*
++ Five cases minimum per estimated parameter ([Bentler and Chou, 1987](https://doi.org/10.1177/0049124187016001004))
 
-Ratio of cases to variables
-  + *observation is 5x as the number of variables*
-  + *sample size is 10:1 ratio*
-  + *some proposes 20 cases per variables*
-  
++ Monte carlo studies recommend 100 cases minimum and 200 is better for modest models ([Loehlin, 2017](https://www.routledge.com/Latent-Variable-Models-An-Introduction-to-Factor-Path-and-Structural/Loehlin-Beaujean/p/book/9781138916074))
+
++ Larger or complicated models, models with more latent variables or parameter estimates, require more cases.
+
+]
+
 ---
 
 class: middle center
@@ -282,8 +260,10 @@ rmarkdown::paged_table(data)
 
 .leftcol70[
 + Some uderlying structure does exist in the set of selected variables.
+
 + correlated variables and subsequent definition of factors do not guarantee relevance
   + *even if they meet the statistical requirement!*
+
 + It is the responsibility of the researcher to ensure that observed patterns are conceptually valid and appropriate.
 ]
 
@@ -307,12 +287,10 @@ rmarkdown::paged_table(data)
 ]
 
 .rightcol[
-.details[
 ```{r}
 library(EFAtools)
 BARTLETT(data, N= nrow(data))
 ```
-]
 ]
 
 ---
@@ -337,14 +315,15 @@ BARTLETT(data, N= nrow(data))
 
 #### 2. Kaiser-Meyen-Olkin (KMO Test)
 
+.leftcol70[
 .code70[
-.details[
 ```{r echo=FALSE}
 library(psych)
 KMO(data)
 ```
 ]
 ]
+
 ---
 
 ## Determining the appropriateness of EFA
@@ -839,11 +818,6 @@ plot(fa_oblimin$loadings[,1],
 ```
 
 ---
-class: middle center
-
-# Let's practice!
-
----
 
 ## Factor interpretation and respecification
 
@@ -911,6 +885,70 @@ print(fa_varimax$loadings, sort = TRUE, cutoff = 0.4)
 ```
 ]
 ]
+
+---
+
+## Factor interpretation and respecification
+
+**Naming of factors**
+
+.leftcol[
+
++ **MR1: Postsale customer service**
+  + x9 Complaint resolutions
+  + x16 Order  & Billing
+  + x18 Delivery speed
+
++ **MR2: Marketing**
+  + x7 E-Commerce
+  + x10 Advertising
+  + x12 Salesforce image
+]
+
+.rightcol[
+  
++ **MR3: Technical support **
+  + x8 Technical support
+  + x14 Warranty and claims
+
++ **MR4: Product value**
+  + x6 Product quality
+  + x11 Product line
+  + x13 Competitive pricing
+]
+
+
+
+---
+
+## Factor interpretation and respecification
+
+**Extracting factor scores**
+
+.leftcol[
+
++ **MR1: Postsale customer service**
+
++ **MR2: Marketing**
+  
++ **MR3: Technical support **
+
++ **MR4: Product value**
+
+]
+
+.rightcol[
+```{r eval=FALSE}
+fa_varimax$scores %>% round(4)
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+print(fa_varimax$scores %>% round(4))
+```
+]
+]
+
 
 ---
 
