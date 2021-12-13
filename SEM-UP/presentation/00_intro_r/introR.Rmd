@@ -1,6 +1,6 @@
 ---
-title: "Training Workshop on the basics of<br> SEM using R"
-subtitle: "Intro to R and basic data wrangling"
+title: "Training Workshop on Structural Equation Modelling (SEM) using R"
+subtitle: "Session 1: Intro to R and basic data wrangling"
 output:
   xaringan::moon_reader:
     css:
@@ -191,18 +191,6 @@ student
 
 ---
 
-## R Objects
-
-.leftcol[
-+ Object names can be anything here!
-
-+ I personally use lower-case style.
-
-+ Check-out the recommended good practices in R (e.g., naming objects, writing codes)by the [tidyverse style guide](https://style.tidyverse.org/syntax.html)
-]
-
----
-
 ## R packages
 
 .leftcol60[
@@ -334,31 +322,6 @@ read_delim("path/data.delim")
 ```{r echo=FALSE, fig.align='center',out.width="40%"}
 knitr::include_graphics("img/readr.png")
 ```
-]
-
----
-
-## Reading data into R
-
-#### Tips on naming (file) names
-
-.leftcol[
-+ machine readable
-  + avoid spaces, punctuation, accented, characters, case sensitivity
-
-+ human readable
-  + easy to search for files later
-  + easy narrow files lists based on names
-  + easy to extract into from file names
-  
-+ J. Bryan "[How to name files](https://speakerdeck.com/jennybc/how-to-name-files)"
-]
-
-.rightcol[
-```{r echo=FALSE, out.width="80%", fig.align='right'}
-knitr::include_graphics("img/namine_files.jfif")
-```
-.right[.fifty[Illustration adapted from [Jennifer Bryan](https://speakerdeck.com/jennybc/how-to-name-files)]]
 ]
 
 ---

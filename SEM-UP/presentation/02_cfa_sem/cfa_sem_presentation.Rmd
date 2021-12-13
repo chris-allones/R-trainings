@@ -1,6 +1,6 @@
 ---
 title: "Training Workshop on Structural Equation Modelling (SEM) using R"
-subtitle: "Session 2: CFA and SEM"
+subtitle: "Session 3: CFA and SEM"
 output:
   xaringan::moon_reader:
     css:
@@ -744,13 +744,13 @@ summary(model_cfa)
 .rightcol80[
 
 ```{r eval=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
+cfa_fit <- cfa(hbat_cfa_model, data = hbat_data_lower)
 summary(cfa_fit, standardized = TRUE)
 ```
 
 .code-output-scroll40[
 ```{r echo=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
+cfa_fit <- cfa(hbat_cfa_model, data = hbat_data_lower)
 summary(cfa_fit, standardized = TRUE)
 ```
 ]
@@ -769,13 +769,13 @@ summary(cfa_fit, standardized = TRUE)
 .rightcol80[
 
 ```{r eval=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
+cfa_fit <- cfa(hbat_cfa_model, data = hbat_data_lower)
 summary(cfa_fit, standardized = TRUE)
 ```
 
 .code-output-scroll40[
 ```{r echo=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
+cfa_fit <- cfa(hbat_cfa_model, data = hbat_data_lower)
 summary(cfa_fit, standardized = TRUE)
 ```
 ]
@@ -799,13 +799,13 @@ Similar to the error term in OLS, hence error variance.
 .rightcol80[
 
 ```{r eval=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
+cfa_fit <- cfa(hbat_cfa_model, data = hbat_data_lower)
 summary(cfa_fit, standardized = TRUE)
 ```
 
 .code-output-scroll40[
 ```{r echo=FALSE}
-cfa_fit <- cfa(cfa_model, data = hbat_data)
+cfa_fit <- cfa(hbat_cfa_model, data = hbat_data_lower)
 summary(cfa_fit, standardized = TRUE)
 ```
 ]
