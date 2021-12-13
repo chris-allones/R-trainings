@@ -1,6 +1,6 @@
 # <p align="center"> [Training Workshop on the Basics of Structural Equation Modelling (SEM) using R.](https://chris-allones.github.io/R-trainings/SEM-UP/index.html) </p>
 
-![](./images/preview.png)
+![](./images/preview2.png)
 
 ## Outline
 
