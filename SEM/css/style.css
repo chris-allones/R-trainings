@@ -59,7 +59,10 @@ body {
 
 /*Banner for the training*/
 .banner {
+  background-image: url(../images/banner.png);
+  background-size: cover;
   background-color: #264653;
+  background-position: center;
   padding: 60px 45px;
   display: flex;
   justify-content: center;
