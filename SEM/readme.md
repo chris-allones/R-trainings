@@ -39,3 +39,9 @@
 ### [Session 3: Case study](https://chris-allones.github.io/trainings/SEM_presentation/03_case_study/03_case_study.html)
 
 In this session, we will be replicating the results of a study entitled "Young people's perceived service quality and environmental performance of hybrid electric bus service" by Munim and Noor (2020). You can access the article by clicking this [DOI link](https://doi.org/10.1016/j.tbs.2020.03.003). The idea of this session is to be familiar with how SEM results are presented in a publishable format.
+
+## [Participants expectations](https://raw.githubusercontent.com/chris-allones/trainings/master/training_expectations/wordcloud.R)
+
+The word cloud below summarises the participant's expectations about the SEM training. The data used to generate the plot is based on the participants' registration information.
+
+![](https://chris-allones.github.io/trainings/training_expectations/ggwordcloud_expectations.jpg)
