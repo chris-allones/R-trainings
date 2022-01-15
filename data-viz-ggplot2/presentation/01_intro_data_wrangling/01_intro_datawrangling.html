@@ -194,18 +194,6 @@ student
 
 ---
 
-## R Objects
-
-.leftcol[
-+ Object names can be anything here!
-
-+ I personally use lower-case style.
-
-+ Check-out the recommended good practices in R (e.g., naming objects, writing codes)by the [tidyverse style guide](https://style.tidyverse.org/syntax.html)
-]
-
----
-
 ## R packages
 
 .leftcol60[
@@ -409,31 +397,6 @@ All packages share an underlying philosophy, grammar, and data structure.
 &lt;/center&gt;
 
 .fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
-
----
-
-## Tidyverse :: tidy data
-
-**Tidy data makes it easier for reproducibility and reuse**
-
-&lt;center&gt;
-&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_5.jpg" style="width: 60%" /&gt;
-&lt;/center&gt;
-
-.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
-
----
-
-## Tidyverse :: tidy data
-
-**Yehey! Tidy Data for the win!**
-
-&lt;center&gt;
-&lt;img src="https://www.openscapes.org/img/blog/tidydata/tidydata_6.jpg" style="width: 60%" /&gt;
-&lt;/center&gt;
-
-.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
-
 
 ---
 
@@ -724,119 +687,6 @@ mutate(data, GDP = gdpPercap * pop)
 
 ---
 
-## `rename()`
-
-Changes the variable name while keeping all else intact.
-
-+ `new_variable_name` = `old_variable_name`
-
-.leftcol[
-
-```r
-data
-```
-
-```
-# A tibble: 1,704 x 6
-   country     continent  year lifeExp      pop gdpPercap
-   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
- 1 Afghanistan Asia       1952    28.8  8425333      779.
- 2 Afghanistan Asia       1957    30.3  9240934      821.
- 3 Afghanistan Asia       1962    32.0 10267083      853.
- 4 Afghanistan Asia       1967    34.0 11537966      836.
- 5 Afghanistan Asia       1972    36.1 13079460      740.
- 6 Afghanistan Asia       1977    38.4 14880372      786.
- 7 Afghanistan Asia       1982    39.9 12881816      978.
- 8 Afghanistan Asia       1987    40.8 13867957      852.
- 9 Afghanistan Asia       1992    41.7 16317921      649.
-10 Afghanistan Asia       1997    41.8 22227415      635.
-# ... with 1,694 more rows
-```
-]
-
-.rightcol[
-
-```r
-rename(data, population = pop)
-```
-
-```
-# A tibble: 1,704 x 6
-   country     continent  year lifeExp population gdpPercap
-   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
- 1 Afghanistan Asia       1952    28.8    8425333      779.
- 2 Afghanistan Asia       1957    30.3    9240934      821.
- 3 Afghanistan Asia       1962    32.0   10267083      853.
- 4 Afghanistan Asia       1967    34.0   11537966      836.
- 5 Afghanistan Asia       1972    36.1   13079460      740.
- 6 Afghanistan Asia       1977    38.4   14880372      786.
- 7 Afghanistan Asia       1982    39.9   12881816      978.
- 8 Afghanistan Asia       1987    40.8   13867957      852.
- 9 Afghanistan Asia       1992    41.7   16317921      649.
-10 Afghanistan Asia       1997    41.8   22227415      635.
-# ... with 1,694 more rows
-```
-]
-
----
-
-## `arrange()`
-
-You can order data by variable to show the highest or lowest values first.
-
-.leftcol[
-consider `lifeExp` default is lowest first
-
-```r
-data
-```
-
-```
-# A tibble: 1,704 x 6
-   country     continent  year lifeExp      pop gdpPercap
-   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
- 1 Afghanistan Asia       1952    28.8  8425333      779.
- 2 Afghanistan Asia       1957    30.3  9240934      821.
- 3 Afghanistan Asia       1962    32.0 10267083      853.
- 4 Afghanistan Asia       1967    34.0 11537966      836.
- 5 Afghanistan Asia       1972    36.1 13079460      740.
- 6 Afghanistan Asia       1977    38.4 14880372      786.
- 7 Afghanistan Asia       1982    39.9 12881816      978.
- 8 Afghanistan Asia       1987    40.8 13867957      852.
- 9 Afghanistan Asia       1992    41.7 16317921      649.
-10 Afghanistan Asia       1997    41.8 22227415      635.
-# ... with 1,694 more rows
-```
-]
-
-.rightcol[
-`desc()` sort `lifeExp` from highest to lowest
-
-```r
-arrange(data, desc(lifeExp))
-```
-
-```
-# A tibble: 1,704 x 6
-   country          continent  year lifeExp       pop gdpPercap
-   &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
- 1 Japan            Asia       2007    82.6 127467972    31656.
- 2 Hong Kong, China Asia       2007    82.2   6980412    39725.
- 3 Japan            Asia       2002    82   127065841    28605.
- 4 Iceland          Europe     2007    81.8    301931    36181.
- 5 Switzerland      Europe     2007    81.7   7554661    37506.
- 6 Hong Kong, China Asia       2002    81.5   6762476    30209.
- 7 Australia        Oceania    2007    81.2  20434176    34435.
- 8 Spain            Europe     2007    80.9  40448191    28821.
- 9 Sweden           Europe     2007    80.9   9031088    33860.
-10 Israel           Asia       2007    80.7   6426679    25523.
-# ... with 1,694 more rows
-```
-]
-
-
----
-
 ## `group_by` and `summarise()`
 
 + Use when you want to aggregate your data (by groups).
@@ -931,17 +781,17 @@ data
 ```r
 grouped_by_continent &lt;- group_by(data, continent)
 summarised_data &lt;- summarise(grouped_by_continent, avg_pop = mean(pop))
-arrange(summarised_data, desc(avg_pop))
+summarised_data
 ```
 
 ```
 # A tibble: 5 x 2
   continent   avg_pop
   &lt;fct&gt;         &lt;dbl&gt;
-1 Asia      77038722.
+1 Africa     9916003.
 2 Americas  24504795.
-3 Europe    17169765.
-4 Africa     9916003.
+3 Asia      77038722.
+4 Europe    17169765.
 5 Oceania    8874672.
 ```
 ]
@@ -949,15 +799,11 @@ arrange(summarised_data, desc(avg_pop))
 ---
 
 .leftcol[
-### Too many codes!
-
-### It's hard to follow!
-
-### It's hard to keep track of the codes!
+&lt;img src="img/code_convo.jpg" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 
 .rightcol[
-&lt;img src="img/teary.gif" width="100%" /&gt;
+&lt;img src="img/teary.gif" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -967,7 +813,7 @@ class: middle center
 ## `%&gt;%` pipe operator
 
 &lt;center&gt;
-&lt;img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 50%" /&gt;
+&lt;img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 40%" /&gt;
 &lt;/center&gt;
 
 ---
@@ -982,17 +828,17 @@ Calculating population by continent **without %&gt;%**
 ```r
 grouped_by_continent &lt;- group_by(data, continent)
 summarised_data &lt;- summarise(grouped_by_continent, avg_pop = mean(pop))
-arrange(summarised_data, desc(avg_pop))
+summarised_data
 ```
 
 ```
 # A tibble: 5 x 2
   continent   avg_pop
   &lt;fct&gt;         &lt;dbl&gt;
-1 Asia      77038722.
+1 Africa     9916003.
 2 Americas  24504795.
-3 Europe    17169765.
-4 Africa     9916003.
+3 Asia      77038722.
+4 Europe    17169765.
 5 Oceania    8874672.
 ```
 ]
@@ -1003,21 +849,89 @@ Calculating population by continent **with %&gt;%**
 ```r
 data %&gt;% 
   group_by(continent) %&gt;% 
-  summarise(avg_pop = mean(pop)) %&gt;% 
-  arrange(desc(avg_pop))
+  summarise(avg_pop = mean(pop))
 ```
 
 ```
 # A tibble: 5 x 2
   continent   avg_pop
   &lt;fct&gt;         &lt;dbl&gt;
-1 Asia      77038722.
+1 Africa     9916003.
 2 Americas  24504795.
-3 Europe    17169765.
-4 Africa     9916003.
+3 Asia      77038722.
+4 Europe    17169765.
 5 Oceania    8874672.
 ```
 ]
+
+
+---
+
+## The %&gt;% operator
+
+.leftcol[
+Calculating population by continent **without %&gt;%**
+
+
+```r
+filtered_by_asia &lt;- filter(data, continent == "Asia")
+grouped_by_country &lt;- group_by(filtered_by_asia, country)
+summarised_by_country &lt;- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 33 x 2
+   country          avg_lifeExp
+   &lt;fct&gt;                  &lt;dbl&gt;
+ 1 Afghanistan             37.5
+ 2 Bahrain                 65.6
+ 3 Bangladesh              49.8
+ 4 Cambodia                47.9
+ 5 China                   61.8
+ 6 Hong Kong, China        73.5
+ 7 India                   53.2
+ 8 Indonesia               54.3
+ 9 Iran                    58.6
+10 Iraq                    56.6
+# ... with 23 more rows
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %&gt;%**
+
+
+```r
+data %&gt;% 
+  filter(continent == "Asia") %&gt;% 
+  group_by(country) %&gt;% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+
+```
+# A tibble: 33 x 2
+   country          avg_lifeExp
+   &lt;fct&gt;                  &lt;dbl&gt;
+ 1 Afghanistan             37.5
+ 2 Bahrain                 65.6
+ 3 Bangladesh              49.8
+ 4 Cambodia                47.9
+ 5 China                   61.8
+ 6 Hong Kong, China        73.5
+ 7 India                   53.2
+ 8 Indonesia               54.3
+ 9 Iran                    58.6
+10 Iraq                    56.6
+# ... with 23 more rows
+```
+]
+]
+
 
 ---
 
@@ -1090,74 +1004,6 @@ data %&gt;%
 ]
 ]
 
----
-
-## The %&gt;% operator
-
-.leftcol[
-Calculating population by continent **without %&gt;%**
-
-
-```r
-filtered_by_asia &lt;- filter(data, continent == "Asia")
-grouped_by_country &lt;- group_by(filtered_by_asia, country)
-summarised_by_country &lt;- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
-arrange(summarised_by_country, desc(avg_lifeExp))
-```
-
-.code-output-scroll[
-
-```
-# A tibble: 33 x 2
-   country          avg_lifeExp
-   &lt;fct&gt;                  &lt;dbl&gt;
- 1 Japan                   74.8
- 2 Israel                  73.6
- 3 Hong Kong, China        73.5
- 4 Singapore               71.2
- 5 Taiwan                  70.3
- 6 Kuwait                  68.9
- 7 Sri Lanka               66.5
- 8 Lebanon                 65.9
- 9 Bahrain                 65.6
-10 Korea, Rep.             65.0
-# ... with 23 more rows
-```
-]
-]
-
-.rightcol[
-Calculating population by continent **with %&gt;%**
-
-
-```r
-data %&gt;% 
-  filter(continent == "Asia") %&gt;% 
-  group_by(country) %&gt;% 
-  summarise(avg_lifeExp = mean(lifeExp)) %&gt;% 
-  arrange(desc(avg_lifeExp))
-```
-
-.code-output-scroll[
-
-```
-# A tibble: 33 x 2
-   country          avg_lifeExp
-   &lt;fct&gt;                  &lt;dbl&gt;
- 1 Japan                   74.8
- 2 Israel                  73.6
- 3 Hong Kong, China        73.5
- 4 Singapore               71.2
- 5 Taiwan                  70.3
- 6 Kuwait                  68.9
- 7 Sri Lanka               66.5
- 8 Lebanon                 65.9
- 9 Bahrain                 65.6
-10 Korea, Rep.             65.0
-# ... with 23 more rows
-```
-]
-]
 
 ---
 
@@ -1329,22 +1175,6 @@ pivot_wider(data = potato_data,
 ```
 ]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 class: middle center
@@ -1352,38 +1182,357 @@ class: middle center
 # Basic management of data types
 ----
 
+---
+
+## Strings and factors
+
+.leftcol[
+
+**Strings**
+
++ string is a character that is made of one character or contains a collection of characters.
+
++ enclosed inside single quotes or double quotes
+
++ `tidyverse` **`stringr`** package provide tools for manipulating with strings
+
+]
 
 
+---
+
+## Strings and factors
+
+**Strings**
+
+`stringr` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)
 
 
+&lt;img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/strings-cheatsheet-thumbs.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 
+---
+
+## Strings and factors
+
+**Converting strings to lower/ upper/ title case**
+
++ `str_to_lower()`
+
++ `str_to_upper()`
+
++ `str_to_title()`
+
+---
+
+## Strings and factors
+
+**Converting strings to lower/ upper/ title case**
+
+.leftcol[
++ `str_to_lower()`
+
++ `str_to_upper()`
+
++ `str_to_title()`
+]
 
 
+.rightcol[
+
+```r
+fruits &lt;- stringr::fruit %&gt;% str_to_upper()
+fruits
+```
+
+```
+ [1] "APPLE"             "APRICOT"           "AVOCADO"           "BANANA"            "BELL PEPPER"      
+ [6] "BILBERRY"          "BLACKBERRY"        "BLACKCURRANT"      "BLOOD ORANGE"      "BLUEBERRY"        
+[11] "BOYSENBERRY"       "BREADFRUIT"        "CANARY MELON"      "CANTALOUPE"        "CHERIMOYA"        
+[16] "CHERRY"            "CHILI PEPPER"      "CLEMENTINE"        "CLOUDBERRY"        "COCONUT"          
+[21] "CRANBERRY"         "CUCUMBER"          "CURRANT"           "DAMSON"            "DATE"             
+[26] "DRAGONFRUIT"       "DURIAN"            "EGGPLANT"          "ELDERBERRY"        "FEIJOA"           
+[31] "FIG"               "GOJI BERRY"        "GOOSEBERRY"        "GRAPE"             "GRAPEFRUIT"       
+[36] "GUAVA"             "HONEYDEW"          "HUCKLEBERRY"       "JACKFRUIT"         "JAMBUL"           
+[41] "JUJUBE"            "KIWI FRUIT"        "KUMQUAT"           "LEMON"             "LIME"             
+[46] "LOQUAT"            "LYCHEE"            "MANDARINE"         "MANGO"             "MULBERRY"         
+[51] "NECTARINE"         "NUT"               "OLIVE"             "ORANGE"            "PAMELO"           
+[56] "PAPAYA"            "PASSIONFRUIT"      "PEACH"             "PEAR"              "PERSIMMON"        
+[61] "PHYSALIS"          "PINEAPPLE"         "PLUM"              "POMEGRANATE"       "POMELO"           
+[66] "PURPLE MANGOSTEEN" "QUINCE"            "RAISIN"            "RAMBUTAN"          "RASPBERRY"        
+[71] "REDCURRANT"        "ROCK MELON"        "SALAL BERRY"       "SATSUMA"           "STAR FRUIT"       
+[76] "STRAWBERRY"        "TAMARILLO"         "TANGERINE"         "UGLI FRUIT"        "WATERMELON"       
+```
+
+] 
+
+---
+
+# Strings and factors
+
+**Converting strings to lower/ upper/ title case**
++ `str_to_lower()`
+
+.leftcol[
+
+```r
+fruits
+```
 
 
+```
+ [1] "APPLE"        "APRICOT"      "AVOCADO"      "BANANA"       "BELL PEPPER"  "BILBERRY"     "BLACKBERRY"  
+ [8] "BLACKCURRANT" "BLOOD ORANGE" "BLUEBERRY"    "BOYSENBERRY"  "BREADFRUIT"   "CANARY MELON" "CANTALOUPE"  
+[15] "CHERIMOYA"    "CHERRY"       "CHILI PEPPER" "CLEMENTINE"   "CLOUDBERRY"   "COCONUT"      "CRANBERRY"   
+[22] "CUCUMBER"     "CURRANT"      "DAMSON"       "DATE"         "DRAGONFRUIT"  "DURIAN"       "EGGPLANT"    
+[29] "ELDERBERRY"   "FEIJOA"      
+```
+]
 
 
+.rightcol[
+
+```r
+fruits %&gt;% str_to_lower()
+```
 
 
+```
+ [1] "apple"        "apricot"      "avocado"      "banana"       "bell pepper"  "bilberry"     "blackberry"  
+ [8] "blackcurrant" "blood orange" "blueberry"    "boysenberry"  "breadfruit"   "canary melon" "cantaloupe"  
+[15] "cherimoya"    "cherry"       "chili pepper" "clementine"   "cloudberry"   "coconut"      "cranberry"   
+[22] "cucumber"     "currant"      "damson"       "date"         "dragonfruit"  "durian"       "eggplant"    
+[29] "elderberry"   "feijoa"      
+```
+]
+
+---
+
+# Strings and factors
+
+**Converting strings to lower/ upper/ title case**
++ `str_to_upper()`
+
+.leftcol[
+
+```r
+fruits 
+```
 
 
+```
+ [1] "apple"        "apricot"      "avocado"      "banana"       "bell pepper"  "bilberry"     "blackberry"  
+ [8] "blackcurrant" "blood orange" "blueberry"    "boysenberry"  "breadfruit"   "canary melon" "cantaloupe"  
+[15] "cherimoya"    "cherry"       "chili pepper" "clementine"   "cloudberry"   "coconut"      "cranberry"   
+[22] "cucumber"     "currant"      "damson"       "date"         "dragonfruit"  "durian"       "eggplant"    
+[29] "elderberry"   "feijoa"      
+```
+]
 
 
+.rightcol[
+
+```r
+fruits %&gt;% str_to_lower
+```
 
 
+```
+ [1] "APPLE"        "APRICOT"      "AVOCADO"      "BANANA"       "BELL PEPPER"  "BILBERRY"     "BLACKBERRY"  
+ [8] "BLACKCURRANT" "BLOOD ORANGE" "BLUEBERRY"    "BOYSENBERRY"  "BREADFRUIT"   "CANARY MELON" "CANTALOUPE"  
+[15] "CHERIMOYA"    "CHERRY"       "CHILI PEPPER" "CLEMENTINE"   "CLOUDBERRY"   "COCONUT"      "CRANBERRY"   
+[22] "CUCUMBER"     "CURRANT"      "DAMSON"       "DATE"         "DRAGONFRUIT"  "DURIAN"       "EGGPLANT"    
+[29] "ELDERBERRY"   "FEIJOA"      
+```
+]
 
 
+---
+
+# Strings and factors
+
+**Converting strings to lower/ upper/ title case**
++ `str_to_title()`
+
+.leftcol[
+
+```r
+fruits
+```
 
 
+```
+ [1] "apple"        "apricot"      "avocado"      "banana"       "bell pepper"  "bilberry"     "blackberry"  
+ [8] "blackcurrant" "blood orange" "blueberry"    "boysenberry"  "breadfruit"   "canary melon" "cantaloupe"  
+[15] "cherimoya"    "cherry"       "chili pepper" "clementine"   "cloudberry"   "coconut"      "cranberry"   
+[22] "cucumber"     "currant"      "damson"       "date"         "dragonfruit"  "durian"       "eggplant"    
+[29] "elderberry"   "feijoa"      
+```
+]
 
 
+.rightcol[
+
+```r
+fruits %&gt;% str_to_title()
+```
 
 
+```
+ [1] "Apple"        "Apricot"      "Avocado"      "Banana"       "Bell Pepper"  "Bilberry"     "Blackberry"  
+ [8] "Blackcurrant" "Blood Orange" "Blueberry"    "Boysenberry"  "Breadfruit"   "Canary Melon" "Cantaloupe"  
+[15] "Cherimoya"    "Cherry"       "Chili Pepper" "Clementine"   "Cloudberry"   "Coconut"      "Cranberry"   
+[22] "Cucumber"     "Currant"      "Damson"       "Date"         "Dragonfruit"  "Durian"       "Eggplant"    
+[29] "Elderberry"   "Feijoa"      
+```
+]
 
 
+---
+
+## Strings and factors
+
+**Joining of multiple strings**
+
++ `str_c()`
+
+.leftcol[
 
 
+```r
+pop_data &lt;- gapminder::gapminder
+pop_data
+```
+
+
+```
+# A tibble: 10 x 3
+   continent country                        pop
+   &lt;fct&gt;     &lt;fct&gt;                        &lt;dbl&gt;
+ 1 Africa    Algeria                  19875406.
+ 2 Africa    Angola                    7309390.
+ 3 Africa    Benin                     4017497.
+ 4 Africa    Botswana                   971186.
+ 5 Africa    Burkina Faso              7548677.
+ 6 Africa    Burundi                   4651608.
+ 7 Africa    Cameroon                  9816648.
+ 8 Africa    Central African Republic  2560963 
+ 9 Africa    Chad                      5329256.
+10 Africa    Comoros                    361684.
+```
+]
+
+
+.rightcol[
+```{reval=FALSE}
+pop_data %&gt;% 
+  mutate(label = str_c(continent, country, sep = ": "))
+```
+
+
+```
+# A tibble: 9 x 4
+  continent country                        pop label                           
+  &lt;fct&gt;     &lt;fct&gt;                        &lt;dbl&gt; &lt;chr&gt;                           
+1 Africa    Algeria                  19875406. Africa: Algeria                 
+2 Africa    Angola                    7309390. Africa: Angola                  
+3 Africa    Benin                     4017497. Africa: Benin                   
+4 Africa    Botswana                   971186. Africa: Botswana                
+5 Africa    Burkina Faso              7548677. Africa: Burkina Faso            
+6 Africa    Burundi                   4651608. Africa: Burundi                 
+7 Africa    Cameroon                  9816648. Africa: Cameroon                
+8 Africa    Central African Republic  2560963  Africa: Central African Republic
+9 Africa    Chad                      5329256. Africa: Chad                    
+```
+]
+
+---
+
+## Strings and factors
+
+**Replace matched patterns in the strings**
+
++ `str_replace()`
+
++ `str_replace_all()`
+
+---
+
+## Strings and factors
+
+**Replace matched patterns in the strings**
+
++ `str_replace()`
+
++ `str_replace(string, pattern, replacement)`
+
+.leftcol[
+
+```r
+pop_data %&gt;% 
+  count(continent)
+```
+
+```
+# A tibble: 5 x 2
+  continent     n
+  &lt;fct&gt;     &lt;int&gt;
+1 Africa       52
+2 Americas     25
+3 Asia         33
+4 Europe       30
+5 Oceania       2
+```
+]
+
+
+.rightcol[
+
+```r
+pop_data %&gt;% count(continent) %&gt;% 
+  mutate(continent_2 = str_replace(continent, "Americas", "USA"))
+```
+
+```
+# A tibble: 5 x 3
+  continent     n continent_2
+  &lt;fct&gt;     &lt;int&gt; &lt;chr&gt;      
+1 Africa       52 Africa     
+2 Americas     25 USA        
+3 Asia         33 Asia       
+4 Europe       30 Europe     
+5 Oceania       2 Oceania    
+```
+
+]
+
+
+---
+
+## Strings and factors
+
+.leftcol[
+
+**Factors**
+
++ R represents categorical data with factors.
+
++ A factor is an integer vector with a levels attribute that stores a set of mappings between integers and categorical variables.
+
++ `tidyverse` **`forcats`** package provide tools for manipulating with strings
+
+]
+
+---
+
+## Strings and factors
+
+**Strings**
+
+`forcats` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/main/factors.pdf)
+
+
+&lt;img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/forcats-cheatsheet-thumbs.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1437,7 +1586,6 @@ class: middle center
 
 # Thank you!
 
-#### Some slide content were heavily adapted from [Fabio Votta](https://github.com/favstats)
 #### Slides created via the R packages:
 
 .leftcol[

@@ -19,7 +19,7 @@ output:
 layout: true
 
 ```{r meta, echo=FALSE}
-setwd("D:/OneDrive - KMITL/Documents/GitHub-repo/training-data-viz/01_intro_data_wrangling")
+# setwd("D:/OneDrive - KMITL/Documents/GitHub-repo/training-data-viz/01_intro_data_wrangling")
 
 # libraries
 pacman::p_load(knitr, tidyverse, janitor, metathis)
@@ -196,18 +196,6 @@ student <- c(st_name, st_age, st_sex)
 student
 ```
 ]
-]
-
----
-
-## R Objects
-
-.leftcol[
-+ Object names can be anything here!
-
-+ I personally use lower-case style.
-
-+ Check-out the recommended good practices in R (e.g., naming objects, writing codes)by the [tidyverse style guide](https://style.tidyverse.org/syntax.html)
 ]
 
 ---
@@ -405,31 +393,6 @@ All packages share an underlying philosophy, grammar, and data structure.
 
 ---
 
-## Tidyverse :: tidy data
-
-**Tidy data makes it easier for reproducibility and reuse**
-
-<center>
-<img src="https://www.openscapes.org/img/blog/tidydata/tidydata_5.jpg" style="width: 60%" />
-</center>
-
-.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
-
----
-
-## Tidyverse :: tidy data
-
-**Yehey! Tidy Data for the win!**
-
-<center>
-<img src="https://www.openscapes.org/img/blog/tidydata/tidydata_6.jpg" style="width: 60%" />
-</center>
-
-.fifty[Artist: [Allison Horst](https://github.com/allisonhorst)]
-
-
----
-
 class: middle center
 
 ## Data wrangling using `dplyr`
@@ -578,47 +541,6 @@ mutate(data, GDP = gdpPercap * pop)
 
 ---
 
-## `rename()`
-
-Changes the variable name while keeping all else intact.
-
-+ `new_variable_name` = `old_variable_name`
-
-.leftcol[
-```{r}
-data
-```
-]
-
-.rightcol[
-```{r}
-rename(data, population = pop)
-```
-]
-
----
-
-## `arrange()`
-
-You can order data by variable to show the highest or lowest values first.
-
-.leftcol[
-consider `lifeExp` default is lowest first
-```{r}
-data
-```
-]
-
-.rightcol[
-`desc()` sort `lifeExp` from highest to lowest
-```{r}
-arrange(data, desc(lifeExp))
-```
-]
-
-
----
-
 ## `group_by` and `summarise()`
 
 + Use when you want to aggregate your data (by groups).
@@ -664,22 +586,20 @@ data
 ```{r}
 grouped_by_continent <- group_by(data, continent)
 summarised_data <- summarise(grouped_by_continent, avg_pop = mean(pop))
-arrange(summarised_data, desc(avg_pop))
+summarised_data
 ```
 ]
 
 ---
 
 .leftcol[
-### Too many codes!
-
-### It's hard to follow!
-
-### It's hard to keep track of the codes!
+```{r echo=FALSE, out.width="80%", fig.align='center'}
+knitr::include_graphics("img/code_convo.jpg")
+```
 ]
 
 .rightcol[
-```{r echo=FALSE}
+```{r echo=FALSE, out.width="90%", fig.align='center'}
 knitr::include_graphics("img/teary.gif")
 ```
 ]
@@ -691,7 +611,7 @@ class: middle center
 ## `%>%` pipe operator
 
 <center>
-<img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 50%" />
+<img src="https://rpodcast.github.io/officer-advrmarkdown/img/magrittr.png" style="width: 40%" />
 </center>
 
 ---
@@ -705,7 +625,7 @@ Calculating population by continent **without %>%**
 ```{r}
 grouped_by_continent <- group_by(data, continent)
 summarised_data <- summarise(grouped_by_continent, avg_pop = mean(pop))
-arrange(summarised_data, desc(avg_pop))
+summarised_data
 ```
 ]
 
@@ -714,10 +634,55 @@ Calculating population by continent **with %>%**
 ```{r}
 data %>% 
   group_by(continent) %>% 
-  summarise(avg_pop = mean(pop)) %>% 
-  arrange(desc(avg_pop))
+  summarise(avg_pop = mean(pop))
 ```
 ]
+
+
+---
+
+## The %>% operator
+
+.leftcol[
+Calculating population by continent **without %>%**
+
+```{r eval=FALSE}
+filtered_by_asia <- filter(data, continent == "Asia")
+grouped_by_country <- group_by(filtered_by_asia, country)
+summarised_by_country <- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+filtered_by_asia <- filter(data, continent == "Asia")
+grouped_by_country <- group_by(filtered_by_asia, country)
+summarised_by_country <- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
+summarised_by_country
+```
+]
+]
+
+.rightcol[
+Calculating population by continent **with %>%**
+
+```{r eval=FALSE}
+data %>% 
+  filter(continent == "Asia") %>% 
+  group_by(country) %>% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+
+.code-output-scroll[
+```{r echo=FALSE}
+data %>% 
+  filter(continent == "Asia") %>% 
+  group_by(country) %>% 
+  summarise(avg_lifeExp = mean(lifeExp))
+```
+]
+]
+
 
 ---
 
@@ -732,6 +697,7 @@ Calculating population by continent **without %>%**
 filtered_by_asia <- filter(data, continent == "Asia")
 grouped_by_country_year <- group_by(filtered_by_asia, country, year)
 summarise(grouped_by_country_year, avg_lifeExp = mean(lifeExp))
+
 ```
 
 .code-output-scroll[
@@ -763,51 +729,6 @@ data %>%
 ]
 ]
 
----
-
-## The %>% operator
-
-.leftcol[
-Calculating population by continent **without %>%**
-
-```{r eval=FALSE}
-filtered_by_asia <- filter(data, continent == "Asia")
-grouped_by_country <- group_by(filtered_by_asia, country)
-summarised_by_country <- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
-arrange(summarised_by_country, desc(avg_lifeExp))
-```
-
-.code-output-scroll[
-```{r echo=FALSE}
-filtered_by_asia <- filter(data, continent == "Asia")
-grouped_by_country <- group_by(filtered_by_asia, country)
-summarised_by_country <- summarise(grouped_by_country, avg_lifeExp = mean(lifeExp))
-arrange(summarised_by_country, desc(avg_lifeExp))
-```
-]
-]
-
-.rightcol[
-Calculating population by continent **with %>%**
-
-```{r eval=FALSE}
-data %>% 
-  filter(continent == "Asia") %>% 
-  group_by(country) %>% 
-  summarise(avg_lifeExp = mean(lifeExp)) %>% 
-  arrange(desc(avg_lifeExp))
-```
-
-.code-output-scroll[
-```{r echo=FALSE}
-data %>% 
-  filter(continent == "Asia") %>% 
-  group_by(country) %>% 
-  summarise(avg_lifeExp = mean(lifeExp)) %>% 
-  arrange(desc(avg_lifeExp))
-```
-]
-]
 
 ---
 
@@ -921,22 +842,6 @@ pivot_wider(data = potato_data,
 ```
 ]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 class: middle center
@@ -944,38 +849,263 @@ class: middle center
 # Basic management of data types
 ----
 
+---
+
+## Strings and factors
+
+.leftcol[
+
+**Strings**
+
++ string is a character that is made of one character or contains a collection of characters.
+
++ enclosed inside single quotes or double quotes
+
++ `tidyverse` **`stringr`** package provide tools for manipulating with strings
+
+]
 
 
+---
+
+## Strings and factors
+
+**Strings**
+
+`stringr` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)
 
 
+```{r echo=FALSE, out.width="90%", fig.align='center'}
+knitr::include_graphics("https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/strings-cheatsheet-thumbs.png")
+```
 
 
+---
+
+## Strings and factors
+
+**Converting strings to lower/ upper/ title case**
+
++ `str_to_lower()`
+
++ `str_to_upper()`
+
++ `str_to_title()`
+
+---
+
+## Strings and factors
+
+**Converting strings to lower/ upper/ title case**
+
+.leftcol[
++ `str_to_lower()`
+
++ `str_to_upper()`
+
++ `str_to_title()`
+]
 
 
+.rightcol[
+```{r}
+fruits <- stringr::fruit %>% str_to_upper()
+fruits
+```
+
+] 
+
+---
+
+# Strings and factors
+
+**Converting strings to lower/ upper/ title case**
++ `str_to_lower()`
+
+.leftcol[
+```{r eval=FALSE}
+fruits
+```
+
+```{r echo=FALSE}
+fruits %>% head(30)
+```
+]
 
 
+.rightcol[
+```{r eval=FALSE}
+fruits %>% str_to_lower()
+```
+
+```{r echo=FALSE}
+fruits %>% str_to_lower() %>% head(30)
+```
+]
+
+---
+
+# Strings and factors
+
+**Converting strings to lower/ upper/ title case**
++ `str_to_upper()`
+
+.leftcol[
+```{r eval=FALSE}
+fruits 
+```
+
+```{r echo=FALSE}
+fruits<- stringr::fruit
+fruits %>% head(30)
+```
+]
 
 
+.rightcol[
+```{r eval=FALSE}
+fruits %>% str_to_lower
+```
+
+```{r echo=FALSE}
+fruits %>% str_to_upper() %>% head(30)
+```
+]
 
 
+---
+
+# Strings and factors
+
+**Converting strings to lower/ upper/ title case**
++ `str_to_title()`
+
+.leftcol[
+```{r eval=FALSE}
+fruits
+```
+
+```{r echo=FALSE}
+fruits %>% head(30)
+```
+]
 
 
+.rightcol[
+```{r eval=FALSE}
+fruits %>% str_to_title()
+```
+
+```{r echo=FALSE}
+fruits %>% str_to_title() %>% head(30)
+```
+]
 
 
+---
+
+## Strings and factors
+
+**Joining of multiple strings**
+
++ `str_c()`
+
+.leftcol[
+
+```{r eval=FALSE}
+pop_data <- gapminder::gapminder
+pop_data
+```
+
+```{r echo=FALSE}
+pop_data <- gapminder::gapminder %>% 
+  group_by(continent, country) %>% 
+  summarise(pop = mean(pop)) %>% 
+  ungroup()
+
+pop_data %>% head(10)
+
+```
+]
 
 
+.rightcol[
+```{reval=FALSE}
+pop_data %>% 
+  mutate(label = str_c(continent, country, sep = ": "))
+```
+
+```{r echo=FALSE}
+pop_data %>% 
+  mutate(label = str_c(continent, country, sep = ": ")) %>%  head(9)
+```
+]
+
+---
+
+## Strings and factors
+
+**Replace matched patterns in the strings**
+
++ `str_replace()`
+
++ `str_replace_all()`
+
+---
+
+## Strings and factors
+
+**Replace matched patterns in the strings**
+
++ `str_replace()`
+
++ `str_replace(string, pattern, replacement)`
+
+.leftcol[
+```{r}
+pop_data %>% 
+  count(continent)
+```
+]
 
 
+.rightcol[
+```{r}
+pop_data %>% count(continent) %>% 
+  mutate(continent_2 = str_replace(continent, "Americas", "USA"))
+```
+
+]
 
 
+---
+
+## Strings and factors
+
+.leftcol[
+
+**Factors**
+
++ R represents categorical data with factors.
+
++ A factor is an integer vector with a levels attribute that stores a set of mappings between integers and categorical variables.
+
++ `tidyverse` **`forcats`** package provide tools for manipulating with strings
+
+]
+
+---
+
+## Strings and factors
+
+**Strings**
+
+`forcats` [cheatsheets](https://github.com/rstudio/cheatsheets/blob/main/factors.pdf)
 
 
-
-
-
-
-
-
+```{r echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/forcats-cheatsheet-thumbs.png")
+```
 
 
 
@@ -1031,7 +1161,6 @@ class: middle center
 
 # Thank you!
 
-#### Some slide content were heavily adapted from [Fabio Votta](https://github.com/favstats)
 #### Slides created via the R packages:
 
 .leftcol[
