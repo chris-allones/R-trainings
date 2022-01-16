@@ -63,10 +63,10 @@ ul {
 
 /*Banner for the training*/
 .banner {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.9), transparent), url("https://chris-allones.github.io/R-trainings/data-viz-ggplot2/images/data_analysis_2.png");
+  background-image: url("../images/background3.png");
   background-size: cover;
-  background-position: top;
-  padding: 50px 45px;
+  background-position: center;
+  padding: 60px 45px;
   display: flex;
   justify-content: center;
 }
@@ -78,8 +78,8 @@ ul {
 }
 
 .banner h1 {
-  font-weight: bolder;
-  font-size: 8rem;
+  font-family: 'Courgette', cursive;
+  font-size: 9rem;
   margin-bottom: 20px;
 }
 
